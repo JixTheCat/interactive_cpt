@@ -10,9 +10,9 @@ student = BayesianNetwork([('diff', 'grades'), ('aptitude', 'grades')])
 grades_cpd = TabularCPD('grades'
                         , 3
                         , [
-                            [0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
-                            , [0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
-                            , [0.8, 0.8, 0.8, 0.8, 0.8, 0.8]]
+                            [0.1, 0.2, 0.3, 0.8, 0.6, 0.4]
+                            , [0.1, 0.2, 0.3, 0.1, 0.2, 0.3]
+                            , [0.8, 0.6, 0.4, 0.1, 0.2, 0.3]]
                             ,  evidence=['diff', 'aptitude']
                             , evidence_card=[2, 3]
                             , state_names={'grades': ['gradeA', 'gradeB', 'gradeC']
@@ -23,8 +23,8 @@ grades_cpd = TabularCPD('grades'
 diff_cpd = TabularCPD('diff'
                         , 2
                         , [
-                            [0.6] # easy
-                            ,[0.4]] # hard
+                            [0.9] # easy
+                            ,[0.1]] # hard
                             , state_names={'diff': ['easy', 'hard']
                                 })
 
@@ -44,10 +44,13 @@ student.add_cpds(aptitude_cpd)
 # # Print the Bayesian Network structure
 # print(student)
 
-# # Print the CPDs for each node
-for cpd in student.get_cpds():
-    print(f"\nCPD for Node {cpd.variable}:\n{cpd}")
-    
+# # # Print the CPDs for each node
+# for cpd in student.get_cpds():
+#     print(f"\nCPD for Node {cpd.variable}:\n{cpd}")
+
+# for state in grades_cpd.state_names['grades']:
+#     print(student.get_state_probability({'grades': state}))
+
 # # Plot the Bayesian Network with circular layout
 # pos = nx.circular_layout(student)
 # nx.draw(student, pos, with_labels=True, node_size=2000, node_color="skyblue", font_size=10, font_color="black", font_weight="bold", arrowsize=20)
@@ -111,25 +114,31 @@ app.layout = html.Div(
     Output('nodes', 'children'),
     [Input('net', 'selection')])
 def myfun(x): 
-    s = 'Selected nodes : '
-    if len(x['nodes']) > 0 : s += str(x['nodes'][0])
+    try:
+        id = str(x['nodes'][0])
+
+        # s = str(id) + ': '
+        # for state in student.get_cpds(id).state_names[id]:
+        #     s += str(state) + ': '
+        #     s += str(student.get_state_probability({id: state}))
+        #     s += '\n'
+        s = [(html.B(str(id)))]
+        # s = [str(id)]
+        # s.append(str(id))
+
+        s.append(html.Br())
+        s.append(html.Br())
+        for state in student.get_cpds(id).state_names[id]:
+            s.append(str(state) + ': ')
+            s.append(str(student.get_state_probability({id: state})))
+            s.append(html.Br())
+        s.append(html.Br())
+    except ValueError:
+        return "No node selected"
+    except IndexError:
+        return "No node selected"
     return s
 
-@app.callback(
-    Output('edges', 'children'),
-    [Input('net', 'selection')])
-def myfun(x): 
-    selected_edges = x['edges']
-    
-    if len(selected_edges) == 0:
-        return "No edges selected"
-    
-    # Extract the 'to' values for each selected edge
-    to_values = [edge['from'] for edge in edges if edge['id'] in selected_edges]
-    
-    # Format the output string
-    result_string = f"Selected 'to' values: {', '.join(map(str, to_values))}"
-    return result_string
 
 @app.callback(
     Output('net', 'options'),

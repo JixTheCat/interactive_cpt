@@ -7,23 +7,46 @@ from pgmpy.factors.discrete.CPD import TabularCPD
 student = BayesianNetwork([('diff', 'grades'), ('aptitude', 'grades')])
 
 # Define the Conditional Probability Distribution for the 'grades' node
-grades_cpd = TabularCPD('grades', 3, [[0.1, 0.1, 0.1, 0.1, 0.1, 0.1],
-                                      [0.1, 0.1, 0.1, 0.1, 0.1, 0.1],
-                                      [0.8, 0.8, 0.8, 0.8, 0.8, 0.8]],
-                         evidence=['diff', 'aptitude'], evidence_card=[2, 3],
-                         state_names={'grades': ['gradeA', 'gradeB', 'gradeC'],
-                                      'diff': ['easy', 'hard'],
-                                      'aptitude': ['low', 'medium', 'high']})
+grades_cpd = TabularCPD('grades'
+                        , 3
+                        , [
+                            [0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
+                            , [0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
+                            , [0.8, 0.8, 0.8, 0.8, 0.8, 0.8]]
+                            ,  evidence=['diff', 'aptitude']
+                            , evidence_card=[2, 3]
+                            , state_names={'grades': ['gradeA', 'gradeB', 'gradeC']
+                                , 'diff': ['easy', 'hard']
+                                , 'aptitude': ['low', 'medium', 'high']
+                                })
 
+diff_cpd = TabularCPD('diff'
+                        , 2
+                        , [
+                            [0.6] # easy
+                            ,[0.4]] # hard
+                            , state_names={'diff': ['easy', 'hard']
+                                })
+
+aptitude_cpd = TabularCPD('aptitude'
+                        , 3
+                        , [
+                            [0.2] # low
+                            ,[0.6] # medium
+                            ,[0.2]] # high
+                            , state_names={'aptitude': ['low', 'medium', 'high']
+                                })
 # # Add the CPD to the Bayesian Network
-# student.add_cpds(grades_cpd)
+student.add_cpds(grades_cpd)
+student.add_cpds(diff_cpd)
+student.add_cpds(aptitude_cpd)
 
 # # Print the Bayesian Network structure
 # print(student)
 
 # # Print the CPDs for each node
-# for cpd in student.get_cpds():
-#     print(f"\nCPD for Node {cpd.variable}:\n{cpd}")
+for cpd in student.get_cpds():
+    print(f"\nCPD for Node {cpd.variable}:\n{cpd}")
     
 # # Plot the Bayesian Network with circular layout
 # pos = nx.circular_layout(student)
@@ -65,6 +88,7 @@ app.layout = html.Div(
     [
         visdcc.Network(
             id = 'net'
+            , data={'nodes': nodes, 'edges': edges}
             , selection = {'nodes': nodes
                       , 'edges': edges}
             , options = dict(height = '600px'
@@ -95,9 +119,17 @@ def myfun(x):
     Output('edges', 'children'),
     [Input('net', 'selection')])
 def myfun(x): 
-    s = 'Selected edges : '
-    if len(x['edges']) > 0 : s = [s] + [html.Div(i) for i in x['edges']]
-    return s
+    selected_edges = x['edges']
+    
+    if len(selected_edges) == 0:
+        return "No edges selected"
+    
+    # Extract the 'to' values for each selected edge
+    to_values = [edge['from'] for edge in edges if edge['id'] in selected_edges]
+    
+    # Format the output string
+    result_string = f"Selected 'to' values: {', '.join(map(str, to_values))}"
+    return result_string
 
 @app.callback(
     Output('net', 'options'),

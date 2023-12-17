@@ -44,9 +44,9 @@ student.add_cpds(aptitude_cpd)
 # # Print the Bayesian Network structure
 # print(student)
 
-# # # Print the CPDs for each node
-# for cpd in student.get_cpds():
-#     print(f"\nCPD for Node {cpd.variable}:\n{cpd}")
+# # Print the CPDs for each node
+for cpd in student.get_cpds():
+    print(f"\nCPD for Node {cpd.variable}:\n{cpd}")
 
 # for state in grades_cpd.state_names['grades']:
 #     print(student.get_state_probability({'grades': state}))

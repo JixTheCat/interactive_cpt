@@ -119,26 +119,21 @@ def myfun(x):
     try:
         id = str(x['nodes'][0])
 
-        # s = str(id) + ': '
-        # for state in student.get_cpds(id).state_names[id]:
-        #     s += str(state) + ': '
-        #     s += str(student.get_state_probability({id: state}))
-
         s = [(html.B(str(id)))]
         s.append(html.Br())
         s.append(html.Br())
 
-        # s.append(BN.get_cpds(id).state_names[id])
         s.append(' '.join(BN.get_cpds(id).state_names[id]))
-        s.append(str(BN.get_state_probability({id: 'ideal'})))
-        # s.append('hello')
+
+        # The app stalls when attempting to calculate the state probabilities!
+        # s.append(str(BN.get_state_probability({id: 'ideal'})))
 
         # for state in BN.get_cpds(id).state_names[id]:
         #     s.append(str(state) + ': ')
         #     s.append(str(BN.get_state_probability({id: state})))
         #     s.append(html.Br())
-        s.append(html.Br())
-        s.append(html.Br())
+        # s.append(html.Br())
+        # s.append(html.Br())
     except ValueError:
         return "No node selected"
     except IndexError:

@@ -5,16 +5,16 @@
 using json = nlohmann::json;
 
 void updateJsonFile(const std::string& filePath, const std::string& selectedNodeId, const std::string& newId) {
+    json jsonData;
+
     // Read the JSON file
     std::ifstream fileStream(filePath);
-    
     if (!fileStream.is_open()) {
         std::cerr << "Error opening file: " << filePath << std::endl;
-        return;
+        return jsonData;
     }
 
     try {
-        json jsonData;
         fileStream >> jsonData;
 
         // Iterate over the array or object to find and update the entry

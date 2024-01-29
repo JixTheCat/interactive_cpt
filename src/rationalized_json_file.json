@@ -1,6 +1,16 @@
 {
     "links": [
         {
+            "source": "Structural basis of PROTAC cooperative recognition for selective protein degradation.",
+            "target": "109-294-662-661-65X",
+            "value": 2
+        },
+        {
+            "source": "Agrochemical legislation",
+            "target": "Environmental Impact",
+            "value": "delete"
+        },
+        {
             "source": "Agrochemical score",
             "target": "Environmental Impact",
             "value": 10
@@ -168,155 +178,121 @@
     ],
     "nodes": [
         {
-            "colour": 6,
+            "id": "Structural basis of PROTAC cooperative recognition for selective protein degradation.",
+            "radius": 2
+        },
+        {
             "id": "Environmental Impact"
         },
         {
-            "colour": 9,
-            "id": "Agrochemical score"
-        },
-        {
-            "colour": 10,
-            "id": "GHG emissions"
-        },
-        {
-            "colour": 1,
-            "id": "nutrient leaching management"
-        },
-        {
-            "colour": 3,
-            "id": "pest and disease management"
-        },
-        {
-            "colour": 9,
-            "id": "soil degradation management"
-        },
-        {
-            "colour": 2,
-            "id": "spray application number"
-        },
-        {
-            "colour": 5,
-            "id": "water quality"
-        },
-        {
-            "colour": 6,
-            "id": "water use"
-        },
-        {
-            "colour": 7,
-            "id": "Agrochemical type"
-        },
-        {
-            "colour": 6,
-            "id": "Weather conditions"
-        },
-        {
-            "colour": 8,
-            "id": "Renewable Fuel"
-        },
-        {
-            "colour": 10,
-            "id": "Fuel use"
-        },
-        {
-            "colour": 7,
-            "id": "soil organic carbon management"
-        },
-        {
-            "colour": 8,
-            "id": "tractor passes"
-        },
-        {
-            "colour": 4,
-            "id": "Fertiliser use"
-        },
-        {
-            "colour": 2,
-            "id": "grape price"
-        },
-        {
-            "colour": 7,
-            "id": "vineyard floor management"
-        },
-        {
-            "colour": 4,
             "id": "Agrochemical legislation"
         },
         {
-            "colour": 3,
+            "id": "Agrochemical score"
+        },
+        {
+            "id": "GHG emissions"
+        },
+        {
+            "id": "nutrient leaching management"
+        },
+        {
+            "id": "pest and disease management"
+        },
+        {
+            "id": "soil degradation management"
+        },
+        {
+            "id": "spray application number"
+        },
+        {
+            "id": "water quality"
+        },
+        {
+            "id": "water use"
+        },
+        {
+            "id": "Agrochemical type"
+        },
+        {
+            "id": "Weather conditions"
+        },
+        {
+            "id": "Renewable Fuel"
+        },
+        {
+            "id": "Fuel use"
+        },
+        {
+            "id": "soil organic carbon management"
+        },
+        {
+            "id": "tractor passes"
+        },
+        {
+            "id": "Fertiliser use"
+        },
+        {
+            "id": "grape price"
+        },
+        {
+            "id": "vineyard floor management"
+        },
+        {
             "id": "Electricity-Use"
         },
         {
-            "colour": 7,
             "id": "Renewable Energy"
         },
         {
-            "colour": 6,
             "id": "Clay Content"
         },
         {
-            "colour": 8,
             "id": "Compost/Mulch"
         },
         {
-            "colour": 4,
             "id": "Soil Depth"
         },
         {
-            "colour": 10,
             "id": "water price"
         },
         {
-            "colour": 5,
             "id": "water licences"
         },
         {
-            "colour": 2,
             "id": "Water scarcity"
         },
         {
-            "colour": 4,
             "id": "Water use efficiency"
         },
         {
-            "colour": 10,
             "id": "Soil organic carbon management"
         },
         {
-            "colour": 1,
             "id": "Soil degradation management"
         },
         {
-            "colour": 5,
             "id": "Spray application number"
         },
         {
-            "colour": 5,
             "id": "weather conditions"
         },
         {
-            "colour": 2,
             "id": "Pest and disease management"
         },
         {
-            "colour": 6,
             "id": "Grape price"
         },
         {
-            "colour": 5,
             "id": "market supply and demand"
         },
         {
-            "colour": 6,
             "id": "Market supply and demand"
         },
         {
-            "colour": 4,
             "id": "Nutrient leaching management"
         },
         {
-            "colour": 8,
             "id": "Vineyard floor management"
         }
     ],
@@ -326,6 +302,7 @@
             "Not Ideal": 0.05,
             "id": "Environmental Impact",
             "scores": {
+                "Agrochemical legislation": "delete",
                 "Agrochemical score": 10,
                 "GHG emissions": 1,
                 "nutrient leaching management": 3,

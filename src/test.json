@@ -1,0 +1,207 @@
+{
+    "nodes": [
+    ],
+    "links": [
+    ],
+    "weights": [
+        {
+            "id": "Environmental Impact",
+            "Ideal": 0.95,
+            "Not Ideal": 0.05,
+            "scores": {
+                "Agrochemical score": 10,
+                "GHG emissions": 1,
+                "water use": 7,
+                "water quality": 3,
+                "soil degradation management": 3,
+                "spray application number": 3,
+                "pest and disease management": 3,
+                "nutrient leaching management": 3
+            }
+        },
+        {
+            "id": "Agrochemical type",
+            "Ideal": 0.8,
+            "Not Ideal": 0.05,
+            "scores": {
+                "Agrochemical score": 10,
+                "Weather conditions": 7
+            }
+        },
+        {
+            "id": "Renewable Fuel",
+            "Ideal": 0.01,
+            "Not Ideal": 0.01,
+            "scores": {}
+        },
+        {
+            "id": "Fuel use",
+            "Ideal": 0.8,
+            "Not Ideal": 0.05,
+            "scores": {
+                "Agrochemical score": 5,
+                "soil organic carbon management": 2,
+                "tractor passes": 8
+            }
+        },
+        {
+            "id": "Fertiliser use",
+            "Ideal": 0.9,
+            "Not Ideal": 0.7,
+            "scores": {
+                "Agrochemical score": 3,
+                "soil degradation management": 2,
+                "grape price": 5,
+                "nutrient leaching management": 2,
+                "vineyard floor management": 7
+            }
+        },
+        {
+            "id": "Agrochemical legislation",
+            "Ideal": 0.9,
+            "Not Ideal": 0.1,
+            "scores": {}
+        },{
+            "id": "Electricity-Use",
+            "Ideal": 0.9,
+            "Not Ideal": 0.6,
+            "scores": {
+                "Agrochemical score": 3,
+                "water use": 5
+            }
+        },
+        {
+            "id": "Renewable Energy",
+            "High": 0.5,
+            "Low": 0.5,
+            "scores": {}
+        },
+        {
+            "id": "water use",
+            "Ideal": 0.95,
+            "Not Ideal": 0.05,
+            "scores": {
+                "Agrochemical score": 8,
+                "soil organic carbon management": 0,
+                "tractor passes": 0,
+                "Clay Content": 7,
+                "Soil Depth": 10,
+                "Compost/Mulch": 9
+            }
+        },
+        {
+            "id": "water quality",
+            "High": 0.9,
+            "Low": 0.1,
+            "scores": {}
+        },
+        {
+            "id": "water price",
+            "Low": 0.5,
+            "High": 0.5,
+            "scores": {}
+        },
+        {
+            "id": "water licences",
+            "Yes": 0.99,
+            "No": 0.01,
+            "scores": {}
+        },
+        {
+            "id": "Water scarcity",
+            "No": 0.95,
+            "Yes": 0.05,
+            "scores": {}
+        },
+        {
+            "id": "Water use efficiency",
+            "High": 0.7,
+            "Low": 0.3,
+            "scores": {}
+        },
+        {
+            "id": "Soil organic carbon management",
+            "Yes": 0.9,
+            "No": 0.1,
+            "scores": {}
+        },
+        {
+            "id": "Soil degradation management",
+            "Yes": 0.1,
+            "No": 0.9,
+            "scores": {
+                "Agrochemical score": 3.5,
+                "tractor passes": 7,
+                "vineyard floor management": 8.5
+            }
+        },
+        {
+            "id": "Spray application number",
+            "High": 0.6,
+            "Low": 0.4,
+            "scores": {
+                "weather conditions": 5
+            }
+        },
+        {
+            "id": "Pest and disease management",
+            "Yes": 0.9,
+            "Low": 0.1,
+            "scores": {
+                "weather conditions": 2
+            }
+        },
+        {
+            "id": "Grape price",
+            "High": 0.9,
+            "Low": 0.1,
+            "scores": {
+                "market supply and demand": 4
+            }
+        },
+        {
+            "id": "Market supply and demand",
+            "High": 0.5,
+            "Low": 0.5,
+            "scores": {}
+        },
+        {
+            "id": "Weather conditions",
+            "Wet": 0.1,
+            "Dry": 0.9,
+            "scores": {}
+        },
+        {
+            "id": "Nutrient leaching management",
+            "Yes": 0.9,
+            "No": 0.1,
+            "scores": {}
+        },
+        {
+            "id": "Vineyard floor management",
+            "Yes": 0.9,
+            "No": 0.1,
+            "scores": {
+                "tractor passes": 3
+            }
+        },
+        {
+            "id": "Clay Content",
+            "Ideal": 0.5,
+            "Not Ideal": 0.5,
+            "scores": {}
+        },
+        {
+            "id": "Soil Depth",
+            "Ideal": 0.5,
+            "Not Ideal": 0.5,
+            "scores": {}
+        },
+        {
+            "id": "Compost/Mulch",
+            "Ideal": 0.9,
+            "Not Ideal": 0.1,
+            "scores": {}
+        }
+    ]
+}

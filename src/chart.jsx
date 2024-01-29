@@ -56,7 +56,7 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
     .data(nodes)
     .join("circle")
       .attr("r", 5) // Add click event listener to nodes
-      .attr("fill", d => color(d.group));
+      .attr("fill", d => color(d.colour));
 
     // Update positions of nodes, links, and labels during each tick of the simulation
     simulation.on('tick', () => {

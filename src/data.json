@@ -168,43 +168,43 @@
     ],
     "nodes": [
         {
-            "colour": 8,
+            "colour": 5,
             "id": "Environmental Impact"
         },
         {
-            "colour": 8,
+            "colour": 2,
             "id": "Agrochemical score"
         },
         {
-            "colour": 2,
+            "colour": 1,
             "id": "GHG emissions"
         },
         {
-            "colour": 8,
+            "colour": 6,
             "id": "nutrient leaching management"
         },
         {
-            "colour": 9,
+            "colour": 6,
             "id": "pest and disease management"
         },
         {
-            "colour": 5,
+            "colour": 7,
             "id": "soil degradation management"
         },
         {
-            "colour": 5,
+            "colour": 4,
             "id": "spray application number"
         },
         {
-            "colour": 3,
+            "colour": 6,
             "id": "water quality"
         },
         {
-            "colour": 8,
+            "colour": 4,
             "id": "water use"
         },
         {
-            "colour": 2,
+            "colour": 3,
             "id": "Agrochemical type"
         },
         {
@@ -216,11 +216,11 @@
             "id": "Renewable Fuel"
         },
         {
-            "colour": 4,
+            "colour": 1,
             "id": "Fuel use"
         },
         {
-            "colour": 2,
+            "colour": 7,
             "id": "soil organic carbon management"
         },
         {
@@ -228,55 +228,55 @@
             "id": "tractor passes"
         },
         {
-            "colour": 10,
+            "colour": 9,
             "id": "Fertiliser use"
         },
         {
-            "colour": 4,
+            "colour": 9,
             "id": "grape price"
         },
         {
-            "colour": 7,
+            "colour": 2,
             "id": "vineyard floor management"
         },
         {
-            "colour": 7,
+            "colour": 10,
             "id": "Agrochemical legislation"
         },
         {
-            "colour": 2,
+            "colour": 3,
             "id": "Electricity-Use"
         },
         {
-            "colour": 10,
+            "colour": 9,
             "id": "Renewable Energy"
         },
         {
-            "colour": 10,
+            "colour": 4,
             "id": "Clay Content"
         },
         {
-            "colour": 6,
+            "colour": 1,
             "id": "Compost/Mulch"
         },
         {
-            "colour": 5,
+            "colour": 7,
             "id": "Soil Depth"
         },
         {
-            "colour": 10,
+            "colour": 4,
             "id": "water price"
         },
         {
-            "colour": 10,
+            "colour": 9,
             "id": "water licences"
         },
         {
-            "colour": 8,
+            "colour": 9,
             "id": "Water scarcity"
         },
         {
-            "colour": 9,
+            "colour": 8,
             "id": "Water use efficiency"
         },
         {
@@ -284,31 +284,31 @@
             "id": "Soil organic carbon management"
         },
         {
-            "colour": 8,
+            "colour": 4,
             "id": "Soil degradation management"
         },
         {
-            "colour": 7,
+            "colour": 6,
             "id": "Spray application number"
         },
         {
-            "colour": 3,
+            "colour": 2,
             "id": "weather conditions"
         },
         {
-            "colour": 7,
+            "colour": 5,
             "id": "Pest and disease management"
         },
         {
-            "colour": 9,
+            "colour": 6,
             "id": "Grape price"
         },
         {
-            "colour": 3,
+            "colour": 7,
             "id": "market supply and demand"
         },
         {
-            "colour": 8,
+            "colour": 3,
             "id": "Market supply and demand"
         },
         {
@@ -316,8 +316,12 @@
             "id": "Nutrient leaching management"
         },
         {
-            "colour": 7,
+            "colour": 10,
             "id": "Vineyard floor management"
+        },
+        {
+            "colour": 3,
+            "id": "Water scarcityy"
         }
     ],
     "weights": [
@@ -426,9 +430,9 @@
             "scores": {}
         },
         {
-            "No": 0.95,
-            "Yes": 0.05,
-            "id": "Water scarcity",
+            "Ideal": 0.95,
+            "NotIdeal": 0.05,
+            "id": "Water scarcityy",
             "scores": {}
         },
         {
@@ -462,8 +466,8 @@
             }
         },
         {
-            "Low": 0.1,
-            "Yes": 0.9,
+            "Ideal": 0.95,
+            "NotIdeal": 0.05,
             "id": "Pest and disease management",
             "scores": {
                 "weather conditions": 2

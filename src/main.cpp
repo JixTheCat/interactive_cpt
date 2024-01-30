@@ -8,7 +8,7 @@ using json = nlohmann::json;
 // We take a json input of just the scores
 // Then we change the corresponding score with the same ID to match the new input
 // The graph then rationalises itself.
-json outputNodeById(json& newWeight) {
+json outputNodeById(std::string id, json& newWeight) {
     // Filename is constant in this case
     const std::string filePath = "./data.json";
 
@@ -28,8 +28,8 @@ json outputNodeById(json& newWeight) {
         if (jsonData.contains("weights")) {
             // Search for the node with the specified ID
             for (auto& weight : jsonData["weights"]) {
-                if (weight.contains("id") && weight["id"] == newWeight["id"]) {
-                    std::cout << "Node with ID '" << newWeight["id"] << "':\n" << weight.dump(4) << std::endl;
+                if (weight.contains("id") && weight["id"] == id) {
+                    std::cout << "Node with ID '" << id << "':\n" << weight.dump(4) << std::endl;
                     weight = newWeight;
                     // Write the updated JSON back to the file (optional)
                     std::ofstream outFileStream(filePath);
@@ -42,7 +42,7 @@ json outputNodeById(json& newWeight) {
                     return jsonData.dump();
                 }
             // If the loop completes without finding the node
-            std::cerr << "Node with ID '" << newWeight["id"] << "' not found." << std::endl;
+            std::cerr << "outputNodeById: Node with ID '" << id << "' not found." << std::endl;
                 }
 
         } else {
@@ -56,16 +56,19 @@ json outputNodeById(json& newWeight) {
 
 int main(int argc, char* argv[]) {
     // Check if there are enough command-line arguments
-    if (argc < 1) {
+    if (argc < 3) {
         std::cerr << "Usage: " << argv[0] << " <json['weights']> as in data.json" << std::endl;
         return 1; // Return an error code
     }
-    std::string jsonString = argv[1];
+    std::string id = argv[1];
+    std::string jsonString = argv[2];
 
+    std::cout << "C++ Input: " << id << " " << jsonString << std::endl;
     json newWeight = json::parse(jsonString);
 
+    std::cout << "C++ json: " << newWeight << std::endl;
     // Get and output the ID from the JSON file
-    outputNodeById(newWeight);
+    outputNodeById(id, newWeight);
 
     // We call a header file to rationalise the BN.
     rationalise_bn();

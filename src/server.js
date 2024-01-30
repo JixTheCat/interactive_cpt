@@ -16,17 +16,23 @@ app.post('/api/runCppProgram', (req, res) => {
   //   return res.status(400).json({ error: 'Missing nodeId in request body' });
   // }
 
+  console.log(`Input: ${JSON.stringify(req.body)}`);
   const jsonString = JSON.stringify(req.body);
-  const command = `./cppProgram '${jsonString}'`;
+
+  const id = req.body.id;
+  console.log(`id: ${id}`);
+  const jsonData = req.body.jsonData;
+  console.log(`jsonData: ${jsonData}`);
+
+  const command = `./cppProgram '${id}' '${jsonData}'`;
   exec(command, (error, stdout, stderr) => {
     // exec(`./cppProgram ${`hello`}`, (error, stdout, stderr) => {
     if (error) {
       console.error(`Error executing C++ program: ${error.message}`);
       return res.status(500).json({ error: 'Internal Server Error' });
     }
-    console.log(`Input: ${JSON.stringify(req.body)}`);
-    console.log(`C++ program output: ${stdout}`);
-    console.error(`C++ program error: ${stderr}`);
+    console.log(`\nC++ program output...\n ${stdout}`);
+    console.error(`\nC++ program error...\n ${stderr}`);
     res.json({ output: stdout });
   });
 });

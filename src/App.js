@@ -8,23 +8,6 @@ function App() {
   const [selectedNodeId, setSelectedNodeId] = useState(null);
   const [graphData, setGraphData] = useState(data); // Initial graph data, assuming it's fetched from data.json
 
-  const handleRunCppProgram = (newId) => {
-    fetch('http://localhost:3001/api/runCppProgram', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ selectedNodeId, newId }),
-    })
-      .then(response => response.json())
-      .then(responseData => {
-        console.log('C++ Program Output:', responseData.output);
-      })
-      .catch(error => {
-        console.error('Error calling C++ API:', error);
-      });
-  };
-
   // Function to handle node selection
   const handleNodeClick = useCallback((event, node) => {
     setSelectedNodeId(node.id); // Store the clicked node ID
@@ -43,10 +26,9 @@ function App() {
       })
     };
     // Update the graph data
-    // setGraphData(updatedData);
+    setGraphData(updatedData);
     // Clear the selected node ID after updating
-    // setSelectedNodeId(null);
-    handleRunCppProgram();
+    setSelectedNodeId(null);
   };
 
   // Function to handle updating the graph

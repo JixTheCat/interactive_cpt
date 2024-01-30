@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 import data from './data.json';
 
@@ -6,15 +6,15 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
   const svgRef = useRef();
 
   useEffect(() => {
-    // Clear existing elements
-    d3.select(svgRef.current).selectAll('*').remove();
-
     const width = 928;
     const height = 680;
 
-    // const data = fetchData();
+    // Clear existing elements
+    d3.select(svgRef.current).selectAll('*').remove();
+
     const links = data.links.map(d => ({ ...d }));
     const nodes = data.nodes.map(d => ({ ...d }));
+
     const color = d3.scaleOrdinal(d3.schemeCategory10);
 
     const svg = d3.select(svgRef.current)
@@ -24,8 +24,8 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
       .append('g');
 
     const simulation = d3.forceSimulation(nodes)
-      .force('link', d3.forceLink(links).id(d => d.id).strength(2))
-      .force('charge', d3.forceManyBody().strength(-20))
+      .force('link', d3.forceLink(links).id(d => d.id).strength(0.1))
+      .force('charge', d3.forceManyBody().strength(-80))
       .force('center', d3.forceCenter(width / 2, height / 2))
       .force('x', d3.forceX())
       .force('y', d3.forceY());
@@ -36,7 +36,7 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
       .selectAll('line')
       .data(links)
       .join('line')
-      .attr('stroke-width', d => Math.sqrt(d.value));
+      .attr('stroke-width', d => d.value);
 
     const node = svg.append('g')
       .attr('stroke', '#fff')
@@ -44,16 +44,20 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
       .selectAll('circle')
       .data(nodes)
       .join('circle')
-      .attr('r', 5)
+      .attr('r', 10)
       .attr('fill', d => color(d.colour))
+      .on('click', (event, d) => {
+        onNodeClick(event, d);
+      })
       .call(d3.drag()
         .on('start', dragstarted)
         .on('drag', dragged)
-        .on('end', dragended))
-      .on('click', (event, d) => {
-        handleNodeClick(event, d);
-        onNodeClick(event, d);
-      });
+        .on('end', dragended));
+
+      node.append('text')
+        .attr('x', 12)
+        .attr('dy', '.35em')
+        .text(d => d.id); // Assuming you have a 'name' property in your node data;
 
     simulation.on('tick', () => {
       link
@@ -67,8 +71,8 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
         .attr('cy', d => d.y);
     });
 
-    function handleNodeClick(event, d) {
-      console.log('Node Clicked:', d.id);
+    function zoomed(event) {
+      svg.attr('transform', event.transform);
     }
 
     function dragstarted(event, d) {
@@ -86,10 +90,6 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
       if (!event.active) simulation.alphaTarget(0);
       d.fx = null;
       d.fy = null;
-    }
-
-    function zoomed(event) {
-      svg.attr('transform', event.transform);
     }
 
     return () => {

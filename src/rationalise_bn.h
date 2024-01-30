@@ -87,7 +87,7 @@ void rationalizeNetwork(json& data) {
     }
 }
 
-int main() {
+int rationalise_bn() {
     initializeRandomNumberGenerator();
     // Read JSON data from file
     std::ifstream file("test.json");

@@ -1,10 +1,14 @@
 #include <iostream>
 #include <fstream>
 #include "json.hpp"
+#include "rationalise_bn.h"
 
 using json = nlohmann::json;
 
-json outputNodeById(const std::string& newId, const std::string& targetId) {
+// We take a json input of just the scores
+// Then we change the corresponding score with the same ID to match the new input
+// The graph then rationalises itself.
+json outputNodeById(json& newWeight) {
     // Filename is constant in this case
     const std::string filePath = "./data.json";
 
@@ -21,12 +25,12 @@ json outputNodeById(const std::string& newId, const std::string& targetId) {
         fileStream >> jsonData;
 
         // Check if "nodes" array exists in the JSON object
-        if (jsonData.contains("nodes")) {
+        if (jsonData.contains("weights")) {
             // Search for the node with the specified ID
-            for (auto& node : jsonData["nodes"]) {
-                if (node.contains("id") && node["id"] == targetId) {
-                    std::cout << "Node with ID '" << targetId << "':\n" << node.dump(4) << std::endl;
-                    node["id"] = newId;
+            for (auto& weight : jsonData["weights"]) {
+                if (weight.contains("id") && weight["id"] == newWeight["id"]) {
+                    std::cout << "Node with ID '" << newWeight["id"] << "':\n" << weight.dump(4) << std::endl;
+                    weight = newWeight;
                     // Write the updated JSON back to the file (optional)
                     std::ofstream outFileStream(filePath);
                     if (outFileStream.is_open()) {
@@ -38,7 +42,7 @@ json outputNodeById(const std::string& newId, const std::string& targetId) {
                     return jsonData.dump();
                 }
             // If the loop completes without finding the node
-            std::cerr << "Node with ID '" << targetId << "' not found." << std::endl;
+            std::cerr << "Node with ID '" << newWeight["id"] << "' not found." << std::endl;
                 }
 
         } else {
@@ -50,22 +54,21 @@ json outputNodeById(const std::string& newId, const std::string& targetId) {
         return json();;
 }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
     // Check if there are enough command-line arguments
-    if (argc < 3) {
-        std::cerr << "Usage: " << argv[0] << " <json_file_path> <key>" << std::endl;
+    if (argc < 1) {
+        std::cerr << "Usage: " << argv[0] << " <json['weights']> as in data.json" << std::endl;
         return 1; // Return an error code
     }
+    std::string jsonString = argv[1];
 
-    std::string filePath = argv[1];
-    std::string key = argv[2];
+    json newWeight = json::parse(jsonString);
 
     // Get and output the ID from the JSON file
-    std::string nodeId = outputNodeById(filePath, key);
+    outputNodeById(newWeight);
 
-    if (!nodeId.empty()) {
-        std::cout << "Value associated with key '" << key << "': " << nodeId << std::endl;
-    }
+    // We call a header file to rationalise the BN.
+    rationalise_bn();
 
     return 0;
 }

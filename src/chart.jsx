@@ -25,7 +25,7 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
 
     const simulation = d3.forceSimulation(nodes)
       .force('link', d3.forceLink(links).id(d => d.id).strength(0.1))
-      .force('charge', d3.forceManyBody().strength(-80))
+      .force('charge', d3.forceManyBody().strength(-480))
       .force('center', d3.forceCenter(width / 2, height / 2))
       .force('x', d3.forceX())
       .force('y', d3.forceY());
@@ -54,10 +54,15 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
         .on('drag', dragged)
         .on('end', dragended));
 
-      node.append('text')
-        .attr('x', 12)
-        .attr('dy', '.35em')
-        .text(d => d.id); // Assuming you have a 'name' property in your node data;
+    // Append text to each node
+    const text = svg.selectAll('text')
+      .data(nodes)
+      .enter()
+      .append('text')
+      .attr('text-anchor', 'middle') // Center the text horizontally
+      .attr('dy', 25)
+      .text(d => d.id)
+      .attr('fill', d => color(d.colour)) // Change 'blue' to the desired color; // Assuming you have an 'id' property in your node data;
 
     simulation.on('tick', () => {
       link
@@ -69,6 +74,10 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
       node
         .attr('cx', d => d.x)
         .attr('cy', d => d.y);
+
+      // Update text positions along with nodes
+      text.attr('x', d => d.x + 12)
+          .attr('y', d => d.y);
     });
 
     function zoomed(event) {

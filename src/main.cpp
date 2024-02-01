@@ -41,12 +41,11 @@ json outputNodeById(std::string id, json& newWeight) {
                     }
                     return jsonData.dump();
                 }
+                }
             // If the loop completes without finding the node
             std::cerr << "outputNodeById: Node with ID '" << id << "' not found." << std::endl;
-                }
-
         } else {
-            std::cerr << "No 'nodes' array found in JSON." << std::endl;
+            std::cerr << "No 'weights' array found in JSON." << std::endl;
         }
     } catch (const std::exception& e) {
         std::cerr << "Error parsing JSON: " << e.what() << std::endl;

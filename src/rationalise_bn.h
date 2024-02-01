@@ -13,6 +13,7 @@ void initializeRandomNumberGenerator() {
 int generateRandomNumber() {
     // Seed the random number generator with the current time
     // Generate a random number between 1 and 10
+    \
     return (std::rand() % 10) + 1;
 }
 

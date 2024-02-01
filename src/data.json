@@ -327,7 +327,7 @@
     "weights": [
         {
             "Ideal": 0.95,
-            "Not Ideal": 0.05,
+            "NotIdeal": 0.05,
             "id": "Environmental Impact",
             "scores": {
                 "Agrochemical score": 10,
@@ -400,7 +400,7 @@
         },
         {
             "Ideal": 0.95,
-            "Not Ideal": 0.05,
+            "NotIdeal": 0.05,
             "id": "water use",
             "scores": {
                 "Agrochemical score": 8,

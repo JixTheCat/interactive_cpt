@@ -31,6 +31,9 @@ json outputNodeById(std::string id, json& newWeight) {
                     weightsToChange.push_back(link["target"]);
                     link["source"] = newWeight["id"];
                 }
+                if (link["target"] == id) {
+                    link["target"] = newWeight["id"];
+                }
             }
     for (auto& weight : jsonData["weights"]) {
         for (std::string target : weightsToChange) {
@@ -67,6 +70,43 @@ json outputNodeById(std::string id, json& newWeight) {
     return json();;
 }
 
+json parseJson(json data) {
+    // Here is an example of what the json should look like:
+    // {
+    // "Ideal": "0.95,
+    // "NotIdeal": 0.05,
+    // "id": "grape prices",
+    // "scores": {
+    //     "market supply and demand": 4
+    // }
+    json newData;
+    std::string str;
+    double flo;
+    std::cout << typeid(data["ideal"].dump()).name() << std::endl;
+    if (typeid(data["ideal"].dump()) == typeid(std::string)) {
+        str = data["ideal"];
+        newData["ideal"] = std::stod(str)
+        ;
+    } else {
+        newData["ideal"] = data["ideal"];
+    }
+
+    if (typeid(data["notideal"]) == typeid(std::string)) {
+        str = data["ideal"];
+        newData["notideal"] = str;
+    }
+    json scores;
+    for (json::iterator score = data["scores"].begin(); score != data["scores"].end(); ++score) {
+        if (typeid(score.value()) == typeid(std::string)) {
+            str = score.value();
+            score.value() = std::stof(str);
+            // scores[score.key()] = std::stof(str);
+        }
+    }
+    newData["scores"] = data["scores"];
+    return newData;
+}
+
 int main(int argc, char* argv[]) {
     std::cout << "In main" << std::endl;
     // Check if there are enough command-line arguments
@@ -80,12 +120,15 @@ int main(int argc, char* argv[]) {
     std::cout << "C++ Input: " << id << " " << jsonString << std::endl;
     json newWeight = json::parse(jsonString);
 
-    std::cout << "C++ json: " << newWeight << std::endl;
+    //we fix floats that are strings
+    json ok = parseJson(newWeight);
+
+    std::cout << "C++ json: " << ok << std::endl;
     // Get and output the ID from the JSON file
-    outputNodeById(id, newWeight);
+    // outputNodeById(id, newWeight);
 
     // We call a header file to rationalise the BN.
-    rationalise_bn();
+    // rationalise_bn();
 
     return 0;
 }

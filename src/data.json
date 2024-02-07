@@ -21,11 +21,6 @@
             "value": 3.0
         },
         {
-            "source": "spray application number",
-            "target": "environmental impact",
-            "value": 3.0
-        },
-        {
             "source": "water quality",
             "target": "environmental impact",
             "value": 3.0
@@ -64,11 +59,6 @@
             "source": "agrochemical score",
             "target": "fertiliser use",
             "value": 3.0
-        },
-        {
-            "source": "grape price",
-            "target": "fertiliser use",
-            "value": 5.0
         },
         {
             "source": "nutrient leaching management",
@@ -122,23 +112,33 @@
         },
         {
             "source": "weather conditions",
-            "target": "spray application number",
-            "value": 5.0
-        },
-        {
-            "source": "weather conditions",
             "target": "pest and disease management",
             "value": 2.0
-        },
-        {
-            "source": "market supply and demand",
-            "target": "grape price",
-            "value": 4.0
         },
         {
             "source": "tractor passes",
             "target": "vineyard floor management",
             "value": 3.0
+        },
+        {
+            "source": "spray application number",
+            "target": "environmental impact",
+            "value": 3.0
+        },
+        {
+            "source": "weather conditions",
+            "target": "spray application number",
+            "value": 5.0
+        },
+        {
+            "source": "grape prices",
+            "target": "fertiliser use",
+            "value": 5.0
+        },
+        {
+            "source": "market supply and demand",
+            "target": "grape prices",
+            "value": 4.0
         }
     ],
     "nodes": [
@@ -161,10 +161,6 @@
         {
             "colour": 7,
             "id": "soil degradation management"
-        },
-        {
-            "colour": 4,
-            "id": "spray application number"
         },
         {
             "colour": 6,
@@ -197,10 +193,6 @@
         {
             "colour": 9,
             "id": "fertiliser use"
-        },
-        {
-            "colour": 9,
-            "id": "grape price"
         },
         {
             "colour": 2,
@@ -249,6 +241,18 @@
         {
             "colour": 6,
             "id": "water use efficiency changed"
+        },
+        {
+            "colour": 6,
+            "id": "new spray application number"
+        },
+        {
+            "colour": 6,
+            "id": "spray application number"
+        },
+        {
+            "colour": 3,
+            "id": "grape prices"
         }
     ],
     "weights": [
@@ -315,7 +319,6 @@
             "not ideal": 0.7,
             "scores": {
                 "agrochemical score": 3,
-                "grape price": 5,
                 "nutrient leaching management": 2,
                 "vineyard floor management": 7
             }
@@ -373,10 +376,10 @@
             "yes": 0.99
         },
         {
+            "Ideal": "0.5",
+            "NotIdeal": "0.5",
             "id": "market supply and demand",
-            "no": 0.01,
-            "scores": {},
-            "yes": 0.99
+            "scores": {}
         },
         {
             "Ideal": 0.95,
@@ -397,9 +400,9 @@
             "scores": {}
         },
         {
+            "Ideal": 0.95,
+            "NotIdeal": 0.05,
             "id": "spray application number",
-            "ideal": 0.95,
-            "notideal": 0.05,
             "scores": {
                 "weather conditions": 5
             }
@@ -413,11 +416,11 @@
             }
         },
         {
-            "high": 0.9,
-            "id": "grape price",
-            "low": 0.1,
+            "Ideal": 0.95,
+            "NotIdeal": 0.05,
+            "id": "grape prices",
             "scores": {
-                "market supply and demand": 4
+                "market supply and demand": "72"
             }
         },
         {
@@ -451,6 +454,24 @@
             "ideal": 0.9,
             "not ideal": 0.1,
             "scores": {}
+        },
+        {
+            "High": 0.5,
+            "Low": 0.5,
+            "id": "new spray application number",
+            "scores": null
+        },
+        {
+            "High": 0.5,
+            "Low": 0.5,
+            "id": "spray application number",
+            "scores": null
+        },
+        {
+            "High": 0.5,
+            "Low": 0.5,
+            "id": "grape prices",
+            "scores": null
         }
     ]
 }

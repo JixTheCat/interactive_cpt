@@ -38,23 +38,6 @@ const NodeEditPanel = ({ selectedNodeId, weights, onNodeUpdate }) => {
         [scoreId]: newValue
       }
     }));
-
-    // Update the weights for the selected node
-    const updatedWeights = weights.map(weight => {
-      if (weight.id === selectedNodeId) {
-        return {
-          ...weight,
-          scores: {
-            ...weight.scores,
-            [scoreId]: newValue
-          }
-        };
-      }
-      return weight;
-    });
-
-    // Pass the updated weights to the parent component
-    onNodeUpdate(updatedWeights);
   };
 
   // Function to handle updating other attributes

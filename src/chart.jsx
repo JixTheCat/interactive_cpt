@@ -30,13 +30,32 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
       .force('x', d3.forceX())
       .force('y', d3.forceY());
 
+
+    // Define arrowhead marker
+    svg.append('defs').append('marker')
+      .attr('id', 'arrowhead')
+      .attr('viewBox', '0 -5 10 10')
+      // .attr('refX', 20)
+      .attr('refY', 0)
+      .attr('orient', 'auto')
+      .append('path')
+      .attr('fill', '#fff')
+      .attr('d', 'M0,-5L10,0L0,5');
+
     const link = svg.append('g')
       .attr('stroke', '#999')
       .attr('stroke-opacity', 0.6)
       .selectAll('line')
       .data(links)
       .join('line')
-      .attr('stroke-width', d => d.value);
+      .attr('stroke-width', d => d.value)
+      .attr('marker-end', 'url(#arrowhead)')
+      .attr('distance', .5);
+
+      // Update marker position based on link value
+      d3.select('#arrowhead')
+        .data(links)
+        .attr('refX', d => 30/d.value); // Adjust the multiplier as needed
 
     const node = svg.append('g')
       .attr('stroke', '#fff')

@@ -9,6 +9,7 @@ using json = nlohmann::json;
 // Then we change the corresponding score with the same ID to match the new input
 // The graph then rationalises itself.
 json outputNodeById(std::string id, json& newWeight) {
+    std::cout << "In outputNodeById" << std::endl;
     // Filename is constant in this case
     const std::string filePath = "./data.json";
 
@@ -20,40 +21,54 @@ json outputNodeById(std::string id, json& newWeight) {
         return json();;
     }
 
-    try {
-        json jsonData;
-        fileStream >> jsonData;
+    json jsonData;
+    fileStream >> jsonData;
 
-        // Check if "nodes" array exists in the JSON object
-        if (jsonData.contains("weights")) {
-            // Search for the node with the specified ID
-            for (auto& weight : jsonData["weights"]) {
-                if (weight.contains("id") && weight["id"] == id) {
-                    std::cout << "Node with ID '" << id << "':\n" << weight.dump(4) << std::endl;
-                    weight = newWeight;
-                    // Write the updated JSON back to the file (optional)
-                    std::ofstream outFileStream(filePath);
-                    if (outFileStream.is_open()) {
-                        outFileStream << std::setw(4) << jsonData; // Pretty-print with indentation
-                        std::cout << "Node updated successfully." << std::endl;
-                    } else {
-                        std::cerr << "Error writing to file: " << filePath << std::endl;
-                    }
-                    return jsonData.dump();
+    std::vector<std::string> weightsToChange;
+    for (auto link : jsonData["links"])
+            {
+                if (link["source"] == id) {
+                    weightsToChange.push_back(link["target"]);
+                    link["source"] = newWeight["id"];
                 }
-                }
-            // If the loop completes without finding the node
-            std::cerr << "outputNodeById: Node with ID '" << id << "' not found." << std::endl;
-        } else {
-            std::cerr << "No 'weights' array found in JSON." << std::endl;
+            }
+    for (auto& weight : jsonData["weights"]) {
+        for (std::string target : weightsToChange) {
+            if (weight["id"] == target) {
+                auto itr = weight["scores"].find(id); // try catch this, handle case when key is not found
+                std::swap(weight["scores"][newWeight["id"]], itr.value());
+                weight["scores"].erase(itr);
+            }
         }
-    } catch (const std::exception& e) {
-        std::cerr << "Error parsing JSON: " << e.what() << std::endl;
+        if (weight.contains("id") && weight["id"] == id) {
+            std::cout << "Node with ID '" << id << "':\n" << weight.dump(4) << std::endl;
+            weight = newWeight;
+
+            // Write the updated JSON back to the file (optional)
+            std::ofstream outFileStream(filePath);
+            if (outFileStream.is_open()) {
+                outFileStream << std::setw(4) << jsonData; // Pretty-print with indentation
+                std::cout << "Node updated successfully." << std::endl;
+            } else {
+                std::cerr << "Error writing to file: " << filePath << std::endl;
+            }
+            return jsonData.dump();
+        }
     }
-        return json();;
+    // If the loop completes without finding the node
+    // we purge the data of unknown nodes and throw an error
+    std::ifstream file("data.json");
+    json data;
+    file >> data;
+    // deleteEntriesByID(data);
+    std::cerr << "outputNodeById: Node with ID '" << id << "' not found." << std::endl;
+    std::cerr << "unknown entries purged." << std::endl;
+    
+    return json();;
 }
 
 int main(int argc, char* argv[]) {
+    std::cout << "In main" << std::endl;
     // Check if there are enough command-line arguments
     if (argc < 3) {
         std::cerr << "Usage: " << argv[0] << " <json['weights']> as in data.json" << std::endl;

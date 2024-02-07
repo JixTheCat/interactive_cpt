@@ -16,12 +16,12 @@ app.post('/api/runCppProgram', (req, res) => {
   //   return res.status(400).json({ error: 'Missing nodeId in request body' });
   // }
 
-  console.log(`Input: ${JSON.stringify(req.body)}`);
+  console.log(`Server input: ${JSON.stringify(req.body)}`);
   const jsonString = JSON.stringify(req.body);
 
-  const id = req.body.id;
+  const id = req.body.id.toLowerCase();
   console.log(`id: ${id}`);
-  const jsonData = req.body.jsonData;
+  const jsonData = req.body.jsonData.toLowerCase();
   console.log(`jsonData: ${jsonData}`);
 
   const command = `./cppProgram '${id}' '${jsonData}'`;

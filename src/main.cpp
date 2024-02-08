@@ -99,9 +99,12 @@ json parseJson(json data) {
     for (json::iterator score = data["scores"].begin(); score != data["scores"].end(); ++score) {
         if (score.value().is_string()) {
             str = score.value();
-            key = score.key();
-            scores[key] = std::stod(str);
-        } else {
+            float val = std::stod(str);
+            if (val) {
+                key = score.key();
+                scores[key] = val;
+            }
+        } else if (score.value()>0) {
             key = score.key();
             scores[key] = score.value();
         }

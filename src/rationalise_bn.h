@@ -179,17 +179,9 @@ json deleteLinksByID(json data) {
                         linkInScores = true;
                         break;
                     }
-                    if (score.value().is_string()) {
-                        weight["scores"].erase(score);
-                    } else if (score.value()<1)
-                    {
-                        weight["scores"].erase(score);
-                    }
-                    
                 }
             }
         }
-
             // If the link's source does not exist in scores, remove the link
         if (!linkInScores) {
             linksToRemove.push_back(i);

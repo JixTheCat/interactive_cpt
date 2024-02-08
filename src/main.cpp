@@ -81,29 +81,33 @@ json parseJson(json data) {
     // }
     json newData;
     std::string str;
-    double flo;
-    std::cout << typeid(data["ideal"].dump()).name() << std::endl;
-    if (typeid(data["ideal"].dump()) == typeid(std::string)) {
+    if (data["ideal"].is_string()) {
         str = data["ideal"];
-        newData["ideal"] = std::stod(str)
-        ;
+        newData["ideal"] = std::stod(str);
     } else {
         newData["ideal"] = data["ideal"];
     }
 
-    if (typeid(data["notideal"]) == typeid(std::string)) {
-        str = data["ideal"];
-        newData["notideal"] = str;
+    if (data["notideal"].is_string()) {
+        str = data["notideal"];
+        newData["notideal"] = std::stod(str);
+    } else {
+        newData["notideal"] = data["notideal"];
     }
     json scores;
+    std::string key;
     for (json::iterator score = data["scores"].begin(); score != data["scores"].end(); ++score) {
-        if (typeid(score.value()) == typeid(std::string)) {
+        if (score.value().is_string()) {
             str = score.value();
-            score.value() = std::stof(str);
-            // scores[score.key()] = std::stof(str);
+            key = score.key();
+            scores[key] = std::stod(str);
+        } else {
+            key = score.key();
+            scores[key] = score.value();
         }
     }
-    newData["scores"] = data["scores"];
+    newData["scores"] = scores;
+    newData["id"] = data["id"];
     return newData;
 }
 
@@ -118,17 +122,17 @@ int main(int argc, char* argv[]) {
     std::string jsonString = argv[2];
 
     std::cout << "C++ Input: " << id << " " << jsonString << std::endl;
-    json newWeight = json::parse(jsonString);
+    // json inputJson = json::parse(jsonString);
 
     //we fix floats that are strings
-    json ok = parseJson(newWeight);
+    json newWeight = parseJson(json::parse(jsonString));
 
-    std::cout << "C++ json: " << ok << std::endl;
+    std::cout << "C++ json: " << newWeight << std::endl;
     // Get and output the ID from the JSON file
-    // outputNodeById(id, newWeight);
+    outputNodeById(id, newWeight);
 
     // We call a header file to rationalise the BN.
-    // rationalise_bn();
+    rationalise_bn();
 
     return 0;
 }

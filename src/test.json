@@ -164,6 +164,11 @@
             "source": "tractor passes",
             "target": "vineyard floor management",
             "value": 3.0
+        },
+        {
+            "source": "kdgfkdfasdjhfg",
+            "target": "electricity-use",
+            "value": 5.0
         }
     ],
     "nodes": [
@@ -274,37 +279,51 @@
         {
             "colour": 1,
             "id": "agrochemical legislation"
+        },
+        {
+            "colour": 6,
+            "id": "kdgfkdfasdjhfg"
         }
     ],
     "weights": [
         {
-            "ideal": 0.5,
-            "not ideal": 0.5,
             "id": "nutrient leaching management",
+            "ideal": 0.5,
+            "not ideal": 0.5,
+            "idealkey": "ideal",
+            "notidealkey": "not ideal",
             "scores": {}
         },
         {
-            "ideal": 0.5,
-            "not ideal": 0.5,
             "id": "tractor passes",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notidealkey": "not ideal",
+            "not ideal": 0.5,
             "scores": {}
         },
         {
+            "id": "agrochemical score",
             "ideal": 0.5,
             "not ideal": 0.5,
-            "id": "agrochemical score",
+            "idealkey": "ideal",
+            "notidealkey": "not ideal",
             "scores": {}
         },
         {
+            "id": "ghg emissions",
             "ideal": 0.5,
             "notideal": 0.05,
-            "id": "ghg emissions",
+            "idealkey": "low",
+            "notidealkey": "high",
             "scores": {}
         },
         {
+            "id": "environmental impact",
             "ideal": 0.95,
             "notideal": 0.05,
-            "id": "environmental impact",
+            "idealkey": "ideal",
+            "notidealkey": "not ideal",
             "scores": {
                 "agrochemical score": 9,
                 "ghg emissions": 1,
@@ -317,18 +336,22 @@
             }
         },
         {
+            "id": "agrochemical type",
             "ideal": 0.8,
             "notideal": 0.05,
-            "id": "agrochemical type",
+            "idealkey": "ideal",
+            "notidealkey": "not ideal",
             "scores": {
                 "agrochemical score": 10,
                 "weather conditions": 7
             }
         },
         {
+            "id": "fuel use",
             "ideal": 0.8,
             "notideal": 0.05,
-            "id": "fuel use",
+            "idealkey": "low",
+            "notidealkey": "high",
             "scores": {
                 "agrochemical score": 5,
                 "soil organic carbon management": 2,
@@ -336,9 +359,11 @@
             }
         },
         {
+            "id": "fertiliser use",
             "ideal": 0.9,
             "not ideal": 0.7,
-            "id": "fertiliser use",
+            "idealkey": "ideal",
+            "notidealkey": "not ideal",
             "scores": {
                 "agrochemical score": 3,
                 "grape price": 5,
@@ -348,30 +373,39 @@
             }
         },
         {
+            "id": "agrochemical legislation",
             "ideal": 0.9,
             "notideal": 0.05,
-            "id": "agrochemical legislation",
+            "idealkey": "ideal",
+            "notidealkey": "not ideal",
             "scores": {}
         },
         {
-            "ideal": 0.9,
-            "not ideal": 0.6,
             "id": "electricity-use",
+            "ideal": 0.95,
+            "notideal": 0.05,
+            "idealkey": "low",
+            "notidealkey": "high",
             "scores": {
                 "agrochemical score": 3,
+                "kdgfkdfasdjhfg": 5.0,
                 "water use": 5
             }
         },
         {
-            "high": 0.5,
-            "low": 0.5,
             "id": "renewable energy",
+            "ideal": 0.5,
+            "notideal": 0.5,
+            "idealkey": "high",
+            "notidealkey": "low",
             "scores": {}
         },
         {
+            "id": "water use",
             "ideal": 0.95,
             "notideal": 0.05,
-            "id": "water use",
+            "idealkey": "low",
+            "notidealkey": "high",
             "scores": {
                 "agrochemical score": 8,
                 "clay content": 7,
@@ -382,106 +416,144 @@
             }
         },
         {
-            "high": 0.9,
-            "low": 0.1,
+            "ideal": 0.9,
             "id": "water quality",
+            "notideal": 0.1,
+            "idealkey": "high",
+            "notidealkey": "low",
             "scores": {}
         },
         {
-            "high": 0.5,
-            "low": 0.5,
+            "ideal": 0.9,
             "id": "water price",
+            "notideal": 0.1,
+            "idealkey": "low",
+            "notidealkey": "high",
             "scores": {}
         },
         {
-            "no": 0.01,
-            "yes": 0.99,
             "id": "water licences",
-            "scores": {}
+            "ideal": 0.01,
+            "scores": {},
+            "notideal": 0.99,
+            "idealkey": "yes",
+            "notidealkey": "no"
         },
         {
-            "no": 0.01,
-            "yes": 0.99,
             "id": "market supply and demand",
-            "scores": {}
+            "noideal": 0.01,
+            "scores": {},
+            "idealkey": "high demmand/low supply",
+            "notidealkey": "low demmand/high supply",
+            "ideal": 0.99
         },
         {
+            "id": "water use efficiency",
             "ideal": 0.95,
             "notideal": 0.05,
-            "id": "water use efficiency",
+            "idealkey": "efficient",
+            "notidealkey": "inefficient",
             "scores": {}
         },
         {
-            "no": 0.1,
-            "yes": 0.9,
             "id": "soil organic carbon management",
-            "scores": {}
+            "notideal": 0.1,
+            "scores": {},
+            "idealkey": "yes",
+            "notidealkey": "no",
+            "ideal": 0.9
         },
         {
-            "no": 0.9,
-            "yes": 0.1,
             "id": "soil degradation management",
+            "notideal": 0.9,
             "scores": {
                 "agrochemical score": 3.5,
                 "tractor passes": 7,
                 "vineyard floor management": 8.5
-            }
+            },
+            "idealkey": "yes",
+            "notidealkey": "no",
+            "ideal": 0.1
         },
         {
+            "id": "spray application number",
             "ideal": 0.95,
             "notideal": 0.05,
-            "id": "spray application number",
+            "idealkey": "low",
+            "notidealkey": "high",
             "scores": {
                 "weather conditions": 5
             }
         },
         {
+            "id": "pest and disease management",
             "ideal": 0.95,
             "notideal": 0.05,
-            "id": "pest and disease management",
+            "idealkey": "ideal",
+            "notidealkey": "not ideal",
             "scores": {
                 "weather conditions": 2
             }
         },
         {
-            "high": 0.9,
-            "low": 0.1,
+            "ideal": 0.9,
             "id": "grape price",
+            "notideal": 0.1,
+            "idealkey": "high",
+            "notidealkey": "low",
             "scores": {
                 "market supply and demand": 4
             }
         },
         {
+            "id": "weather conditions",
             "ideal": 0.95,
             "notideal": 0.05,
-            "id": "weather conditions",
+            "idealkey": "ideal",
+            "notidealkey": "not ideal",
             "scores": {}
         },
         {
-            "no": 0.1,
-            "yes": 0.9,
             "id": "vineyard floor management",
+            "ideal": 0.1,
+            "idealkey": "yes",
+            "notidealkey": "no",
             "scores": {
                 "tractor passes": 3
-            }
+            },
+            "notideal": 0.9
         },
         {
-            "ideal": 0.5,
-            "not ideal": 0.5,
             "id": "clay content",
-            "scores": {}
-        },
-        {
             "ideal": 0.5,
             "not ideal": 0.5,
-            "id": "soil depth",
+            "idealkey": "ideal",
+            "notidealkey": "not ideal",
             "scores": {}
         },
         {
+            "id": "soil depth",
+            "ideal": 0.5,
+            "not ideal": 0.5,
+            "idealkey": "ideal",
+            "notidealkey": "not ideal",
+            "scores": {}
+        },
+        {
+            "id": "compost/mulch",
             "ideal": 0.9,
             "not ideal": 0.1,
-            "id": "compost/mulch",
+            "idealkey": "ideal",
+            "notidealkey": "not ideal",
             "scores": {}
+        },
+        {
+            "ideal": 0.5,
+            "notideal": 0.5,
+            "id": "kdgfkdfasdjhfg",
+            "idealkey": "ideal",
+            "notidealkey": "not ideal",
+            "scores": null
         }
     ]
 }

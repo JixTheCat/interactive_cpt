@@ -72,13 +72,16 @@ json outputNodeById(std::string id, json& newWeight) {
 
 json parseJson(json data) {
     // Here is an example of what the json should look like:
-    // {
-    // "Ideal": "0.95,
-    // "NotIdeal": 0.05,
-    // "id": "grape prices",
-    // "scores": {
-    //     "market supply and demand": 4
-    // }
+        // {
+        //     "id": "vineyard floor management",
+        //     "ideal": 0.9,
+        //     "idealkey": null,
+        //     "notideal": null,
+        //     "notidealkey": null,
+        //     "scores": {
+        //         "tractor passes": 5
+        //     }
+        // }
     json newData;
     std::string str;
     if (data["ideal"].is_string()) {
@@ -94,6 +97,7 @@ json parseJson(json data) {
     } else {
         newData["notideal"] = data["notideal"];
     }
+
     json scores;
     std::string key;
     for (json::iterator score = data["scores"].begin(); score != data["scores"].end(); ++score) {
@@ -109,8 +113,12 @@ json parseJson(json data) {
             scores[key] = score.value();
         }
     }
+
     newData["scores"] = scores;
     newData["id"] = data["id"];
+    newData["idealkey"] = data["idealkey"];
+    newData["notidealkey"] = data["notidealkey"];
+
     return newData;
 }
 

@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { runCppProgram } from './apiService';
 
-const NodeEditPanel = ({ selectedNodeId, weights, onNodeUpdate }) => {
+const NodeEditPanel = ({ selectedNodeId, weights}) => {
   // Find weights for the selected node
   const selectedNodeWeights = weights.find(weight => weight.id === selectedNodeId);
 
   // State to manage input field values
   const [inputValues, setInputValues] = useState({
-    Ideal: 0.95,
-    NotIdeal: 0.05,
-    id: "Environmental Impact",
-    scores: {}
+    ideal: 0,
+    notideal: 0,
+    id: "Unknown Selected",
+    scores: {},
+    idealkey: "ideal",
+    notidealkey: "not ideal"
   });
 
   // State to manage new weight input fields
@@ -20,10 +22,12 @@ const NodeEditPanel = ({ selectedNodeId, weights, onNodeUpdate }) => {
   useEffect(() => {
     if (selectedNodeWeights) {
       setInputValues({
-        Ideal: selectedNodeWeights.Ideal || 0.95,
-        NotIdeal: selectedNodeWeights.NotIdeal || 0.05,
-        id: selectedNodeWeights.id || "Environmental Impact",
-        scores: selectedNodeWeights.scores || {}
+        ideal: selectedNodeWeights.ideal || 0,
+        notideal: selectedNodeWeights.notideal || 0,
+        id: selectedNodeWeights.id || "Unknown Selected",
+        scores: selectedNodeWeights.scores || {},
+        idealkey: selectedNodeWeights.idealkey || "ideal",
+        notidealkey: selectedNodeWeights.notidealkey || "not ideal"
       });
     }
   }, [selectedNodeWeights, selectedNodeId]);
@@ -74,21 +78,23 @@ const NodeEditPanel = ({ selectedNodeId, weights, onNodeUpdate }) => {
 
   // Function to handle generating and returning  JSON
   const handleGenerateJSON = () => {
-  // Define the JSON object
-  const json = JSON.stringify({
-    Ideal: inputValues.Ideal,
-    NotIdeal: inputValues.NotIdeal,
-    id: inputValues.id,
-    scores: inputValues.scores
-  });
+    // Define the JSON object
+    const json = JSON.stringify({
+      idealkey: inputValues.idealkey,
+      notidealkey: inputValues.notidealkey,
+      ideal: inputValues.ideal,
+      notideal: inputValues.notideal,
+      id: inputValues.id,
+      scores: inputValues.scores
+    });
 
-  // Convert JSON object to string
-  // const jsonString = JSON.stringify(json, 4);
-  console.log(json); // Output JSON to console or you can send it wherever you need
+    // Convert JSON object to string
+    // const jsonString = JSON.stringify(json, 4);
+    console.log(json); // Output JSON to console or you can send it wherever you need
 
-  // Call the function to run the C++ program with the JSON as an argument
-  runCppProgram(selectedNodeId, json);
-};
+    // Call the function to run the C++ program with the JSON as an argument
+    runCppProgram(selectedNodeId, json);
+  };
 
 
   return (
@@ -96,21 +102,21 @@ const NodeEditPanel = ({ selectedNodeId, weights, onNodeUpdate }) => {
       <h2>Edit Node ID {selectedNodeId}</h2>
       {/* Editable fields for attributes */}
       <div>
-        <label htmlFor="ideal">Ideal:</label>
+        <label htmlFor="ideal">{inputValues.idealkey} (ideal):</label>
         <input
           id="ideal"
           type="text"
-          value={inputValues.Ideal}
-          onChange={e => handleAttributeChange('Ideal', e.target.value)}
+          value={inputValues.ideal}
+          onChange={e => handleAttributeChange('ideal', e.target.value)}
         />
       </div>
       <div>
-        <label htmlFor="notIdeal">Not Ideal:</label>
+        <label htmlFor="notideal">{inputValues.notidealkey} (not ideal):</label>
         <input
-          id="notIdeal"
+          id="notideal"
           type="text"
-          value={inputValues.NotIdeal}
-          onChange={e => handleAttributeChange('NotIdeal', e.target.value)}
+          value={inputValues.notideal}
+          onChange={e => handleAttributeChange('notideal', e.target.value)}
         />
       </div>
       <div>

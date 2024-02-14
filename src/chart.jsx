@@ -32,14 +32,14 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
 
 svg.append('defs').append('marker')
   .attr('id', 'arrowhead')
-  .attr('markerWidth', 20)
-  .attr('markerHeight', 20)
+  .attr('markerWidth', 10)
+  .attr('markerHeight', 10)
   .attr('markerUnits', 'userSpaceOnUse')
   .attr('orient', 'auto')
   .append('path')
   .attr('fill', '#fff')
   
-  .attr('d', 'M0,0 L20,10 L0,20 L4,10 Z'); 
+  .attr('d', 'M0,0 L10,5 L0,10 L2,5 Z'); 
 
 const link = svg.append('g')
   .attr('stroke', '#fff')
@@ -47,7 +47,7 @@ const link = svg.append('g')
   .selectAll('line')
   .data(links)
   .join('line')
-  .attr('stroke-width', d => d.value)
+  .attr('stroke-width', d => d.value/2)
   .attr('marker-end', 'url(#arrowhead)')
   .each(function(d) {
     // Calculate the length of the line
@@ -59,8 +59,8 @@ const link = svg.append('g')
     // Update marker position based on link value
     d3.select('#arrowhead')
       .data(links)
-      .attr('refY', 10)
-      .attr('refX', d => d.value*2.5);
+      .attr('refY', 5)
+      .attr('refX', d => d.value*2);
 
     const node = svg.append('g')
       .attr('stroke', '#fff')

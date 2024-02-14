@@ -307,7 +307,6 @@
             "notidealkey": "not ideal",
             "scores": {
                 "agrochemical score": 5,
-                "agrochemical type": 5.0,
                 "ghg emissions": 5,
                 "nutrient leaching management": 5,
                 "pest and disease management": 5,
@@ -322,9 +321,7 @@
             "idealkey": "ideal",
             "notideal": 0.5,
             "notidealkey": "not ideal",
-            "scores": {
-                "agrochemical legislation": 5.0
-            }
+            "scores": {}
         },
         {
             "id": "fuel use",
@@ -344,7 +341,6 @@
             "notideal": 0.5,
             "notidealkey": "not ideal",
             "scores": {
-                "grape price": 5.0,
                 "nitrogen use efficiency": 5.0,
                 "nutrient leaching management": 5.0,
                 "soil degradation management": 5.0,
@@ -469,9 +465,9 @@
         },
         {
             "id": "grape price",
-            "ideal": 0.9,
+            "ideal": 0.5,
             "idealkey": "high",
-            "notideal": 0.1,
+            "notideal": 0.5,
             "notidealkey": "low",
             "scores": {
                 "market supply and demand": 4

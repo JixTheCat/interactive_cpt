@@ -39,6 +39,12 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
                 node.y = savedNode.y;
             }
         });
+    } else {
+      // Define the initial position for the specific node
+      var specificNodeId = "environmental impact"; // Change this to your specific node's ID
+      var specificNode = nodes.find(node => node.id === specificNodeId);
+      specificNode.fx = width / 2; // center horizontally
+      specificNode.fy = height - 50; // bottom of the graph
     }
 
     const color = d3.scaleOrdinal(d3.schemeCategory10);

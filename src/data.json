@@ -37,11 +37,6 @@
         },
         {
             "source": "agrochemical score",
-            "target": "agrochemical type",
-            "value": 5.0
-        },
-        {
-            "source": "agrochemical score",
             "target": "fuel use",
             "value": 5.0
         },
@@ -116,11 +111,6 @@
             "value": 5.0
         },
         {
-            "source": "kdgfkdfasdjhfg",
-            "target": "electricity-use",
-            "value": 5.0
-        },
-        {
             "source": "soil organic carbon management",
             "target": "water use",
             "value": 5.0
@@ -133,6 +123,21 @@
         {
             "source": "a new node",
             "target": "vineyard floor management",
+            "value": 5.0
+        },
+        {
+            "source": "water use",
+            "target": "environmental impact",
+            "value": 5.0
+        },
+        {
+            "source": "agrochemical legislation",
+            "target": "agrochemical type",
+            "value": 5.0
+        },
+        {
+            "source": "agrochemical type",
+            "target": "environmental impact",
             "value": 5.0
         }
     ],
@@ -285,32 +290,40 @@
             "idealkey": "low",
             "notideal": 0.5,
             "notidealkey": "high",
-            "scores": null
+            "scores": {
+                "agrochemical use": 5,
+                "electricity use": 5.0,
+                "fertiliser use": 5,
+                "fuel use": 5,
+                "renewable fuel": 5,
+                "rewnewable energy": 5
+            }
         },
         {
             "id": "environmental impact",
-            "ideal": 0.95,
+            "ideal": 0.5,
             "idealkey": "ideal",
-            "notideal": 0.05,
+            "notideal": 0.5,
             "notidealkey": "not ideal",
             "scores": {
-                "agrochemical score": 5.0,
-                "ghg emissions": 5.0,
-                "nutrient leaching management": 5.0,
-                "pest and disease management": 5.0,
-                "soil degradation management": 5.0,
-                "spray application number": 5.0,
-                "water quality": 5.0
+                "agrochemical score": 5,
+                "agrochemical type": 5.0,
+                "ghg emissions": 5,
+                "nutrient leaching management": 5,
+                "pest and disease management": 5,
+                "soil degradation management": 5,
+                "water quality": 5,
+                "water use": 5
             }
         },
         {
             "id": "agrochemical type",
-            "ideal": 0.8,
+            "ideal": 0.5,
             "idealkey": "ideal",
-            "notideal": 0.05,
+            "notideal": 0.5,
             "notidealkey": "not ideal",
             "scores": {
-                "agrochemical score": 5.0
+                "agrochemical legislation": 5.0
             }
         },
         {
@@ -320,41 +333,41 @@
             "notideal": 0.5,
             "notidealkey": "high",
             "scores": {
-                "agrochemical score": 5.0,
-                "soil organic carbon management": 5,
-                "tractor passes": 5
+                "tractor passes": 5,
+                "water use": 5
             }
         },
         {
             "id": "fertiliser use",
-            "ideal": 0.9,
-            "idealkey": null,
-            "notideal": null,
-            "notidealkey": null,
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "not ideal",
             "scores": {
-                "agrochemical score": 3,
-                "grape price": 5,
-                "nutrient leaching management": 2,
-                "soil degradation management": 2
+                "grape price": 5.0,
+                "nitrogen use efficiency": 5.0,
+                "nutrient leaching management": 5.0,
+                "soil degradation management": 5.0,
+                "soil organic carbon management": 5.0,
+                "vineyard floor management": 5.0
             }
         },
         {
             "id": "agrochemical legislation",
-            "ideal": 0.9,
+            "ideal": 0.5,
             "idealkey": "ideal",
-            "notideal": 0.05,
+            "notideal": 0.5,
             "notidealkey": "not ideal",
             "scores": null
         },
         {
             "id": "electricity-use",
-            "ideal": 0.95,
+            "ideal": 0.5,
             "idealkey": "low",
-            "notideal": 0.05,
+            "notideal": 0.5,
             "notidealkey": "high",
             "scores": {
-                "agrochemical score": 3,
-                "kdgfkdfasdjhfg": 5.0
+                "agrochemical score": 3
             }
         },
         {
@@ -440,11 +453,11 @@
         },
         {
             "id": "spray application number",
-            "ideal": 0.95,
+            "ideal": 0.5,
             "idealkey": "low",
-            "notideal": 0.05,
+            "notideal": 0.5,
             "notidealkey": "high",
-            "scores": {}
+            "scores": null
         },
         {
             "id": "pest and disease management",
@@ -479,7 +492,7 @@
             "notideal": 0,
             "notidealkey": "not ideal",
             "scores": {
-                "a new node": 5.0,
+                "electricity use": 5.0,
                 "tractor passes": 5
             }
         },
@@ -508,7 +521,7 @@
             "scores": {}
         },
         {
-            "id": "kdgfkdfasdjhfg",
+            "id": "nitrogen use efficiency",
             "ideal": 0.5,
             "idealkey": "ideal",
             "notideal": 0.5,
@@ -516,9 +529,11 @@
             "scores": null
         },
         {
-            "High": 0.5,
-            "Low": 0.5,
-            "id": "a new node",
+            "id": "electricity use",
+            "ideal": 0,
+            "idealkey": "ideal",
+            "notideal": 0,
+            "notidealkey": "not ideal",
             "scores": null
         }
     ]

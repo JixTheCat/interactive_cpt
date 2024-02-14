@@ -2,6 +2,19 @@ import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 import data from './data.json';
 
+// Code to persist node positions
+function saveNodePositions(nodes) {
+  // Save node positions in localStorage or in your backend
+  // For example, save positions in localStorage
+  localStorage.setItem('nodePositions', JSON.stringify(nodes.map(d => ({ id: d.id, x: d.x, y: d.y }))));
+}
+
+// Code to restore node positions
+function restoreNodePositions() {
+  // Retrieve node positions from localStorage or your backend
+
+}
+
 const ForceGraphDAG = React.memo(({ onNodeClick }) => {
   const svgRef = useRef();
 
@@ -14,6 +27,19 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
 
     const links = data.links.map(d => ({ ...d }));
     const nodes = data.nodes.map(d => ({ ...d }));
+
+    var savedPositions = JSON.parse(localStorage.getItem('nodePositions'));
+
+    if (savedPositions) {
+        // Update node positions
+        nodes.forEach(node => {
+            var savedNode = savedPositions.find(n => n.id === node.id);
+            if (savedNode) {
+                node.x = savedNode.x;
+                node.y = savedNode.y;
+            }
+        });
+    }
 
     const color = d3.scaleOrdinal(d3.schemeCategory10);
 
@@ -30,31 +56,30 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
       .force('x', d3.forceX())
       .force('y', d3.forceY());
 
-svg.append('defs').append('marker')
-  .attr('id', 'arrowhead')
-  .attr('markerWidth', 10)
-  .attr('markerHeight', 10)
-  .attr('markerUnits', 'userSpaceOnUse')
-  .attr('orient', 'auto')
-  .append('path')
-  .attr('fill', '#fff')
-  
-  .attr('d', 'M0,0 L10,5 L0,10 L2,5 Z'); 
+    svg.append('defs').append('marker')
+      .attr('id', 'arrowhead')
+      .attr('markerWidth', 10)
+      .attr('markerHeight', 10)
+      .attr('markerUnits', 'userSpaceOnUse')
+      .attr('orient', 'auto')
+      .append('path')
+      .attr('fill', '#fff')
+      .attr('d', 'M0,0 L10,5 L0,10 L2,5 Z'); 
 
-const link = svg.append('g')
-  .attr('stroke', '#fff')
-  .attr('stroke-opacity', 0.4)
-  .selectAll('line')
-  .data(links)
-  .join('line')
-  .attr('stroke-width', d => d.value/2)
-  .attr('marker-end', 'url(#arrowhead)')
-  .each(function(d) {
-    // Calculate the length of the line
-    const length = this.getTotalLength();
-    // Set refX dynamically based on the length of the line
-    d3.select('#arrowhead').attr('refX', length);
-  });
+    const link = svg.append('g')
+      .attr('stroke', '#fff')
+      .attr('stroke-opacity', 0.4)
+      .selectAll('line')
+      .data(links)
+      .join('line')
+      .attr('stroke-width', d => d.value/2)
+      .attr('marker-end', 'url(#arrowhead)')
+      .each(function(d) {
+        // Calculate the length of the line
+        const length = this.getTotalLength();
+        // Set refX dynamically based on the length of the line
+        d3.select('#arrowhead').attr('refX', length);
+      });
 
     // Update marker position based on link value
     d3.select('#arrowhead')
@@ -121,6 +146,7 @@ const link = svg.append('g')
 
     function dragended(event, d) {
       if (!event.active) simulation.alphaTarget(0);
+      saveNodePositions(nodes)
       d.fx = null;
       d.fy = null;
     }

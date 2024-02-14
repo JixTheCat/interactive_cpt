@@ -2,15 +2,21 @@ import React, { useCallback, useState } from 'react';
 import ForceGraphDAG from './chart.jsx';
 import NodeEditPanel from './NodeEditPanel';
 import './App.css';
+import getJSONData from './export_data.js';
 import data from './data.json'; // Assuming data is imported from data.json
 
 function App() {
   const [selectedNodeId, setSelectedNodeId] = useState(null);
   const [graphData, setGraphData] = useState(data); // Initial graph data, assuming it's fetched from data.json
 
+  const updateData = (newData) => {
+    setGraphData(getJSONData());
+  };
+
   // Function to handle node selection
   const handleNodeClick = useCallback((event, node) => {
-    setSelectedNodeId(node.id); // Store the clicked node ID
+    setSelectedNodeId(node.id);
+    updateData();
   }, []);
 
   // Function to handle node updates
@@ -26,15 +32,10 @@ function App() {
       })
     };
     // Update the graph data
+    updateData();
     setGraphData(updatedData);
     // Clear the selected node ID after updating
     setSelectedNodeId(null);
-  };
-
-  // Function to handle updating the graph
-  const handleUpdateGraph = () => {
-    // You can perform any necessary actions to update the graph here
-    console.log('Graph Updated');
   };
 
   return (
@@ -46,7 +47,7 @@ function App() {
             selectedNodeId={selectedNodeId}
             weights={graphData.weights}
             onNodeUpdate={handleNodeUpdate}
-            onUpdateGraph={handleUpdateGraph}
+            updateData={updateData}
           />
         )}
     </div>

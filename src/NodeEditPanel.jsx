@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { runCppProgram } from './apiService';
 
-const NodeEditPanel = ({ selectedNodeId, weights}) => {
+const NodeEditPanel = ({ selectedNodeId, weights, updateData}) => {
+
   // Find weights for the selected node
   const selectedNodeWeights = weights.find(weight => weight.id === selectedNodeId);
 
@@ -94,8 +95,9 @@ const NodeEditPanel = ({ selectedNodeId, weights}) => {
 
     // Call the function to run the C++ program with the JSON as an argument
     runCppProgram(selectedNodeId, json);
-  };
 
+    // updateData(data); // Update state with the fetched JSON data
+  };
 
   return (
     <div>

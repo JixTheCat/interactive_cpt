@@ -3,6 +3,8 @@
 #include "json.hpp" // nlohmann/json library
 #include <vector>
 #include <unordered_set>
+#include <set>
+#include <tuple>
 
 
 using json = nlohmann::json;
@@ -16,7 +18,6 @@ json removeFromVector(json list, const std::vector<std::size_t>& removelist) {
 
     // // Remove elements from the list in reverse order of indices
     for (auto i = sortedRemovelist.begin(); i != sortedRemovelist.end(); ++i) {
-        std::cout << "\nId: " << *i << "\n" << (list[*i]) << std::endl;
         list.erase(*i);
         // std::cout << "\nId:" << *i << "is now" << "\n" << (list[*i]) << std::endl;
     }
@@ -70,11 +71,6 @@ json rationaliseNetwork(json& data) {
     existingNodeIds.insert("");
 
     json& links = data["links"];
-    // std::unordered_set<std::string> existingLinkIds;
-    // // Populate the set with existing node IDs
-    // for (const json& link : links) {
-    //     existingLinkIds.insert(links["id"].get<std::string>());
-    // }
 
     json& weights = data["weights"];
     std::unordered_set<std::string> existingWeightIds;
@@ -103,14 +99,19 @@ json rationaliseNetwork(json& data) {
         // Iterate through scores to create/update links
         for (json::iterator score = scores.begin(); score != scores.end(); ++score) {
             std::string scoreId = score.key();
-            float scoreValue = score.value();
-
+            float scoreValue;
+            if (!score.value().is_null() && score.value().is_number_float()) {
+                scoreValue = score.value();
+            } else {
+                continue;
+            }
             // Check if the scoreKey already exists as a node
             if (existingNodeIds.find(scoreId) == existingNodeIds.end()) {
                 // If the weightId is not found in the set, it's safe to add the node
                 newNodes.push_back(newNode(scoreId));
                 existingNodeIds.insert(scoreId); // Add the new ID to the set
             }
+
                 
             // Check if the scoreKey already exists as a weight
             if (existingWeightIds.find(scoreId) == existingWeightIds.end()) {
@@ -175,41 +176,60 @@ json deleteNodeEntriesByID(json data) {
     return nodesToKeep;
 }
 
+// Define a structure for links and a custom hash function if using std::unordered_set
+struct Link {
+    std::string source;
+    std::string target;
+    float value;
+
+    bool operator<(const Link& other) const {
+        return std::tie(source, target, value) < std::tie(other.source, other.target, other.value);
+    }
+};
+
 json deleteLinksByID(json data) {
     std::cout << "In deleteLinksByID" << std::endl;
     json links = data["links"];
     json weights = data["weights"];
-    // Iterate through the array and remove entries with matching IDs
 
-    // Iterate through the links and remove any link not in 
-    std::vector<long unsigned int> linksToRemove;
-    for (int i = 0; i<links.size(); i++) {
+    std::vector<size_t> linksToRemove;
+    std::set<Link> uniqueLinks;
+
+    for (size_t i = 0; i < links.size(); i++) {
         json link = links[i];
 
         std::string source = link["source"];
         std::string target = link["target"];
         float value = link["value"];
 
-        // Check if the link's source exists in scores
+        Link currentLink = {source, target, value};
+        // Check for uniqueness
+        if (uniqueLinks.find(currentLink) != uniqueLinks.end()) {
+            // Duplicate found, mark for removal
+            linksToRemove.push_back(i);
+            continue; // Skip further processing for duplicates
+        } else {
+            uniqueLinks.insert(currentLink);
+        }
+
+        // Existing logic to check if the link's source exists in scores
         bool linkInScores = false;
         for (json weight : weights) {
-            if (
-                weight["id"] == target
-             ) {
+            if (weight["id"] == target) {
                 for (json::iterator score = weight["scores"].begin(); score != weight["scores"].end(); ++score) {
-                    if (score.key() == source &&
-                    score.value() == value) {
+                    if (score.key() == source && score.value() == value) {
                         linkInScores = true;
                         break;
                     }
                 }
             }
         }
-            // If the link's source does not exist in scores, remove the link
         if (!linkInScores) {
             linksToRemove.push_back(i);
         }
     }
+
+    // Assuming removeFromVector removes elements from 'links' based on indices in 'linksToRemove'
     return removeFromVector(links, linksToRemove);
 }
 
@@ -227,7 +247,7 @@ int rationalise_bn() {
     newData["nodes"] = deleteNodeEntriesByID(newData);
     newData["links"] = deleteLinksByID(newData);
 
-    // Write the modified JSON data back to file or do whatever you want with it
+    // // Write the modified JSON data back to file or do whatever you want with it
     std::ofstream outFile("data.json");
     outFile << std::setw(4) << newData << std::endl;
 

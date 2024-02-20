@@ -87,14 +87,13 @@ void writeNewWeight(std::string id, json newWeight) {
         newData["links"] = newLinks;
         newData["weights"] = newWeights;
 
-        outFileStream << std::setw(4) << jsonData; // Pretty-print with indentation
+        outFileStream << std::setw(4) << newData; // Pretty-print with indentation
         std::cout << "Node updated successfully." << std::endl;
     } else {
         std::cerr << "Error writing to file: " << filePath << std::endl;
     return;
     }
 }
-
 
 json parseJson(json data) {
     // Here is an example of what the json should look like:

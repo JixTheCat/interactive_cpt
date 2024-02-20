@@ -2,6 +2,8 @@
 #include <fstream>
 #include "json.hpp" // nlohmann/json library
 #include <vector>
+#include <unordered_set>
+
 
 using json = nlohmann::json;
 
@@ -28,7 +30,7 @@ void initializeRandomNumberGenerator() {
 // Function to generate a random number between 1 and 10
 // This is used for colours in the graph
 int generateRandomNumber() {
-    std::cout << "In generateRandomNumber" << std::endl;
+    // std::cout << "In generateRandomNumber" << std::endl;
     // Seed the random number generator with the current time
     // Generate a random number between 1 and 10
     \
@@ -36,10 +38,11 @@ int generateRandomNumber() {
 }
 
 json newNode(std::string id) {
-    std::cout << "In newNode" << std::endl;
-    return {
+    // std::cout << "In newNode" << std::endl;
+    json newJson = {
                 {"id", id},
                 {"colour", generateRandomNumber()}};
+    return newJson; 
 }
 
 json newWeight(std::string id) {
@@ -56,68 +59,89 @@ json newWeight(std::string id) {
 // Function to rationalize the structure of the network based on the weights section
 json rationaliseNetwork(json& data) {
     std::cout << "In rationliseNetwork" << std::endl;
-    // Extract nodes, links, and weights from the JSON data
-    json& nodes = data["nodes"];
-    json& links = data["links"];
-    json& weights = data["weights"];
 
-    // // Iterate through each weight
+    // // Extract nodes, links, and weights from the JSON data
+    json& nodes = data["nodes"];
+    std::unordered_set<std::string> existingNodeIds;
+    // Populate the set with existing node IDs
+    for (const json& node : nodes) {
+        existingNodeIds.insert(node["id"].get<std::string>());
+    }
+    existingNodeIds.insert("");
+
+    json& links = data["links"];
+    // std::unordered_set<std::string> existingLinkIds;
+    // // Populate the set with existing node IDs
+    // for (const json& link : links) {
+    //     existingLinkIds.insert(links["id"].get<std::string>());
+    // }
+
+    json& weights = data["weights"];
+    std::unordered_set<std::string> existingWeightIds;
+    // Populate the set with existing node IDs
+    for (const json& weight : weights) {
+        existingWeightIds.insert(weight["id"].get<std::string>());
+    }
+    existingWeightIds.insert("");
+
+    json newNodes;
+    json newWeights;
+    json newLinks;
+
+    // Iterate through each weight
     for (const json& weight : weights) {
         std::string weightId = weight["id"];
         json scores = weight["scores"];
 
-    //     // Check if the weightId already exists as a node
-        bool nodeExists = false;
-        for (const json& node : nodes) {
-            if (node["id"] == weightId) {
-                nodeExists = true;
-                break;
-            }
-        }
-
-        // If weightId doesn't exist as a node, create a new node
-        if (!nodeExists) {
-            nodes.push_back(newNode(weightId));
+        // Check if the weightId already exists as a node
+        if (existingNodeIds.find(weightId) == existingNodeIds.end()) {
+            // If the weightId is not found in the set, it's safe to add the node
+            newNodes.push_back(newNode(weightId));
+            existingNodeIds.insert(weightId); // Add the new ID to the set
         }
 
         // Iterate through scores to create/update links
         for (json::iterator score = scores.begin(); score != scores.end(); ++score) {
             std::string scoreId = score.key();
             float scoreValue = score.value();
-    //         // Check if the scoreKey already exists as a node
-            bool keyExists = false;
-            for (const json& node : nodes) {
-                if (node["id"] == scoreId) {
-                    keyExists = true;
-                    break;
-                }
-            }
 
-            // If scoreKey doesn't exist as a node, create a new node
-            if (!keyExists) {
-                nodes.push_back(newNode(scoreId));
-                weights.push_back(newWeight(scoreId));
+            // Check if the scoreKey already exists as a node
+            if (existingNodeIds.find(scoreId) == existingNodeIds.end()) {
+                // If the weightId is not found in the set, it's safe to add the node
+                newNodes.push_back(newNode(scoreId));
+                existingNodeIds.insert(scoreId); // Add the new ID to the set
+            }
+                
+            // Check if the scoreKey already exists as a weight
+            if (existingWeightIds.find(scoreId) == existingWeightIds.end()) {
+                // If the weightId is not found in the set, it's safe to add the weight
+                newWeights.push_back(newWeight(scoreId));
+                existingWeightIds.insert(scoreId); // Add the new ID to the set
             }
 
             // Create/update link between scoreKey and weightId
-            bool linkExists = false;
             for (json& link : links) {
                 if (link["source"] == scoreId && link["target"] == weightId) {
                     link["value"] = scoreValue; // Update value if link already exists
-                    linkExists = true;
                     break;
                 }
-            }
-            // If the link doesn't exist, create a new link
-            if (!linkExists) {
                 json newLink = {
                     {"source", scoreId},
                     {"target", weightId},
                     {"value", scoreValue}
                 };
-                links.push_back(newLink);
+                newLinks.push_back(newLink);
             }
         }
+    }
+    for (json newNode : newNodes) {
+        nodes.push_back(newNode);
+    }
+    for (json newWeight : newWeights) {
+        weights.push_back(newWeight);
+    }
+    for (json newLink : newLinks) {
+        links.push_back(newLink);
     }
     return {
         {"nodes", nodes},
@@ -126,30 +150,29 @@ json rationaliseNetwork(json& data) {
     };
 }
 
+
 // We clean up after adding things - to removing entries that have been renamed.
 json deleteNodeEntriesByID(json data) {
     std::cout << "In deleteNodeEntriesByID" << std::endl;
     json nodes = data["nodes"];
     json weights = data["weights"];
-    // Iterate through each node
-    std::vector<long unsigned int> nodesToRemove;
-    for (int i = 0; i<nodes.size(); i++) {
-        json node = nodes[i];
-    // for (json node : nodes) {
-        std::string nodeId = node["id"];
 
-        // Check if the weightId exists
-        bool nodeExists = false;
-        for (const json& weight : weights) {
-            if (weight["id"] == nodeId) {
-                nodeExists = true;
-            } 
+    json nodesToKeep;
+    for (json& node : nodes) {
+        std::string nodeId = node["id"];
+        bool keep = false;
+        for (json& weight : weights) {
+            std::string weightId = weight["id"];
+            if (nodeId == weightId) {
+                keep = true;
+                break; // No need to continue checking once a match is found
+            }
         }
-        if (!nodeExists) {
-            nodesToRemove.push_back(i);
+        if (keep) {
+            nodesToKeep.push_back(node);
         }
     }
-    return removeFromVector(nodes, nodesToRemove);
+    return nodesToKeep;
 }
 
 json deleteLinksByID(json data) {

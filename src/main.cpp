@@ -8,67 +8,93 @@ using json = nlohmann::json;
 // We take a json input of just the scores
 // Then we change the corresponding score with the same ID to match the new input
 // The graph then rationalises itself.
-json outputNodeById(std::string id, json& newWeight) {
+void writeNewWeight(std::string id, json newWeight) {
     std::cout << "In outputNodeById" << std::endl;
     // Filename is constant in this case
     const std::string filePath = "./data.json";
 
     // Read the JSON file
     std::ifstream fileStream(filePath);
-
     if (!fileStream.is_open()) {
         std::cerr << "Error opening file: " << filePath << std::endl;
-        return json();;
+        return;
     }
 
     json jsonData;
     fileStream >> jsonData;
 
+    json newNodes;
+    for (json node : jsonData["nodes"]) {
+        if (node["id"] == id) {
+            json newNode = node;
+            newNode["id"] = id;
+            newNodes.push_back(newNode);
+            continue;
+        }
+        newNodes.push_back(node);
+    }
+
     std::vector<std::string> weightsToChange;
-    for (auto link : jsonData["links"])
+    json newLinks;
+    for (json link : jsonData["links"])
             {
                 if (link["source"] == id) {
                     weightsToChange.push_back(link["target"]);
-                    link["source"] = newWeight["id"];
+                    json newLink = link;
+                    newLink["source"] = newWeight["id"];
+                    newLinks.push_back(newLink);
+                    continue;
                 }
                 if (link["target"] == id) {
-                    link["target"] = newWeight["id"];
+                    json newLink = link;
+                    newLink["target"] = newWeight["id"];
+                    newLinks.push_back(newLink);
+                    continue;
                 }
+                newLinks.push_back(link);
             }
-    for (auto& weight : jsonData["weights"]) {
-        for (std::string target : weightsToChange) {
-            if (weight["id"] == target) {
-                auto itr = weight["scores"].find(id); // try catch this, handle case when key is not found
-                std::swap(weight["scores"][newWeight["id"]], itr.value());
-                weight["scores"].erase(itr);
-            }
-        }
-        if (weight.contains("id") && weight["id"] == id) {
-            std::cout << "Node with ID '" << id << "':\n" << weight.dump(4) << std::endl;
-            weight = newWeight;
 
-            // Write the updated JSON back to the file (optional)
-            std::ofstream outFileStream(filePath);
-            if (outFileStream.is_open()) {
-                outFileStream << std::setw(4) << jsonData; // Pretty-print with indentation
-                std::cout << "Node updated successfully." << std::endl;
-            } else {
-                std::cerr << "Error writing to file: " << filePath << std::endl;
+    json newWeights;
+    for (json weight : jsonData["weights"]) {
+        // We check if we need to change the weights id:
+        bool idFoundInScores = false;
+        for (auto score : weight["scores"].items()) {
+            if (score.key() == id) {
+                // Assuming newWeight contains a new score for the id, and you want to update it directly
+                weight["scores"][id] = newWeight["scores"][id]; // Update the score with the new value
+                idFoundInScores = true;
             }
-            return jsonData.dump();
         }
+
+        if (idFoundInScores) {
+            // If the id was found and updated in scores, add the updated weight
+            newWeights.push_back(weight);
+            continue; // Skip further processing for this weight
+        }
+        if (weight["id"] == id) {
+            std::cout << "Node with ID '" << id << "':\n" << weight.dump(4) << std::endl;
+            newWeights.push_back(newWeight);
+            continue;
+        }
+        newWeights.push_back(weight);
     }
-    // If the loop completes without finding the node
-    // we purge the data of unknown nodes and throw an error
-    std::ifstream file("data.json");
-    json data;
-    file >> data;
-    // deleteEntriesByID(data);
-    std::cerr << "outputNodeById: Node with ID '" << id << "' not found." << std::endl;
-    std::cerr << "unknown entries purged." << std::endl;
-    
-    return json();;
+    // Write the updated JSON back to the file (optional)
+    std::ofstream outFileStream(filePath);
+    if (outFileStream.is_open()) {
+
+        json newData;
+        newData["nodes"] = newNodes;
+        newData["links"] = newLinks;
+        newData["weights"] = newWeights;
+
+        outFileStream << std::setw(4) << jsonData; // Pretty-print with indentation
+        std::cout << "Node updated successfully." << std::endl;
+    } else {
+        std::cerr << "Error writing to file: " << filePath << std::endl;
+    return;
+    }
 }
+
 
 json parseJson(json data) {
     // Here is an example of what the json should look like:
@@ -140,7 +166,7 @@ int main(int argc, char* argv[]) {
 
     std::cout << "C++ json: " << newWeight << std::endl;
     // Get and output the ID from the JSON file
-    outputNodeById(id, newWeight);
+    writeNewWeight(id, newWeight);
 
     // We call a header file to rationalise the BN.
     rationalise_bn();

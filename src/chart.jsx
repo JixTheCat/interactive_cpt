@@ -9,12 +9,6 @@ function saveNodePositions(nodes) {
   localStorage.setItem('nodePositions', JSON.stringify(nodes.map(d => ({ id: d.id, x: d.x, y: d.y }))));
 }
 
-// Code to restore node positions
-function restoreNodePositions() {
-  // Retrieve node positions from localStorage or your backend
-
-}
-
 const ForceGraphDAG = React.memo(({ onNodeClick }) => {
   const svgRef = useRef();
 
@@ -41,7 +35,7 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
         });
     } else {
       // Define the initial position for the specific node
-      var specificNodeId = "environmental impact"; // Change this to your specific node's ID
+      var specificNodeId = "environmental impact";
       var specificNode = nodes.find(node => node.id === specificNodeId);
       specificNode.fx = width / 2; // center horizontally
       specificNode.fy = height - 50; // bottom of the graph
@@ -56,21 +50,26 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
       .append('g');
 
     const simulation = d3.forceSimulation(nodes)
-      .force('link', d3.forceLink(links).id(d => d.id).strength(0.1))
-      .force('charge', d3.forceManyBody().strength(-480))
+      .force('link', d3.forceLink(links).id(d => d.id).strength(0.005))
+      .force('link', d3.forceLink(links).id(d => d.id))
+      .force('charge', d3.forceManyBody().strength(-600))
+      // .force('collide', d3.forceCollide().radius(100)) // Adjust the radius as needed
       .force('center', d3.forceCenter(width / 2, height / 2))
       .force('x', d3.forceX())
-      .force('y', d3.forceY());
+      .force('y', d3.forceY())
+      .alphaDecay(0.15); // Higher decay rate means faster cooling;
 
     svg.append('defs').append('marker')
       .attr('id', 'arrowhead')
-      .attr('markerWidth', 10)
-      .attr('markerHeight', 10)
-      .attr('markerUnits', 'userSpaceOnUse')
+      .attr('viewBox', '-0 -5 10 10') // Added for scaling the arrow properly
+      .attr('refX', 22.5) // Adjust this value to position the arrow correctly relative to the node
+      .attr('refY', 0)
+      .attr('markerWidth', 25)
+      .attr('markerHeight', 25)
       .attr('orient', 'auto')
-      .append('path')
-      .attr('fill', '#fff')
-      .attr('d', 'M0,0 L10,5 L0,10 L2,5 Z'); 
+    .append('path')
+      .attr('d', 'M0,-5L10,0L0,5') // A simple arrow shape
+      .attr('fill', '#fff'); // Arrow color
 
     const link = svg.append('g')
       .attr('stroke', '#fff')
@@ -78,20 +77,15 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
       .selectAll('line')
       .data(links)
       .join('line')
-      .attr('stroke-width', d => d.value/2)
-      .attr('marker-end', 'url(#arrowhead)')
-      .each(function(d) {
-        // Calculate the length of the line
-        const length = this.getTotalLength();
-        // Set refX dynamically based on the length of the line
-        d3.select('#arrowhead').attr('refX', length);
-      });
+      .attr('stroke-width', d => d.value/20)
+      .attr('marker-end', 'url(#arrowhead)');
+      // .attr('refX', d => d.value);
 
     // Update marker position based on link value
-    d3.select('#arrowhead')
-      .data(links)
-      .attr('refY', 5)
-      .attr('refX', d => d.value*2);
+    // d3.select('#arrowhead')
+    //   .data(links)
+    //   .attr('refY', 5);
+      // .attr('refX', d => d.value*2);
 
     const node = svg.append('g')
       .attr('stroke', '#fff')
@@ -140,7 +134,7 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
     }
 
     function dragstarted(event, d) {
-      if (!event.active) simulation.alphaTarget(0.3).restart();
+      // if (!event.active) simulation.alphaTarget(0.3).restart();
       d.fx = d.x;
       d.fy = d.y;
     }
@@ -151,7 +145,7 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
     }
 
     function dragended(event, d) {
-      if (!event.active) simulation.alphaTarget(0);
+      if (!event.active) simulation.alphaTarget(.15);
       saveNodePositions(nodes)
       d.fx = null;
       d.fy = null;

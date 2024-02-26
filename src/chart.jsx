@@ -33,13 +33,14 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
                 node.y = savedNode.y;
             }
         });
-    } else {
-      // Define the initial position for the specific node
-      var specificNodeId = "environmental impact";
-      var specificNode = nodes.find(node => node.id === specificNodeId);
-      specificNode.fx = width / 2; // center horizontally
-      specificNode.fy = height - 50; // bottom of the graph
     }
+    // Define the initial position for the specific node
+    var specificNodeId = "environmental impact";
+    var specificNode = nodes.find(node => node.id === specificNodeId);
+    specificNode.fx = width / 2; // center horizontally
+    specificNode.fy = height - 50; // bottom of the graph
+    // specificNode.fill = color(5);
+    
 
     const color = d3.scaleOrdinal(d3.schemeCategory10);
 
@@ -94,7 +95,14 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
       .data(nodes)
       .join('circle')
       .attr('r', nodeRadius)
-      .attr('fill', d => color(d.colour))
+      .attr('fill', d => {
+        // Check if the current node's id matches the target node's id
+        if (d.id === specificNodeId) {
+          return "#fff"; // Return the specific color for the target node
+        } else {
+          return color(d.colour); // Return the default color for other nodes
+        }
+      })
       .on('click', (event, d) => {
         onNodeClick(event, d);
       })
@@ -103,15 +111,23 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
         .on('drag', dragged)
         .on('end', dragended));
 
+    specificNode.fill = color(7);
     // Append text to each node
     const text = svg.selectAll('text')
       .data(nodes)
       .enter()
       .append('text')
-      .attr('text-anchor', 'middle') // Center the text horizontally
+      .attr('text-anchor', 'middle')
       .attr('dy', 25)
       .text(d => d.id)
-      .attr('fill', d => color(d.colour)) // Change 'blue' to the desired color; // Assuming you have an 'id' property in your node data;
+      .attr('fill', d => {
+        // Check if the current node's id matches the target node's id
+        if (d.id === specificNodeId) {
+          return "#fff"; // Return the specific color for the target node
+        } else {
+          return color(d.colour); // Return the default color for other nodes
+        }
+      });
 
     simulation.on('tick', () => {
       link

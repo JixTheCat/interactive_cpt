@@ -39,15 +39,15 @@
             "id": "agrochemical type",
             "ideal": 0.5,
             "idealkey": "ideal",
-            "not ideal": 0.5,
-            "notidealkey": "not ideal",
+            "notideal": 0.5,
+            "notidealkey": "notideal",
             "scores": {}
         },
         {
             "id": "agrochemical score",
             "ideal": 0.5,
             "idealkey": "yes",
-            "not ideal": 0.5,
+            "notideal": 0.5,
             "notidealkey": "no",
             "scores": {
                 "agrochemical type": 5
@@ -57,7 +57,7 @@
             "id": "ghg emissions",
             "ideal": 0.5,
             "idealkey": "low",
-            "not ideal": 0.5,
+            "notideal": 0.5,
             "notidealkey": "high",
             "scores": {
                 "electricity use": 5,
@@ -71,7 +71,7 @@
             "id": "renewable fuel",
             "ideal": 0.5,
             "idealkey": "high",
-            "not ideal": 0.5,
+            "notideal": 0.5,
             "notidealkey": "low",
             "scores": {}
         },
@@ -79,7 +79,7 @@
             "id": "fuel use",
             "ideal": 0.5,
             "idealkey": "low",
-            "not ideal": 0.5,
+            "notideal": 0.5,
             "notidealkey": "high",
             "scores": {
                 "soil organic carbon management": 5,
@@ -91,7 +91,7 @@
             "id": "fertiliser use",
             "ideal": 0.5,
             "idealkey": "low",
-            "not ideal": 0.5,
+            "notideal": 0.5,
             "notidealkey": "high",
             "scores": {
                 "grape price": 5,
@@ -105,7 +105,7 @@
             "id": "agrochemical legislation",
             "ideal": 0.5,
             "idealkey": "yes",
-            "not ideal": 0.5,
+            "notideal": 0.5,
             "notidealkey": "no",
             "scores": {}
         },
@@ -113,16 +113,16 @@
             "id": "",
             "ideal": 0.5,
             "idealkey": "ideal",
-            "not ideal": 0.5,
-            "notidealkey": "not ideal",
+            "notideal": 0.5,
+            "notidealkey": "notideal",
             "scores": {}
         },
         {
             "id": "electricity use",
             "ideal": 0.5,
             "idealkey": "ideal",
-            "not ideal": 0.5,
-            "notidealkey": "not ideal",
+            "notideal": 0.5,
+            "notidealkey": "notideal",
             "scores": {
                 "electricity price": 5,
                 "water use": 5
@@ -132,8 +132,8 @@
             "id": "electricity price",
             "ideal": 0.5,
             "idealkey": "ideal",
-            "not ideal": 0.5,
-            "notidealkey": "not ideal",
+            "notideal": 0.5,
+            "notidealkey": "notideal",
             "scores": {
                 "renewable energy": 5
             }
@@ -142,7 +142,7 @@
             "id": "renewable energy",
             "ideal": 0.5,
             "idealkey": "high",
-            "not ideal": 0.5,
+            "notideal": 0.5,
             "notidealkey": "low",
             "scores": {}
         },
@@ -150,7 +150,7 @@
             "id": "water use",
             "ideal": 0.5,
             "idealkey": "low",
-            "not ideal": 0.5,
+            "notideal": 0.5,
             "notidealkey": "high",
             "scores": {
                 "clay content": 5,
@@ -170,7 +170,7 @@
             "id": "water quality",
             "ideal": 0.5,
             "idealkey": "high",
-            "not ideal": 0.5,
+            "notideal": 0.5,
             "notidealkey": "low",
             "scores": {
                 "water scarcity": 5,
@@ -181,7 +181,7 @@
             "id": "water price",
             "ideal": 0.5,
             "idealkey": "low",
-            "not ideal": 0.5,
+            "notideal": 0.5,
             "notidealkey": "high",
             "scores": {
                 "water scarcity": 5
@@ -191,7 +191,7 @@
             "id": "water licences",
             "ideal": 0.5,
             "idealkey": "yes",
-            "not ideal": 0.5,
+            "notideal": 0.5,
             "notidealkey": "no",
             "scores": {
                 "water scarcity": 5
@@ -201,7 +201,7 @@
             "id": "water use efficiency",
             "ideal": 0.5,
             "idealkey": "high",
-            "not ideal": 0.5,
+            "notideal": 0.5,
             "notidealkey": "low",
             "scores": {}
         },
@@ -209,7 +209,7 @@
             "id": "soil organic carbon management",
             "ideal": 0.5,
             "idealkey": "yes",
-            "not ideal": 0.5,
+            "notideal": 0.5,
             "notidealkey": "no",
             "scores": {
                 "vineyard floor management": 5
@@ -219,7 +219,7 @@
             "id": "soil degredation management",
             "ideal": 0.5,
             "idealkey": "yes",
-            "not ideal": 0.5,
+            "notideal": 0.5,
             "notidealkey": "no",
             "scores": {
                 "soil management": 5,
@@ -231,7 +231,7 @@
             "id": "tractor passes",
             "ideal": 0.5,
             "idealkey": "low",
-            "not ideal": 0.5,
+            "notideal": 0.5,
             "notidealkey": "high",
             "scores": {
                 "spray application number": 5
@@ -241,7 +241,7 @@
             "id": "spray application number",
             "ideal": 0.5,
             "idealkey": "low",
-            "not ideal": 0.5,
+            "notideal": 0.5,
             "notidealkey": "high",
             "scores": {
                 "pest and disease management": 5,
@@ -252,7 +252,7 @@
             "id": "pest and disease management",
             "ideal": 0.5,
             "idealkey": "yes",
-            "not ideal": 0.5,
+            "notideal": 0.5,
             "notidealkey": "no",
             "scores": {
                 "grape price": 5,
@@ -263,7 +263,7 @@
             "id": "grape price",
             "ideal": 0.5,
             "idealkey": "high",
-            "not ideal": 0.5,
+            "notideal": 0.5,
             "notidealkey": "low",
             "scores": {
                 "market supply and demand": 5
@@ -273,7 +273,7 @@
             "id": "market supply and demand",
             "ideal": 0.5,
             "idealkey": "high",
-            "not ideal": 0.5,
+            "notideal": 0.5,
             "notidealkey": "low",
             "scores": {}
         },
@@ -281,15 +281,15 @@
             "id": "weather conditions",
             "ideal": 0.5,
             "idealkey": "ideal",
-            "not ideal": 0.5,
-            "notidealkey": "not ideal",
+            "notideal": 0.5,
+            "notidealkey": "notideal",
             "scores": {}
         },
         {
             "id": "nutrient leaching management",
             "ideal": 0.5,
             "idealkey": "yes",
-            "not ideal": 0.5,
+            "notideal": 0.5,
             "notidealkey": "no",
             "scores": {}
         },
@@ -297,7 +297,7 @@
             "id": "vineyard floor management",
             "ideal": 0.5,
             "idealkey": "yes",
-            "not ideal": 0.5,
+            "notideal": 0.5,
             "notidealkey": "no",
             "scores": {
                 "tractor passes": 5
@@ -307,24 +307,24 @@
             "id": "clay content",
             "ideal": 0.5,
             "idealkey": "ideal",
-            "not ideal": 0.5,
-            "notidealkey": "not ideal",
+            "notideal": 0.5,
+            "notidealkey": "notideal",
             "scores": {}
         },
         {
             "id": "soil depth",
             "ideal": 0.5,
             "idealkey": "ideal",
-            "not ideal": 0.5,
-            "notidealkey": "not ideal",
+            "notideal": 0.5,
+            "notidealkey": "notideal",
             "scores": {}
         },
         {
             "id": "compost/mulch",
             "ideal": 0.5,
             "idealkey": "ideal",
-            "not ideal": 0.5,
-            "notidealkey": "not ideal",
+            "notideal": 0.5,
+            "notidealkey": "notideal",
             "scores": {}
         },
         {

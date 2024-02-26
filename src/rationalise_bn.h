@@ -50,8 +50,10 @@ json newWeight(std::string id) {
     std::cout << "In newWeight" << std::endl;
     return 
         {
-            {"High", 0.5},
-            {"Low", 0.5},
+            {"ideal", 0.5},
+            {"notideal", 0.5},
+            {"idealkey", "ideal",},
+            {"notidealkey", "not ideal"},
             {"id", id},
             {"scores", {}}
         };

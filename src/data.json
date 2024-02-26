@@ -271,59 +271,59 @@
             "id": "ghg emissions"
         },
         {
-            "colour": 9,
+            "colour": 4,
             "id": "agrochemical legislation"
         },
         {
-            "colour": 10,
+            "colour": 1,
             "id": "agrochemical score"
         },
         {
-            "colour": 8,
+            "colour": 1,
             "id": "nutrient leaching management"
         },
         {
-            "colour": 4,
+            "colour": 3,
             "id": "pest and disease management"
         },
         {
-            "colour": 5,
+            "colour": 9,
             "id": "soil degradation management"
         },
         {
-            "colour": 3,
+            "colour": 6,
             "id": "spray application number"
         },
         {
-            "colour": 9,
+            "colour": 5,
             "id": "water quality"
         },
         {
-            "colour": 9,
+            "colour": 1,
             "id": "water use"
         },
         {
-            "colour": 9,
+            "colour": 8,
             "id": "agrochemical type"
         },
         {
-            "colour": 10,
+            "colour": 5,
             "id": "electricity use"
         },
         {
-            "colour": 4,
+            "colour": 3,
             "id": "fertiliser use"
         },
         {
-            "colour": 10,
+            "colour": 2,
             "id": "fuel use"
         },
         {
-            "colour": 8,
+            "colour": 7,
             "id": "renewable energy"
         },
         {
-            "colour": 9,
+            "colour": 8,
             "id": "renewable fuel"
         },
         {
@@ -331,7 +331,7 @@
             "id": "soil organic carbon management"
         },
         {
-            "colour": 4,
+            "colour": 5,
             "id": "tractor passes"
         },
         {
@@ -339,47 +339,47 @@
             "id": "grape price"
         },
         {
-            "colour": 7,
+            "colour": 3,
             "id": "vineyard floor management"
         },
         {
-            "colour": 2,
+            "colour": 3,
             "id": "electricity price"
         },
         {
-            "colour": 7,
+            "colour": 9,
             "id": "clay content"
         },
         {
-            "colour": 7,
+            "colour": 9,
             "id": "compost/mulch"
         },
         {
-            "colour": 1,
+            "colour": 7,
             "id": "soil depth"
         },
         {
-            "colour": 4,
+            "colour": 5,
             "id": "water licences"
         },
         {
-            "colour": 2,
+            "colour": 4,
             "id": "water price"
         },
         {
-            "colour": 10,
+            "colour": 8,
             "id": "water use efficiency"
         },
         {
-            "colour": 10,
+            "colour": 6,
             "id": "water scarcity"
         },
         {
-            "colour": 10,
+            "colour": 7,
             "id": "weather conditions"
         },
         {
-            "colour": 1,
+            "colour": 5,
             "id": "soil degredation management"
         },
         {
@@ -387,7 +387,7 @@
             "id": "soil management"
         },
         {
-            "colour": 2,
+            "colour": 4,
             "id": "market supply and demand"
         }
     ],
@@ -396,7 +396,7 @@
             "id": "environmental impact",
             "ideal": 0.5,
             "idealkey": "beneficial",
-            "not ideal": 0.5,
+            "notideal": 0,
             "notidealkey": "harmful",
             "scores": {
                 "agrochemical legislation": 5,

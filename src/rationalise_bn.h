@@ -57,9 +57,9 @@ json newWeight(std::string id) {
         };
 }
 
-// Function to rationalize the structure of the network based on the weights section
-json rationaliseNetwork(json& data) {
-    std::cout << "In rationliseNetwork" << std::endl;
+// Function to rationalize the nodes of the network based on the weights section
+json rationaliseNodes(json& data) {
+    std::cout << "In rationliseNodes" << std::endl;
 
     // // Extract nodes, links, and weights from the JSON data
     json& nodes = data["nodes"];
@@ -82,7 +82,6 @@ json rationaliseNetwork(json& data) {
 
     json newNodes;
     json newWeights;
-    json newLinks;
 
     // Iterate through each weight
     for (const json& weight : weights) {
@@ -99,8 +98,8 @@ json rationaliseNetwork(json& data) {
         // Iterate through scores to create/update links
         for (json::iterator score = scores.begin(); score != scores.end(); ++score) {
             std::string scoreId = score.key();
-            float scoreValue;
-            if (!score.value().is_null() && score.value().is_number_float()) {
+            double scoreValue;
+            if (!score.value().is_null() && score.value().is_number()) {
                 scoreValue = score.value();
             } else {
                 continue;
@@ -119,20 +118,6 @@ json rationaliseNetwork(json& data) {
                 newWeights.push_back(newWeight(scoreId));
                 existingWeightIds.insert(scoreId); // Add the new ID to the set
             }
-
-            // Create/update link between scoreKey and weightId
-            for (json& link : links) {
-                if (link["source"] == scoreId && link["target"] == weightId) {
-                    link["value"] = scoreValue; // Update value if link already exists
-                    break;
-                }
-                json newLink = {
-                    {"source", scoreId},
-                    {"target", weightId},
-                    {"value", scoreValue}
-                };
-                newLinks.push_back(newLink);
-            }
         }
     }
     for (json newNode : newNodes) {
@@ -141,6 +126,59 @@ json rationaliseNetwork(json& data) {
     for (json newWeight : newWeights) {
         weights.push_back(newWeight);
     }
+
+    return {
+        {"nodes", nodes},
+        {"links", links},
+        {"weights", weights}
+    };
+}
+
+// Function to rationalize the nodes of the network based on the weights section
+json rationaliseLinks(json& data) {
+    std::cout << "In rationliseLinks" << std::endl;
+
+    // // Extract nodes, links, and weights from the JSON data
+    json& nodes = data["nodes"];
+    json& links = data["links"];
+    json& weights = data["weights"];
+
+    json newLinks;
+
+    for (json& weight : weights) {
+        std::string weightId = weight["id"];
+        json scores = weight["scores"];
+        std::cout << "investigating weight for: " << weightId << std::endl;
+
+        // Iterate through scores to create/update links
+        for (json::iterator score = scores.begin(); score != scores.end(); ++score) {
+            std::string scoreId = score.key();
+            std::cout << "investigating score for: " << scoreId << std::endl;
+            double scoreValue;
+            if (!score.value().is_null() && score.value().is_number()) {
+                scoreValue = score.value();
+            }
+
+            // Create/update link between scoreKey and weightId
+            for (json& link : links) {
+                std::cout << "investigating links for: " << link << std::endl;
+
+                if (link["source"] == scoreId && link["target"] == weightId) {
+                    link["value"] = scoreValue; // Update value if link already exists
+                    std::cout << "Link exists: " << link["source"] << " to " << link["target"] << std::endl;
+                } else {
+                    json newLink = {
+                        {"source", scoreId},
+                        {"target", weightId},
+                        {"value", scoreValue}
+                    };
+                    std::cout << "Link doesnt exist adding: \n" << newLink << std::endl;
+                    newLinks.push_back(newLink);
+                }
+            }
+        }
+    }
+
     for (json newLink : newLinks) {
         links.push_back(newLink);
     }
@@ -150,7 +188,6 @@ json rationaliseNetwork(json& data) {
         {"weights", weights}
     };
 }
-
 
 // We clean up after adding things - to removing entries that have been renamed.
 json deleteNodeEntriesByID(json data) {
@@ -180,7 +217,7 @@ json deleteNodeEntriesByID(json data) {
 struct Link {
     std::string source;
     std::string target;
-    float value;
+    double value;
 
     bool operator<(const Link& other) const {
         return std::tie(source, target, value) < std::tie(other.source, other.target, other.value);
@@ -200,11 +237,11 @@ json deleteLinksByID(json data) {
 
         std::string source = link["source"];
         std::string target = link["target"];
-        float value = link["value"];
+        double value = link["value"];
 
         Link currentLink = {source, target, value};
         // Check for uniqueness
-        if (uniqueLinks.find(currentLink) != uniqueLinks.end()) {
+        if (uniqueLinks.find(currentLink) != uniqueLinks.end() || source == target) {
             // Duplicate found, mark for removal
             linksToRemove.push_back(i);
             continue; // Skip further processing for duplicates
@@ -242,14 +279,16 @@ int rationalise_bn() {
     file >> data;
 
     // Rationalize the structure of the network
-    json newData = rationaliseNetwork(data);
+    json newNodes = rationaliseNodes(data);
+    // We look for missing links only after all the new nodes are added!
+    json newLinks = rationaliseLinks(newNodes);
 
-    newData["nodes"] = deleteNodeEntriesByID(newData);
-    newData["links"] = deleteLinksByID(newData);
+    newLinks["nodes"] = deleteNodeEntriesByID(newLinks);
+    newLinks["links"] = deleteLinksByID(newLinks);
 
     // // Write the modified JSON data back to file or do whatever you want with it
     std::ofstream outFile("data.json");
-    outFile << std::setw(4) << newData << std::endl;
+    outFile << std::setw(4) << newLinks << std::endl;
 
     return 0;
 }

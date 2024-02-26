@@ -96,7 +96,7 @@ const NodeEditPanel = ({ selectedNodeId, weights, updateData}) => {
     // Call the function to run the C++ program with the JSON as an argument
     runCppProgram(selectedNodeId, json);
 
-    // updateData(data); // Update state with the fetched JSON data
+    updateData(); // Update state with the fetched JSON data
   };
 
   return (

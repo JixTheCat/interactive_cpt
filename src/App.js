@@ -33,7 +33,7 @@ function App() {
     };
     // Update the graph data
     updateData();
-    setGraphData(updatedData);
+    // setGraphData(updatedData);
     // Clear the selected node ID after updating
     setSelectedNodeId(null);
   };

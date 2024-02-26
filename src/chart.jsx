@@ -50,22 +50,21 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
       .append('g');
 
     const simulation = d3.forceSimulation(nodes)
-      .force('link', d3.forceLink(links).id(d => d.id).strength(0.005))
-      .force('link', d3.forceLink(links).id(d => d.id))
+      .force('link', d3.forceLink(links).id(d => d.id).strength(0.5))
       .force('charge', d3.forceManyBody().strength(-600))
-      // .force('collide', d3.forceCollide().radius(100)) // Adjust the radius as needed
+      .force('collide', d3.forceCollide().radius(50)) // Adjust the radius as needed
       .force('center', d3.forceCenter(width / 2, height / 2))
       .force('x', d3.forceX())
       .force('y', d3.forceY())
-      .alphaDecay(0.15); // Higher decay rate means faster cooling;
+      .alphaDecay(0.20); // Higher decay rate means faster cooling;
 
     svg.append('defs').append('marker')
       .attr('id', 'arrowhead')
       .attr('viewBox', '-0 -5 10 10') // Added for scaling the arrow properly
       .attr('refX', 22.5) // Adjust this value to position the arrow correctly relative to the node
       .attr('refY', 0)
-      .attr('markerWidth', 25)
-      .attr('markerHeight', 25)
+      .attr('markerWidth', 2)
+      .attr('markerHeight', 2)
       .attr('orient', 'auto')
     .append('path')
       .attr('d', 'M0,-5L10,0L0,5') // A simple arrow shape
@@ -73,19 +72,18 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
 
     const link = svg.append('g')
       .attr('stroke', '#fff')
-      .attr('stroke-opacity', 0.4)
+      .attr('stroke-opacity', 0.8)
       .selectAll('line')
       .data(links)
       .join('line')
-      .attr('stroke-width', d => d.value/20)
+      .attr('stroke-width', d => d.value/2)
       .attr('marker-end', 'url(#arrowhead)');
-      // .attr('refX', d => d.value);
 
     // Update marker position based on link value
     // d3.select('#arrowhead')
     //   .data(links)
-    //   .attr('refY', 5);
-      // .attr('refX', d => d.value*2);
+    //   .attr('refY', 0)
+    //   .attr('refX', d => d.value*4);
 
     const node = svg.append('g')
       .attr('stroke', '#fff')
@@ -134,7 +132,7 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
     }
 
     function dragstarted(event, d) {
-      // if (!event.active) simulation.alphaTarget(0.3).restart();
+      if (!event.active) simulation.alphaTarget(0.3).restart();
       d.fx = d.x;
       d.fy = d.y;
     }
@@ -145,7 +143,7 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
     }
 
     function dragended(event, d) {
-      if (!event.active) simulation.alphaTarget(.15);
+      if (!event.active) simulation.alphaTarget(.005);
       saveNodePositions(nodes)
       d.fx = null;
       d.fy = null;

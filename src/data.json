@@ -11,11 +11,6 @@
             "value": 5.0
         },
         {
-            "source": "agrochemical score",
-            "target": "environmental impact",
-            "value": 5.0
-        },
-        {
             "source": "nutrient leaching management",
             "target": "environmental impact",
             "value": 5.0
@@ -48,7 +43,7 @@
         {
             "source": "agrochemical type",
             "target": "agrochemical score",
-            "value": 5.0
+            "value": 10.0
         },
         {
             "source": "electricity use",
@@ -259,6 +254,11 @@
             "source": "tractor passes",
             "target": "vineyard floor management",
             "value": 5.0
+        },
+        {
+            "source": "agrochemical score",
+            "target": "environmental impact",
+            "value": 1.0
         }
     ],
     "nodes": [
@@ -400,7 +400,7 @@
             "notidealkey": "harmful",
             "scores": {
                 "agrochemical legislation": 5,
-                "agrochemical score": 5,
+                "agrochemical score": 1.0,
                 "ghg emissions": 5,
                 "nutrient leaching management": 5,
                 "pest and disease management": 5,
@@ -422,10 +422,11 @@
             "id": "agrochemical score",
             "ideal": 0.5,
             "idealkey": "yes",
-            "not ideal": 0.5,
+            "notideal": 0,
             "notidealkey": "no",
             "scores": {
-                "agrochemical type": 5
+                "agrochemical score": null,
+                "agrochemical type": 10.0
             }
         },
         {

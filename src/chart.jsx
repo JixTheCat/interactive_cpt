@@ -61,10 +61,10 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
     svg.append('defs').append('marker')
       .attr('id', 'arrowhead')
       .attr('viewBox', '-0 -5 10 10') // Added for scaling the arrow properly
-      .attr('refX', 22.5) // Adjust this value to position the arrow correctly relative to the node
-      .attr('refY', 0)
-      .attr('markerWidth', 2)
-      .attr('markerHeight', 2)
+      // .attr('refX', 0) // Adjust this value to position the arrow correctly relative to the node
+      // .attr('refY', 0)
+      // .attr('markerWidth', 2)
+      // .attr('markerHeight', 2)
       .attr('orient', 'auto')
     .append('path')
       .attr('d', 'M0,-5L10,0L0,5') // A simple arrow shape
@@ -76,14 +76,16 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
       .selectAll('line')
       .data(links)
       .join('line')
-      .attr('stroke-width', d => d.value/2)
+      .attr('stroke-width', d => d.value*.6)
       .attr('marker-end', 'url(#arrowhead)');
 
     // Update marker position based on link value
-    // d3.select('#arrowhead')
-    //   .data(links)
-    //   .attr('refY', 0)
-    //   .attr('refX', d => d.value*4);
+    d3.select('#arrowhead')
+      .data(links)
+      .attr('markerWidth', d => d.value*.6)
+      .attr('markerHeight', d => d.value*.6);
+
+    const nodeRadius = 10
 
     const node = svg.append('g')
       .attr('stroke', '#fff')
@@ -91,7 +93,7 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
       .selectAll('circle')
       .data(nodes)
       .join('circle')
-      .attr('r', 10)
+      .attr('r', nodeRadius)
       .attr('fill', d => color(d.colour))
       .on('click', (event, d) => {
         onNodeClick(event, d);
@@ -115,9 +117,8 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
       link
         .attr('x1', d => d.source.x)
         .attr('y1', d => d.source.y)
-        .attr('x2', d => d.target.x)
-        .attr('y2', d => d.target.y);
-
+        .attr('x2', d => adjustLinkEndpoint(d.target, d.source, 2*nodeRadius).x)
+        .attr('y2', d => adjustLinkEndpoint(d.target, d.source, 2*nodeRadius).y);
       node
         .attr('cx', d => d.x)
         .attr('cy', d => d.y);
@@ -147,6 +148,18 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
       saveNodePositions(nodes)
       d.fx = null;
       d.fy = null;
+    }
+
+
+    function adjustLinkEndpoint(target, source, nodeRadius) {
+      const dx = target.x - source.x;
+      const dy = target.y - source.y;
+      const scale = Math.sqrt(dx * dx + dy * dy);
+
+      const scaledX = dx * (scale - nodeRadius) / scale;
+      const scaledY = dy * (scale - nodeRadius) / scale;
+
+      return { x: source.x + scaledX, y: source.y + scaledY };
     }
 
     return () => {

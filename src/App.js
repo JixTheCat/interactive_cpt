@@ -6,10 +6,22 @@ import getJSONData from './export_data.js';
 
 function App() {
   const [selectedNodeId, setSelectedNodeId] = useState(null);
-  const [graphData, setGraphData] = useState(getJSONData()); // Initial graph data, assuming it's fetched from data.json
+  const [graphData, setGraphData] = useState(null); // Initial graph data
 
-  const updateData = async(newData) => {
-    setGraphData(getJSONData());
+  // Fetch initial graph data asynchronously
+  useEffect(() => {
+    const fetchDataAsync = async () => {
+      const data = await getJSONData();
+      setGraphData(data); // Set the fetched graph data
+    };
+
+    fetchDataAsync();
+  }, []);
+
+
+  const updateData = async () => {
+    const newData = await getJSONData(); // Refetch the graph data
+    setGraphData(newData); // Update the graph data
   };
 
   // Function to handle node selection
@@ -19,36 +31,30 @@ function App() {
   }, []);
 
   // Function to handle node updates
-  const handleNodeUpdate = (updatedNode) => {
+  const handleNodeUpdate = async (updatedNode) => {
     // Update the node in the graph data
     const updatedData = {
       ...graphData,
-      weights: graphData.weights.map(weight => {
-        if (weight.id === updatedNode.id) {
-          return updatedNode;
-        }
-        return weight;
-      })
+      weights: graphData.weights.map(weight => weight.id === updatedNode.id ? updatedNode : weight),
     };
-    // Update the graph data
-    updateData();
-    // setGraphData(updatedData);
-    // Clear the selected node ID after updating
-    setSelectedNodeId(null);
+    setGraphData(updatedData); // Update the local state
+    setSelectedNodeId(null); // Clear the selected node ID after updating
+    await updateData(); // Optionally refetch the entire dataset from the server if needed
   };
 
   return (
     <div className="App">
-      <ForceGraphDAG onNodeClick={handleNodeClick} />
-        {/* Render the NodeEditPanel only if a node is selected */}
-        {selectedNodeId !== null && (
-          <NodeEditPanel
-            selectedNodeId={selectedNodeId}
-            weights={graphData.weights}
-            onNodeUpdate={handleNodeUpdate}
-            updateData={updateData}
-          />
-        )}
+      {graphData && ( // Ensure graphData is loaded before rendering ForceGraphDAG
+        <ForceGraphDAG data={graphData} onNodeClick={handleNodeClick} />
+      )}
+      {selectedNodeId && graphData && ( // Ensure graphData is loaded before rendering NodeEditPanel
+        <NodeEditPanel
+          selectedNodeId={selectedNodeId}
+          weights={graphData.weights}
+          onNodeUpdate={handleNodeUpdate}
+          updateData={updateData}
+        />
+      )}
     </div>
   );
 }

@@ -2,6 +2,15 @@ import React, { useRef, useState, useEffect } from 'react';
 import * as d3 from 'd3';
 import getJSONData from './export_data.js';
 
+const fetchDataAsync = async () => {
+  try {
+    const fetchedData = await getJSONData();
+    setData(fetchedData); // Set the fetched data to state
+  } catch (error) {
+    console.error("Failed to fetch data:", error);
+  }
+};
+
 // Code to persist node positions
 function saveNodePositions(nodes) {
   // Save node positions in localStorage or in your backend
@@ -11,9 +20,9 @@ function saveNodePositions(nodes) {
 
 const ForceGraphDAG = React.memo(({ onNodeClick }) => {
   const svgRef = useRef();
+  const [data, setData] = useState(null); // State to hold your JSON data
 
   useEffect(() => {
-    // Asynchronously fetch the JSON data when the component mounts
     const fetchDataAsync = async () => {
       try {
         const fetchedData = await getJSONData();
@@ -22,11 +31,9 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
         console.error("Failed to fetch data:", error);
       }
     };
-
+    // Asynchronously fetch the JSON data when the component mounts
     fetchDataAsync();
   }, []); // The empty array ensures this effect runs only once on mount
-
-  const [data, setData] = fetchDataAsync(); // State to hold your JSON data
 
   useEffect(() => {
     // Ensure data is available before proceeding

@@ -7,7 +7,7 @@ import getJSONData from './export_data.js';
 function App() {
   const [selectedNodeId, setSelectedNodeId] = useState(null);
   const [graphData, setGraphData] = useState(getJSONData()); // Initial graph data
-  console.log(fetchedData);
+  console.log(graphData);
   // // Fetch initial graph data asynchronously
   // useEffect(() => {
   //   const fetchDataAsync = async () => {
@@ -16,7 +16,6 @@ function App() {
   //   };
   //   fetchDataAsync();
   // }, []);
-
 
   const updateData = async () => {
     const newData = await getJSONData(); // Refetch the graph data

@@ -11,7 +11,6 @@ function saveNodePositions(nodes) {
 
 const ForceGraphDAG = React.memo(({ onNodeClick }) => {
   const svgRef = useRef();
-  const [data, setData] = useState(getJSONData()); // State to hold your JSON data
 
   useEffect(() => {
     // Asynchronously fetch the JSON data when the component mounts
@@ -26,6 +25,8 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
 
     fetchDataAsync();
   }, []); // The empty array ensures this effect runs only once on mount
+
+  const [data, setData] = fetchDataAsync(); // State to hold your JSON data
 
   useEffect(() => {
     // Ensure data is available before proceeding

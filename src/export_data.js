@@ -1,7 +1,7 @@
 // Assuming the JSON data is served from /api/config on your server
 
 // Function to fetch data
-export const fetchData = async () => {
+export default fetchData = async () => {
   try {
     const response = await fetch('/api/config'); // Adjust the URL as needed
     if (!response.ok) {

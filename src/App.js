@@ -6,18 +6,17 @@ import getJSONData from './export_data.js';
 
 function App() {
   const [selectedNodeId, setSelectedNodeId] = useState(null);
-
-  // Fetch initial graph data asynchronously
-  useEffect(() => {
-    const fetchDataAsync = async () => {
-      const data = await getJSONData();
-      setGraphData(data); // Set the fetched graph data
-    };
-
-    fetchDataAsync();
-  }, []);
-
   const [graphData, setGraphData] = useState(getJSONData()); // Initial graph data
+
+  // // Fetch initial graph data asynchronously
+  // useEffect(() => {
+  //   const fetchDataAsync = async () => {
+  //     const data = await getJSONData();
+  //     setGraphData(data); // Set the fetched graph data
+  //   };
+  //   fetchDataAsync();
+  // }, []);
+
 
   const updateData = async () => {
     const newData = await getJSONData(); // Refetch the graph data

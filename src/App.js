@@ -11,6 +11,7 @@ function App() {
   useEffect(() => {
     // Define an async function to fetch data
     const fetchAndSetData = async () => {
+      console.log('fetchAndSetData');
       const data = await fetchData(); // Fetch data asynchronously
       setGraphData(data); // Once data is fetched, update the state
     };
@@ -19,6 +20,7 @@ function App() {
   }, []); // Empty dependency array means this effect runs once on component mount
 
   const updateData = async () => { // Make it an async function
+    console.log('updateData');
     const newData = await fetchData(); // Await the fetched data
     setGraphData(newData); // Update the graph data with the new data
   };
@@ -29,12 +31,14 @@ function App() {
 
   // Function to handle node selection
   const handleNodeClick = useCallback((event, node) => {
+    console.log('handleNodeClick');
     setSelectedNodeId(node.id);
     updateData(); // This will refetch and update graphData
-  }, []);
+  });
 
   // Function to handle node updates
   const handleNodeUpdate = async (updatedNode) => { // Make it an async function if needed
+    console.log('handleNodeUpdate');
     // Assuming you want to update graphData synchronously here
     const updatedData = {
       ...graphData,

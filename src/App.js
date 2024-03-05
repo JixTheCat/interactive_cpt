@@ -14,6 +14,7 @@ function App() {
   }).catch(error => {
     console.error("Failed to fetch initial data:", error);
   });
+  console.log('in app');
   console.log(graphData);
 
   const updateData = async () => {

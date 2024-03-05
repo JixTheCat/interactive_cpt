@@ -14,16 +14,15 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
   const [data, setData] = useState(null); // State to hold your JSON data
   let initialDataPromise = getJSONData(); // Start fetching immediately
 
-  useEffect(() => {
-    initialDataPromise.then(data => {
-      setData(data);
-    }).catch(error => {
-      console.error("Failed to fetch initial data:", error);
-    });
-  }, []);
+  initialDataPromise.then(data => {
+    setData(data);
+  }).catch(error => {
+    console.error("Failed to fetch initial data:", error);
+  });
 
   useEffect(() => {
     // Ensure data is available before proceeding
+    console.log('in app');
     console.log(data);
 
     const width = 928;

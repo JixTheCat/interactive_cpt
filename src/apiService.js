@@ -4,7 +4,7 @@ const runCppProgram = (id, jsonData) => {
         jsonData: jsonData
     };
 
-    return fetch('http://localhost:3001/api/runCppProgram', {
+    return fetch('/api/runCppProgram', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

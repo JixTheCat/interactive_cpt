@@ -9,6 +9,11 @@ app.use(cors())
 
 app.use(express.json());
 
+// Serve data.json on /api/config route
+app.get('/api/config', (req, res) => {
+  res.sendFile(path.join(__dirname, 'data.json'));
+});
+
 app.post('/api/runCppProgram', (req, res) => {
 
   console.log(`Server input: ${JSON.stringify(req.body)}`);

@@ -3,11 +3,10 @@ import ForceGraphDAG from './chart.jsx';
 import NodeEditPanel from './NodeEditPanel';
 import './App.css';
 import getJSONData from './export_data.js';
-import data from './data.json'; // Assuming data is imported from data.json
 
 function App() {
   const [selectedNodeId, setSelectedNodeId] = useState(null);
-  const [graphData, setGraphData] = useState(data); // Initial graph data, assuming it's fetched from data.json
+  const [graphData, setGraphData] = useState(getJSONData()); // Initial graph data, assuming it's fetched from data.json
 
   const updateData = (newData) => {
     setGraphData(getJSONData());

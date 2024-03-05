@@ -12,13 +12,12 @@ function saveNodePositions(nodes) {
 const ForceGraphDAG = React.memo(({ onNodeClick }) => {
   const svgRef = useRef();
   const [data, setData] = useState(null); // State to hold your JSON data
-  let initialDataPromise = getJSONData(); // Start fetching immediately
-
-  initialDataPromise.then(data => {
-    setData(data);
-  }).catch(error => {
-    console.error("Failed to fetch initial data:", error);
-  });
+  
+  const updateData = async () => {
+    const newData = await getJSONData(); // Refetch the graph data
+    setGraphData(newData); // Update the graph data
+  };
+  updateData();
 
   useEffect(() => {
     // Ensure data is available before proceeding

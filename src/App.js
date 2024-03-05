@@ -7,13 +7,7 @@ import getJSONData from './export_data.js';
 function App() {
   const [selectedNodeId, setSelectedNodeId] = useState(null);
   const [graphData, setGraphData] = useState(null); // Initial graph data
-  let initialDataPromise = getJSONData(); // Start fetching immediately
 
-  initialDataPromise.then(data => {
-    setGraphData(data);
-  }).catch(error => {
-    console.error("Failed to fetch initial data:", error);
-  });
   console.log('in app');
   console.log(graphData);
 
@@ -21,7 +15,7 @@ function App() {
     const newData = await getJSONData(); // Refetch the graph data
     setGraphData(newData); // Update the graph data
   };
-
+  updateData();
   // Function to handle node selection
   const handleNodeClick = useCallback((event, node) => {
     setSelectedNodeId(node.id);

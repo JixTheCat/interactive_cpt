@@ -34,7 +34,7 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
     // Clear existing elements
     d3.select(svgRef.current).selectAll('*').remove();
 
-    if (!data) return <div>Loading...</div>;
+    if (!data) return; //<div>Loading...</div>;
 
     console.log('past loading!');
     console.log(data);
@@ -61,7 +61,6 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
     specificNode.fx = width / 2; // center horizontally
     specificNode.fy = height - 50; // bottom of the graph
     // specificNode.fill = color(5);
-    
 
     const color = d3.scaleOrdinal(d3.schemeCategory10);
 

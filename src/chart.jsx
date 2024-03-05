@@ -11,7 +11,7 @@ function saveNodePositions(nodes) {
 
 const ForceGraphDAG = React.memo(({ onNodeClick }) => {
   const svgRef = useRef();
-  const [data, setData] = useState(null); // State to hold your JSON data
+  const [data, setData] = useState(getJSONData()); // State to hold your JSON data
 
   useEffect(() => {
     // Asynchronously fetch the JSON data when the component mounts

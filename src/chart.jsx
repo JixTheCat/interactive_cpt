@@ -18,10 +18,12 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
     setGraphData(newData); // Update the graph data
   };
   updateData();
+  console.log('before graph ewffect');
+  console.log(data);
 
   useEffect(() => {
     // Ensure data is available before proceeding
-    console.log('in app');
+    console.log('in graph ewffect');
     console.log(data);
 
     const width = 928;

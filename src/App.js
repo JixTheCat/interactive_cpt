@@ -8,14 +8,14 @@ function App() {
   const [selectedNodeId, setSelectedNodeId] = useState(null);
   const [graphData, setGraphData] = useState(null); // Initial graph data
 
-  console.log('in app');
-  console.log(graphData);
-
   const updateData = async () => {
     const newData = await getJSONData(); // Refetch the graph data
     setGraphData(newData); // Update the graph data
   };
   updateData();
+
+  console.log('in app');
+  console.log(graphData);
   // Function to handle node selection
   const handleNodeClick = useCallback((event, node) => {
     setSelectedNodeId(node.id);

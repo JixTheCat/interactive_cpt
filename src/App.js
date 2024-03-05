@@ -6,13 +6,12 @@ import getJSONData from './export_data.js';
 
 function App() {
   const [selectedNodeId, setSelectedNodeId] = useState(null);
-  const [graphData, setGraphData] = useState(null); // Initial graph data
+  const [graphData, setGraphData] = useState(getJSONData()); // Initial graph data
 
   const updateData = () => {
     const newData = getJSONData(); // Refetch the graph data
     setGraphData(newData); // Update the graph data
   };
-  updateData();
 
   console.log('in app');
   console.log(graphData);

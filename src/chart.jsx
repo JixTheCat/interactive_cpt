@@ -12,19 +12,15 @@ function saveNodePositions(nodes) {
 const ForceGraphDAG = React.memo(({ onNodeClick }) => {
   const svgRef = useRef();
   const [data, setData] = useState(null); // State to hold your JSON data
+  let initialDataPromise = getJSONData(); // Start fetching immediately
 
   useEffect(() => {
-    const fetchDataAsync = async () => {
-      try {
-        const fetchedData = await getJSONData();
-        setData(fetchedData); // Set the fetched data to state
-      } catch (error) {
-        console.error("Failed to fetch data:", error);
-      }
-    };
-    // Asynchronously fetch the JSON data when the component mounts
-    fetchDataAsync();
-  }, []); // The empty array ensures this effect runs only once on mount
+    initialDataPromise.then(data => {
+      setData(data);
+    }).catch(error => {
+      console.error("Failed to fetch initial data:", error);
+    });
+  }, []);
 
   useEffect(() => {
     // Ensure data is available before proceeding

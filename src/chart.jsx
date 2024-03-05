@@ -36,9 +36,13 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
 
     if (!data) return <div>Loading...</div>;
 
+    console.log('past loading!');
+    console.log(data);
     const links = data.links.map(d => ({ ...d }));
     const nodes = data.nodes.map(d => ({ ...d }));
 
+    console.log('past links/nodes!');
+    console.log(data);
     var savedPositions = JSON.parse(localStorage.getItem('nodePositions'));
 
     if (savedPositions) {

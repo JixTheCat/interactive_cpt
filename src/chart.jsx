@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
-import data from './data.json';
+import getJSONData from './export_data.js';
 
 // Code to persist node positions
 function saveNodePositions(nodes) {
@@ -19,6 +19,7 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
     // Clear existing elements
     d3.select(svgRef.current).selectAll('*').remove();
 
+    var data = getJSONData()
     const links = data.links.map(d => ({ ...d }));
     const nodes = data.nodes.map(d => ({ ...d }));
 

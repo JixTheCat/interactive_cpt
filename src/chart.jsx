@@ -2,15 +2,6 @@ import React, { useRef, useState, useEffect } from 'react';
 import * as d3 from 'd3';
 import getJSONData from './export_data.js';
 
-const fetchDataAsync = async () => {
-  try {
-    const fetchedData = await getJSONData();
-    setData(fetchedData); // Set the fetched data to state
-  } catch (error) {
-    console.error("Failed to fetch data:", error);
-  }
-};
-
 // Code to persist node positions
 function saveNodePositions(nodes) {
   // Save node positions in localStorage or in your backend

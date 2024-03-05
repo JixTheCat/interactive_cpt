@@ -30,13 +30,13 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
   useEffect(() => {
     // Ensure data is available before proceeding
     if (!data) return;
+
     const width = 928;
     const height = 680;
 
     // Clear existing elements
     d3.select(svgRef.current).selectAll('*').remove();
 
-    const data = data()
     const links = data.links.map(d => ({ ...d }));
     const nodes = data.nodes.map(d => ({ ...d }));
 

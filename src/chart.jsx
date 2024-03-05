@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import * as d3 from 'd3';
-import getJSONData from './export_data.js';
+import fetchData from './export_data.js';
 
 // Code to persist node positions
 function saveNodePositions(nodes) {
@@ -11,7 +11,7 @@ function saveNodePositions(nodes) {
 
 const ForceGraphDAG = React.memo(({ onNodeClick }) => {
   const svgRef = useRef();
-  const [data, setGraphData] = useState(getJSONData()); // State to hold your JSON data
+  await [data, setGraphData] = useState(fetchData()); // Initial graph data
 
   console.log('before graph ewffect');
   console.log(data);

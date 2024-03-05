@@ -2,14 +2,14 @@ import React, { useCallback, useState , useEffect} from 'react';
 import ForceGraphDAG from './chart.jsx';
 import NodeEditPanel from './NodeEditPanel';
 import './App.css';
-import getJSONData from './export_data.js';
+import fetchData from './export_data.js';
 
 function App() {
   const [selectedNodeId, setSelectedNodeId] = useState(null);
-  const [graphData, setGraphData] = useState(getJSONData()); // Initial graph data
+  await [graphData, setGraphData] = useState(fetchData()); // Initial graph data
 
   const updateData = () => {
-    const newData = getJSONData(); // Refetch the graph data
+    const newData = fetchData(); // Refetch the graph data
     setGraphData(newData); // Update the graph data
   };
 

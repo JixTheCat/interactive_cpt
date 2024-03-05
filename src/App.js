@@ -9,13 +9,11 @@ function App() {
   const [graphData, setGraphData] = useState(null); // Initial graph data
   let initialDataPromise = getJSONData(); // Start fetching immediately
 
-  useEffect(() => {
-    initialDataPromise.then(data => {
-      setGraphData(data);
-    }).catch(error => {
-      console.error("Failed to fetch initial data:", error);
-    });
-  }, []);
+  initialDataPromise.then(data => {
+    setGraphData(data);
+  }).catch(error => {
+    console.error("Failed to fetch initial data:", error);
+  });
   console.log(graphData);
 
   const updateData = async () => {

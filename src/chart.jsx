@@ -29,8 +29,9 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
 
   useEffect(() => {
     // Ensure data is available before proceeding
+    console.log('looking for data...');
     if (!data) return;
-
+    console.log('data found!');
     const width = 928;
     const height = 680;
 

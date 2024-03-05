@@ -13,8 +13,8 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
   const svgRef = useRef();
   const [data, setGraphData] = useState(null); // State to hold your JSON data
   
-  const updateData = async () => {
-    const newData = await getJSONData(); // Refetch the graph data
+  const updateData = () => {
+    const newData = getJSONData(); // Refetch the graph data
     setGraphData(newData); // Update the graph data
   };
   updateData();

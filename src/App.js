@@ -8,8 +8,8 @@ function App() {
   const [selectedNodeId, setSelectedNodeId] = useState(null);
   const [graphData, setGraphData] = useState(null); // Initial graph data
 
-  const updateData = async () => {
-    const newData = await getJSONData(); // Refetch the graph data
+  const updateData = () => {
+    const newData = getJSONData(); // Refetch the graph data
     setGraphData(newData); // Update the graph data
   };
   updateData();
@@ -23,7 +23,7 @@ function App() {
   }, []);
 
   // Function to handle node updates
-  const handleNodeUpdate = async (updatedNode) => {
+  const handleNodeUpdate = (updatedNode) => {
     // Update the node in the graph data
     const updatedData = {
       ...graphData,
@@ -31,7 +31,7 @@ function App() {
     };
     setGraphData(updatedData); // Update the local state
     setSelectedNodeId(null); // Clear the selected node ID after updating
-    await updateData(); // Optionally refetch the entire dataset from the server if needed
+    updateData(); // Optionally refetch the entire dataset from the server if needed
   };
 
   return (

@@ -80,6 +80,9 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
       .force('y', d3.forceY())
       .alphaDecay(0.20); // Higher decay rate means faster cooling;
 
+    console.log('after simulation declared!');
+    console.log(data);
+
     svg.append('defs').append('marker')
       .attr('id', 'arrowhead')
       .attr('viewBox', '-0 -5 10 10') // Added for scaling the arrow properly
@@ -199,6 +202,8 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
       return { x: source.x + scaledX, y: source.y + scaledY };
     }
 
+    console.log('end of chart!');
+    console.log(data);
     return () => {
       simulation.stop();
     };

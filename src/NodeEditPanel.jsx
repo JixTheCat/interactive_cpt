@@ -3,6 +3,8 @@ import { runCppProgram } from './apiService';
 
 const NodeEditPanel = ({ selectedNodeId, weights, updateData}) => {
 
+  console.log('in editor!');
+  console.log(weights);
   // Find weights for the selected node
   const selectedNodeWeights = weights.find(weight => weight.id === selectedNodeId);
 
@@ -99,6 +101,8 @@ const NodeEditPanel = ({ selectedNodeId, weights, updateData}) => {
     updateData(); // Update state with the fetched JSON data
   };
 
+  console.log('end of editor!');
+  console.log(weights);
   return (
     <div>
       <h2>Edit Node ID {selectedNodeId}</h2>

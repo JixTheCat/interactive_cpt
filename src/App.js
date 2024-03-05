@@ -8,7 +8,7 @@ function App() {
   const [selectedNodeId, setSelectedNodeId] = useState(null);
   const [graphData, setGraphData] = useState(getJSONData()); // Initial graph data, assuming it's fetched from data.json
 
-  const updateData = (newData) => {
+  const updateData = async(newData) => {
     setGraphData(getJSONData());
   };
 

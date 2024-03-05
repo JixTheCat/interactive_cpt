@@ -2,6 +2,10 @@ import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 import getJSONData from './export_data.js';
 
+const data = async () => {
+  return await getJSONData()
+};
+
 // Code to persist node positions
 function saveNodePositions(nodes) {
   // Save node positions in localStorage or in your backend
@@ -19,7 +23,7 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
     // Clear existing elements
     d3.select(svgRef.current).selectAll('*').remove();
 
-    var data = getJSONData()
+    const data = data()
     const links = data.links.map(d => ({ ...d }));
     const nodes = data.nodes.map(d => ({ ...d }));
 

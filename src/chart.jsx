@@ -9,18 +9,22 @@ function saveNodePositions(nodes) {
   localStorage.setItem('nodePositions', JSON.stringify(nodes.map(d => ({ id: d.id, x: d.x, y: d.y }))));
 }
 
-const ForceGraphDAG = React.memo(({ onNodeClick }) => {
+const ForceGraphDAG = React.memo(({ onNodeClick, data }) => {
   const svgRef = useRef();
-  const [data, setGraphData] = useState(null); // Initialize state to null
+  // const [data, setGraphData] = useState(null); // Initialize state to null
+
+  // useEffect(() => {
+  //   // Define an async function inside the useEffect
+  //   const fetchMyData = async () => {
+  //     const fetchedData = await fetchData(); // Wait for the data to be fetched
+  //     setGraphData(fetchedData); // Update state with the fetched data
+  //   };
+
+  //   fetchMyData(); // Call the async function
+  // }, []); 
 
   useEffect(() => {
     // Ensure data is available before proceeding
-
-    const fetchMyData = async () => {
-      const fetchedData = await fetchData(); // Wait for the data to be fetched
-      setGraphData(fetchedData); // Update state with the fetched data
-    };
-
     console.log('in graph ewffect');
     console.log(data);
 
@@ -180,8 +184,7 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
 
     function dragended(event, d) {
       if (!event.active) simulation.alphaTarget(.005);
-      fetchMyData();
-      saveNodePositions(nodes);
+      saveNodePositions(nodes)
       d.fx = null;
       d.fy = null;
     }

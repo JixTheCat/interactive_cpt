@@ -162,31 +162,44 @@ json rationaliseLinks(json& data) {
             }
 
             // Create/update link between scoreKey and weightId
+            bool link_exists = false;
             for (json& link : links) {
                 std::cout << "investigating links for: " << link << std::endl;
 
                 if (link["source"] == scoreId && link["target"] == weightId) {
-                    link["value"] = scoreValue; // Update value if link already exists
                     std::cout << "Link exists: " << link["source"] << " to " << link["target"] << std::endl;
-                } else {
-                    json newLink = {
-                        {"source", scoreId},
-                        {"target", weightId},
-                        {"value", scoreValue}
-                    };
-                    std::cout << "Link doesnt exist adding: \n" << newLink << std::endl;
-                    newLinks.push_back(newLink);
+                    link_exists = true;
+
+                    if (link["value"] != scoreValue) { // Update value if link already exists
+                        json newLink = {
+                            {"source", scoreId},
+                            {"target", weightId},
+                            {"value", scoreValue}
+                        };
+                        std::cout << "updating link score!: \n" << newLink << std::endl;
+                        newLinks.push_back(newLink);
+                    } else {
+                        newLinks.push_back(link);
+                    }
+
+                    break;
                 }
+            }
+
+            if (!link_exists) {
+                json newLink = {
+                    {"source", scoreId},
+                    {"target", weightId},
+                    {"value", scoreValue}
+                };
+                std::cout << "Link doesnt exist adding: \n" << newLink << std::endl;
+                newLinks.push_back(newLink);
             }
         }
     }
-
-    for (json newLink : newLinks) {
-        links.push_back(newLink);
-    }
     return {
         {"nodes", nodes},
-        {"links", links},
+        {"links", newLinks},
         {"weights", weights}
     };
 }

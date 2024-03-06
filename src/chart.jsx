@@ -25,7 +25,13 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
 
   useEffect(() => {
     // Ensure data is available before proceeding
-    fetchMyData();
+
+    const fetchMyData = async () => {
+      const fetchedData = await fetchData(); // Wait for the data to be fetched
+      setGraphData(fetchedData); // Update state with the fetched data
+    };
+
+    fetchMyData(); // Call the async function
     console.log('in graph ewffect');
     console.log(data);
 

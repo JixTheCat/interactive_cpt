@@ -147,7 +147,7 @@ json parseJson(json data) {
         if (score.value().is_string()) {
             str = score.value();
             float val = std::stod(str);
-            if (val && score.value()>0) {
+            if (val > 0.0) {
                 key = score.key();
                 scores[key] = val;
             }

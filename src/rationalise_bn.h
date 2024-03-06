@@ -185,8 +185,7 @@ json rationaliseLinks(json& data) {
                     break;
                 }
             }
-
-            if (!link_exists) {
+            if (!link_exists && scoreId != weightId) {
                 json newLink = {
                     {"source", scoreId},
                     {"target", weightId},

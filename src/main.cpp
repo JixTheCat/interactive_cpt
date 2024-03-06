@@ -69,8 +69,11 @@ void writeNewWeight(std::string id, json newWeight) {
         for (auto score : weight["scores"].items()) {
             if (score.key() == id) {
                 // Assuming newWeight contains a new score for the id, and you want to update it directly
-                weight["scores"][id] = newWeight["scores"][id]; // Update the score with the new value
-                std::cout << weight["scores"][id] << "Replaced with: '" << newWeight["scores"][id] << std::endl;
+                json someNeWeight = weight;
+                someNeWeight["scores"][id] = newWeight["scores"][id]; // Update the score with the new value
+                std::cout << someNeWeight["scores"][id] << "Replaced with: '" << newWeight["scores"][id] << std::endl;
+                newWeights.push_back(someNeWeight);
+                continue;
             }
         }
         newWeights.push_back(weight);

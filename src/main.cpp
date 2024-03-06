@@ -9,8 +9,11 @@ using json = nlohmann::json;
 // Then we change the corresponding score with the same ID to match the new input
 // The graph then rationalises itself.
 void writeNewWeight(std::string id, json newWeight) {
-    std::string newId;
-    newId = newWeight["id"];
+    // std::string newId;
+    // newId = newWeight["id"];
+    std::cout << "Replaced with: '" << id << "':\n" << newWeight.dump(4) << std::endl;
+
+    std::cout << newWeight["id"] << std::endl;
     std::cout << "In outputNodeById" << std::endl;
 
     // Filename is constant in this case
@@ -68,29 +71,29 @@ void writeNewWeight(std::string id, json newWeight) {
             newWeights.push_back(newWeight);
             continue;
         }
-        for (auto score : weight["scores"].items()) {
-            if (score.key() == id) {
-                // Assuming newWeight contains a new score for the id, and you want to update it directly
-                json newScores;
-                for (auto score : weight["scores"].items()) {
-                    if (score.key() == id) {
-                        newScores[newId] = score.value();
-                    } else {
-                        newScores[score.key()] = score.value();
-                    }
-                }
-                json someNeWeight;
-                someNeWeight["id"] = weight["id"];
-                someNeWeight["ideal"] = weight["ideal"];
-                someNeWeight["idealkey"] = weight["idealkey"];
-                someNeWeight["notideal"] = weight["notideal"];
-                someNeWeight["notidealkey"] = weight["notidealkey"];
-                someNeWeight["scores"] = newScores;
-                std::cout << "made a new wight\n" << someNeWeight.dump(4) << std::endl;
-                newWeights.push_back(someNeWeight);
-                continue;
-            }
-        }
+        // for (auto score : weight["scores"].items()) {
+        //     if (score.key() == id) {
+        //         // Assuming newWeight contains a new score for the id, and you want to update it directly
+        //         json newScores;
+        //         for (auto score : weight["scores"].items()) {
+        //             if (score.key() == id) {
+        //                 newScores[newId] = score.value();
+        //             } else {
+        //                 newScores[score.key()] = score.value();
+        //             }
+        //         }
+        //         json someNeWeight;
+        //         someNeWeight["id"] = weight["id"];
+        //         someNeWeight["ideal"] = weight["ideal"];
+        //         someNeWeight["idealkey"] = weight["idealkey"];
+        //         someNeWeight["notideal"] = weight["notideal"];
+        //         someNeWeight["notidealkey"] = weight["notidealkey"];
+        //         someNeWeight["scores"] = newScores;
+        //         std::cout << "made a new wight\n" << someNeWeight.dump(4) << std::endl;
+        //         newWeights.push_back(someNeWeight);
+        //         continue;
+        //     }
+        // }
         newWeights.push_back(weight);
     }
     // Write the updated JSON back to the file (optional)

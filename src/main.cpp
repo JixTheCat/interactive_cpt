@@ -10,7 +10,7 @@ using json = nlohmann::json;
 // The graph then rationalises itself.
 void writeNewWeight(std::string id, json newWeight) {
     std::string newId;
-    newId = newWeight[id];
+    newId = newWeight["id"];
     std::cout << "In outputNodeById" << std::endl;
 
     // Filename is constant in this case

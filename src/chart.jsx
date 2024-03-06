@@ -11,17 +11,17 @@ function saveNodePositions(nodes) {
 
 const ForceGraphDAG = React.memo(({ onNodeClick, data }) => {
   const svgRef = useRef();
-  // const [data, setGraphData] = useState(null); // Initialize state to null
+  const [data, setGraphData] = useState(null); // Initialize state to null
 
-  // useEffect(() => {
-  //   // Define an async function inside the useEffect
-  //   const fetchMyData = async () => {
-  //     const fetchedData = await fetchData(); // Wait for the data to be fetched
-  //     setGraphData(fetchedData); // Update state with the fetched data
-  //   };
+  useEffect(() => {
+    // Define an async function inside the useEffect
+    const fetchMyData = async () => {
+      const fetchedData = await fetchData(); // Wait for the data to be fetched
+      setGraphData(fetchedData); // Update state with the fetched data
+    };
 
-  //   fetchMyData(); // Call the async function
-  // }, []); 
+    fetchMyData(); // Call the async function
+  }, []); 
 
   useEffect(() => {
     // Ensure data is available before proceeding
@@ -34,7 +34,9 @@ const ForceGraphDAG = React.memo(({ onNodeClick, data }) => {
     // Clear existing elements
     d3.select(svgRef.current).selectAll('*').remove();
 
-    if (!data) return;
+    if (!data) {
+      onNodeClick();
+    }
 
     console.log('past loading!');
     console.log(data);

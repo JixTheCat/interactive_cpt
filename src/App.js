@@ -40,7 +40,7 @@ function App() {
     <div className="App">
       {graphData && ( // Check if graphData is loaded before rendering ForceGraphDAG
         <ForceGraphDAG 
-          data={graphData} 
+          data={graphData}
           onNodeClick={handleNodeClick} 
         />
       )}

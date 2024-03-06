@@ -113,7 +113,6 @@ json rationaliseNodes(json& data) {
                 existingNodeIds.insert(scoreId); // Add the new ID to the set
             }
 
-                
             // Check if the scoreKey already exists as a weight
             if (existingWeightIds.find(scoreId) == existingWeightIds.end()) {
                 // If the weightId is not found in the set, it's safe to add the weight

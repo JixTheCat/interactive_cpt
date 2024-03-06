@@ -73,6 +73,7 @@ void writeNewWeight(std::string id, json newWeight) {
         }
         if (weight["id"] == id) {
             std::cout << "Node with ID '" << id << "':\n" << weight.dump(4) << std::endl;
+            std::cout << "Replaced with: '" << id << "':\n" << newWeight.dump(4) << std::endl;
             newWeights.push_back(newWeight);
             continue;
         }

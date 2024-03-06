@@ -151,6 +151,12 @@ json parseJson(json data) {
                 key = score.key();
                 scores[key] = val;
             }
+        } else if (score.value().is_number()) {
+            float val = score.value();
+            if (val > 0.0) {
+                key = score.key();
+                scores[key] = val;
+            }
         }
     }
 

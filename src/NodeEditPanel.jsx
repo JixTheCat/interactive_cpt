@@ -90,16 +90,21 @@ const NodeEditPanel = ({ selectedNodeId, weights, updateData}) => {
       id: inputValues.id,
       scores: inputValues.scores
     });
-
-    // Convert JSON object to string
-    // const jsonString = JSON.stringify(json, 4);
-    console.log(json); // Output JSON to console or you can send it wherever you need
-
+  
+    // Output JSON to console
+    console.log(json);
+  
     // Call the function to run the C++ program with the JSON as an argument
-    runCppProgram(selectedNodeId, json);
-
-    updateData(); // Update state with the fetched JSON data
+    runCppProgram(selectedNodeId, json)
+      .then(() => {
+        // Wait for the C++ program to complete and then update the data
+        updateData();
+      })
+      .catch(error => {
+        console.error("Failed to run C++ program or update data:", error);
+      });
   };
+  
 
   console.log('end of editor!');
   console.log(weights);

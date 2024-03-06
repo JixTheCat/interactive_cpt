@@ -25,6 +25,7 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
 
   useEffect(() => {
     // Ensure data is available before proceeding
+    fetchMyData();
     console.log('in graph ewffect');
     console.log(data);
 
@@ -127,7 +128,7 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
         }
       })
       .on('click', (event, d) => {
-        onNodeClick(event, fetchMyData());
+        onNodeClick(event, d);
       })
       .call(d3.drag()
         .on('start', dragstarted)

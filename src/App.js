@@ -58,8 +58,7 @@ function App() {
         <NodeEditPanel
           selectedNodeId={selectedNodeId}
           weights={graphData.weights}
-          onNodeUpdate={handleNodeUpdate}
-          updateData={updateData}
+          updateData={handleNodeUpdate}
         />
       )}
     </div>

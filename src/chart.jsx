@@ -34,7 +34,7 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
     // Clear existing elements
     d3.select(svgRef.current).selectAll('*').remove();
 
-    if (!data) return; //<div>Loading...</div>;
+    if (!data) return;
 
     console.log('past loading!');
     console.log(data);
@@ -127,7 +127,7 @@ const ForceGraphDAG = React.memo(({ onNodeClick }) => {
         }
       })
       .on('click', (event, d) => {
-        onNodeClick(event, d);
+        onNodeClick(event, fetchMyData());
       })
       .call(d3.drag()
         .on('start', dragstarted)

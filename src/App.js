@@ -41,6 +41,7 @@ function App() {
       {graphData && ( // Check if graphData is loaded before rendering ForceGraphDAG
         <ForceGraphDAG 
           data={graphData}
+          updateData={updateData}
           onNodeClick={handleNodeClick} 
         />
       )}

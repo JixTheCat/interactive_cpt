@@ -11,7 +11,6 @@ using json = nlohmann::json;
 void writeNewWeight(std::string id, const json newWeight) {
     std::cout << "In outputNodeById" << std::endl;
 
-    std::cout << "starting with: '" << id << "':\n" << newWeight.dump(4) << std::endl;
     // Filename is constant in this case
     const std::string filePath = "./data.json";
 
@@ -36,7 +35,6 @@ void writeNewWeight(std::string id, const json newWeight) {
         newNodes.push_back(node);
     }
 
-    std::cout << "after newNodes: '" << id << "':\n" << newWeight.dump(4) << std::endl;
     std::vector<std::string> weightsToChange;
     json newLinks;
     for (json link : jsonData["links"])
@@ -57,8 +55,6 @@ void writeNewWeight(std::string id, const json newWeight) {
                 newLinks.push_back(link);
             }
 
-    std::cout << "after newlinks: '" << id << "':\n" << newWeight.dump(4) << std::endl;
-
     json newWeights;
     for (json weight : jsonData["weights"]) {
         // We check if we need to change the weights id:
@@ -69,21 +65,12 @@ void writeNewWeight(std::string id, const json newWeight) {
             newWeights.push_back(newWeight);
             continue;
         }
-        if (weight["id"] == id) {
-            std::cout << "we shouldn't reach this" << std::endl;
-        }
         for (auto score : weight["scores"].items()) {
             if (score.key() == id) {
                 // Assuming newWeight contains a new score for the id, and you want to update it directly
                 weight["scores"][id] = newWeight["scores"][id]; // Update the score with the new value
-                idFoundInScores = true;
+                std::cout << weight["scores"][id] << "Replaced with: '" << newWeight["scores"][id] << std::endl;
             }
-        }
-
-        if (idFoundInScores) {
-            // If the id was found and updated in scores, add the updated weight
-            newWeights.push_back(weight);
-            continue; // Skip further processing for this weight
         }
         newWeights.push_back(weight);
     }

@@ -58,10 +58,11 @@ void writeNewWeight(std::string id, json newWeight) {
     json newWeights;
     for (json weight : jsonData["weights"]) {
         // We check if we need to change the weights id:
+        std::cout << "At: '" << weight["id"] << "':\n" << newWeight.dump(4) << std::endl;
         bool idFoundInScores = false;
         if (weight["id"] == id) {
-            std::cout << "Node with ID '" << id << "':\n" << weight.dump(4) << std::endl;
-            std::cout << "Replaced with: '" << id << "':\n" << newWeight.dump(4) << std::endl;
+            // std::cout << "Node with ID '" << id << "':\n" << weight.dump(4) << std::endl;
+            // std::cout << "Replaced with: '" << id << "':\n" << newWeight.dump(4) << std::endl;
             newWeights.push_back(newWeight);
             continue;
         }

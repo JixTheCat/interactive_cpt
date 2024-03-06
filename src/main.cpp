@@ -58,6 +58,12 @@ void writeNewWeight(std::string id, json newWeight) {
     for (json weight : jsonData["weights"]) {
         // We check if we need to change the weights id:
         bool idFoundInScores = false;
+        if (weight["id"] == id) {
+            std::cout << "Node with ID '" << id << "':\n" << weight.dump(4) << std::endl;
+            std::cout << "Replaced with: '" << id << "':\n" << newWeight.dump(4) << std::endl;
+            newWeights.push_back(newWeight);
+            continue;
+        }
         for (auto score : weight["scores"].items()) {
             if (score.key() == id) {
                 // Assuming newWeight contains a new score for the id, and you want to update it directly
@@ -70,12 +76,6 @@ void writeNewWeight(std::string id, json newWeight) {
             // If the id was found and updated in scores, add the updated weight
             newWeights.push_back(weight);
             continue; // Skip further processing for this weight
-        }
-        if (weight["id"] == id) {
-            std::cout << "Node with ID '" << id << "':\n" << weight.dump(4) << std::endl;
-            std::cout << "Replaced with: '" << id << "':\n" << newWeight.dump(4) << std::endl;
-            newWeights.push_back(newWeight);
-            continue;
         }
         newWeights.push_back(weight);
     }
@@ -130,13 +130,10 @@ json parseJson(json data) {
         if (score.value().is_string()) {
             str = score.value();
             float val = std::stod(str);
-            if (val) {
+            if (val && score.value()<0) {
                 key = score.key();
                 scores[key] = val;
             }
-        } else if (score.value()>0) {
-            key = score.key();
-            scores[key] = score.value();
         }
     }
 

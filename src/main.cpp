@@ -8,7 +8,7 @@ using json = nlohmann::json;
 // We take a json input of just the scores
 // Then we change the corresponding score with the same ID to match the new input
 // The graph then rationalises itself.
-void writeNewWeight(std::string id, json newWeight) {
+void writeNewWeight(std::string id, const json newWeight) {
     std::cout << "In outputNodeById" << std::endl;
 
     std::cout << "starting with: '" << id << "':\n" << newWeight.dump(4) << std::endl;
@@ -68,6 +68,8 @@ void writeNewWeight(std::string id, json newWeight) {
             std::cout << "Replaced with: '" << id << "':\n" << newWeight.dump(4) << std::endl;
             newWeights.push_back(newWeight);
             continue;
+        }
+        if (weight["id"] == id) {
             std::cout << "we shouldn't reach this" << std::endl;
         }
         for (auto score : weight["scores"].items()) {

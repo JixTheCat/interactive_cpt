@@ -166,7 +166,7 @@ json rationaliseLinks(json& data) {
             for (json& link : links) {
                 std::cout << "investigating links for: " << link << std::endl;
 
-                if (link["source"] == scoreId && link["target"] == weightId) {
+                if (link["source"] == scoreId && link["target"] == weightId && scoreId != weightId) {
                     std::cout << "Link exists: " << link["source"] << " to " << link["target"] << std::endl;
                     link_exists = true;
 

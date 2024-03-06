@@ -36,29 +36,19 @@ function App() {
     updateData(); // This will refetch and update graphData
   });
 
-  // Function to handle node updates
-  const handleNodeUpdate = async (updatedNode) => { // Make it an async function if needed
-    console.log('handleNodeUpdate');
-    // Assuming you want to update graphData synchronously here
-    const updatedData = {
-      ...graphData,
-      weights: graphData.weights.map(weight => weight.id === updatedNode.id ? updatedNode : weight),
-    };
-    setGraphData(updatedData); // Update the graph data
-    setSelectedNodeId(null); // Clear the selected node ID after updating
-    await updateData(); // Refetch the entire dataset from the server if needed
-  };
-
   return (
     <div className="App">
       {graphData && ( // Check if graphData is loaded before rendering ForceGraphDAG
-        <ForceGraphDAG data={graphData} onNodeClick={handleNodeClick} />
+        <ForceGraphDAG 
+          data={graphData} 
+          onNodeClick={handleNodeClick} 
+        />
       )}
       {selectedNodeId && graphData && ( // Check if graphData is loaded before rendering NodeEditPanel
         <NodeEditPanel
           selectedNodeId={selectedNodeId}
           weights={graphData.weights}
-          updateData={handleNodeUpdate}
+          updateData={updateData}
         />
       )}
     </div>

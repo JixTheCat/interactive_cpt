@@ -10,6 +10,8 @@ using json = nlohmann::json;
 // The graph then rationalises itself.
 void writeNewWeight(std::string id, json newWeight) {
     std::cout << "In outputNodeById" << std::endl;
+
+    std::cout << "starting with: '" << id << "':\n" << newWeight.dump(4) << std::endl;
     // Filename is constant in this case
     const std::string filePath = "./data.json";
 
@@ -34,6 +36,7 @@ void writeNewWeight(std::string id, json newWeight) {
         newNodes.push_back(node);
     }
 
+    std::cout << "after newNodes: '" << id << "':\n" << newWeight.dump(4) << std::endl;
     std::vector<std::string> weightsToChange;
     json newLinks;
     for (json link : jsonData["links"])
@@ -54,6 +57,8 @@ void writeNewWeight(std::string id, json newWeight) {
                 newLinks.push_back(link);
             }
 
+    std::cout << "after newlinks: '" << id << "':\n" << newWeight.dump(4) << std::endl;
+
     json newWeights;
     for (json weight : jsonData["weights"]) {
         // We check if we need to change the weights id:
@@ -63,6 +68,7 @@ void writeNewWeight(std::string id, json newWeight) {
             std::cout << "Replaced with: '" << id << "':\n" << newWeight.dump(4) << std::endl;
             newWeights.push_back(newWeight);
             continue;
+            std::cout << "we shouldn't reach this" << std::endl;
         }
         for (auto score : weight["scores"].items()) {
             if (score.key() == id) {
@@ -130,7 +136,7 @@ json parseJson(json data) {
         if (score.value().is_string()) {
             str = score.value();
             float val = std::stod(str);
-            if (val && score.value()<0) {
+            if (val && score.value()>0) {
                 key = score.key();
                 scores[key] = val;
             }

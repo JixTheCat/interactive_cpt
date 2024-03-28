@@ -25,11 +25,7 @@ def calculate_CPT(weights, x_L, x_H):
         len(weights)
     )
 
-    return sum(
-        np.transpose(
-            np.array([weights]*len(boolean_matrix)
-                     )*boolean_matrix)
-                     )
+    return sum(np.transpose(np.array([weights]*len(boolean_matrix))*boolean_matrix))
 
 # Counts method:
 # We give everything the same weighting and determine the

@@ -3,7 +3,7 @@
 // Correctly defined async function to fetch data
 export default async function fetchData() {
   try {
-    const response = await fetch('http://localhost:3001/api/config'); // Adjust the URL as needed
+    const response = await fetch('/api/config'); // Adjust the URL as needed
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

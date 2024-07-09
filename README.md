@@ -16,7 +16,8 @@ node src/server.js
 
 The backend serves the data and processes it. This means that a proxy is required for the front end to access the files served. This is done using `nginx`. The configuration for the proxy in `nginx` is found in the repo's `nginx.conf` file.
 
-The following commands will help start the web service!
+# Setup
+The following commands will help start the web service! And keep it running indefinitely from within an AWS ec2 instance.
 
 First install the necessary tools:
 ```bash

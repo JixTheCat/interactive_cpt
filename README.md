@@ -29,21 +29,22 @@ sudo yum install -y git
 We clone the files ready to be used:
 ```bash
 cd /usr/share/nginx/html/
-git clone https://github.com/JixTheCat/interactive_cpt.git
+sudo git clone https://github.com/JixTheCat/interactive_cpt.git
+sudo mv interactive_cpt/* ./
 ``` 
 
-We then build the webservices and install the required utilities:
+We then build the web services and install the required utilities (note sudo is required due to the location - you could change this requirement through changing user or privileges):
 ```bash
 cd /usr/share/nginx/html/src
-npm install
+sudo npm install
 cd ../
-npm install
-npm run build
+sudo npm install
+sudo npm run build
 ```
 
 We update the nginx configuration to include the proxy for the backend hosting and processing services:
 ```bash
-cp -f /usr/share/nginx/html/nginx.conf /etc/nginx/nginx.conf
+sudo cp -f /usr/share/nginx/html/nginx.conf /etc/nginx/nginx.conf
 ```
 
 We start the `nginx` service (we also make sure that `httpd` is not running!):
@@ -54,7 +55,7 @@ sudo systemctl start nginx
 
 We install `pm2` to help us continually serve the files from `server.js`:
 ```bash
-npm install -g pm2
+sudo npm install -g pm2
 pm2 start /usr/share/nginx/html/src/server.js
 ```
 

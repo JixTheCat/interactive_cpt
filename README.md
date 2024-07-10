@@ -56,7 +56,7 @@ sudo systemctl start nginx
 We install `pm2` to help us continually serve the files from `server.js`:
 ```bash
 sudo npm install -g pm2
-pm2 start /usr/share/nginx/html/src/server.js
+pm2 start server.js --cwd /usr/share/nginx/html/src
 ```
 
 We can test the local hosted server using:

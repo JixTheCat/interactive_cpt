@@ -33,6 +33,11 @@ sudo git clone https://github.com/JixTheCat/interactive_cpt.git
 sudo mv interactive_cpt/* ./
 ``` 
 
+Note that if you ever require updating the the repo and need to batch overwrite files you can use:
+```bash
+sudo rsync -av --remove-source-files ./interactive_cpt/ ./
+```
+
 We then build the web services and install the required utilities (note sudo is required due to the location - you could change this requirement through changing user or privileges):
 ```bash
 cd /usr/share/nginx/html/src

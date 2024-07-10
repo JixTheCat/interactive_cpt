@@ -56,7 +56,7 @@ sudo systemctl start nginx
 We install `pm2` to help us continually serve the files from `server.js`:
 ```bash
 sudo npm install -g pm2
-pm2 start server.js --cwd /usr/share/nginx/html/src
+sudo pm2 start server.js --cwd /usr/share/nginx/html/src/
 ```
 
 We can test the local hosted server using:
@@ -65,3 +65,5 @@ wget 127.0.0.1:3001/api/config
 ```
 
 And also view the website to make sure it is running. Errors are logged in the web browser, these are visible by pressing F12 (or inspect page for some web browsers) to view the logs.
+
+There are a great deal of security flaws in this app, I do not recommend using it as it has only been designed as a temporary solution.

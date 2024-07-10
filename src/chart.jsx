@@ -66,7 +66,7 @@ const ForceGraphDAG = React.memo(({ onNodeClick, data}) => {
     }
     specificNode.fx = width / 2; // center horizontally
     specificNode.fy = height - 50; // bottom of the graph
-    specificNode.fill = color(5);
+    // specificNode.fill = color(5);
 
     const color = d3.scaleOrdinal(d3.schemeCategory10);
 

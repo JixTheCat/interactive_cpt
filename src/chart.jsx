@@ -58,9 +58,15 @@ const ForceGraphDAG = React.memo(({ onNodeClick, data}) => {
     // Define the initial position for the specific node
     var specificNodeId = "environmental impact";
     var specificNode = nodes.find(node => node.id === specificNodeId);
+    // If 'environmental impact' does not exist, fallback to economic impact
+    // This could be done more generically but the entire app is hacky.
+    if (!specificNode) {
+      specificNodeId = "economic impact";
+      specificNode = nodes.find(node => node.id === specificNodeId);
+    }
     specificNode.fx = width / 2; // center horizontally
     specificNode.fy = height - 50; // bottom of the graph
-    // specificNode.fill = color(5);
+    specificNode.fill = color(5);
 
     const color = d3.scaleOrdinal(d3.schemeCategory10);
 

@@ -19,4 +19,4 @@ sudo pm2 start server.js --cwd /usr/share/nginx/html/src/
 sudo apt-get install inotify-tools
 cd /usr/share/nginx/html
 sudo chmod +x /usr/share/nginx/html/backup.sh
-nohup /usr/share/nginx/html/backup.sh &
+sudo nohup /usr/share/nginx/html/backup.sh &

@@ -64,6 +64,14 @@ We can test the local hosted server using:
 wget 127.0.0.1:3001/api/config
 ```
 
+We can also introduce a system to back up saved version of the data! This could be done many ways, the shown way using `backup.sh` backs up the data file every time it is modified, which is an aggressive method but safest.
+```bash
+sudo apt-get install inotify-tools
+cd /usr/share/nginx/html
+sudo chmod +x /path/to/daemon-script.sh
+/path/to/daemon-script.sh &
+```
+
 And also view the website to make sure it is running. Errors are logged in the web browser, these are visible by pressing F12 (or inspect page for some web browsers) to view the logs.
 
 There are a great deal of security flaws in this app, I do not recommend using it as it has only been designed as a temporary solution.

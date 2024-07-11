@@ -1,0 +1,240 @@
+{
+    "links": [
+        {
+            "source": "electricity",
+            "target": "emissions",
+            "value": 5.0
+        },
+        {
+            "source": "electricity",
+            "target": "operating cost",
+            "value": 5.0
+        },
+        {
+            "source": "fuel",
+            "target": "emissions",
+            "value": 5.0
+        },
+        {
+            "source": "fuel",
+            "target": "operating cost",
+            "value": 5.0
+        },
+        {
+            "source": "emissions",
+            "target": "yield",
+            "value": 5.0
+        },
+        {
+            "source": "yield",
+            "target": "grape revenue",
+            "value": 5.0
+        },
+        {
+            "source": "water",
+            "target": "yield",
+            "value": 5.0
+        },
+        {
+            "source": "water",
+            "target": "operating cost",
+            "value": 5.0
+        },
+        {
+            "source": "grape revenue",
+            "target": "economic impact",
+            "value": 5.0
+        },
+        {
+            "source": "operating cost",
+            "target": "economic impact",
+            "value": 5.0
+        }
+    ],
+    "nodes": [
+        {
+            "colour": 5,
+            "id": "economic impact"
+        },
+        {
+            "colour": 1,
+            "id": "electricity"
+        },
+        {
+            "colour": 4,
+            "id": "fuel"
+        },
+        {
+            "colour": 3,
+            "id": "emissions"
+        },
+        {
+            "colour": 2,
+            "id": "yield"
+        },
+        {
+            "colour": 1,
+            "id": "water"
+        },
+        {
+            "colour": 4,
+            "id": "operating cost"
+        },
+        {
+            "colour": 3,
+            "id": "grape revenue"
+        },
+        {
+            "colour": 2,
+            "id": "water availability"
+        },
+        {
+            "colour": 1,
+            "id": "water price"
+        },
+        {
+            "colour": 4,
+            "id": "region"
+        },
+        {
+            "colour": 3,
+            "id": "fertiliser"
+        },
+        {
+            "colour": 2,
+            "id": "seasonal conditions"
+        },
+        {
+            "colour": 1,
+            "id": "price per tonne"
+        }
+    ],
+    "weights": [
+        {
+            "id": "economic impact",
+            "ideal": 0.5,
+            "idealkey": "beneficial",
+            "notideal": 0.5,
+            "notidealkey": "harmful",
+            "scores": {
+                "operating cost": 5,
+                "grape revenue": 5
+            }
+        },
+        {
+            "id": "operating cost",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "notideal",
+            "scores": {
+                "water": 5,
+                "electricity": 5,
+                "fuel": 5
+            }
+        },
+        {
+            "id": "grape revenue",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "notideal",
+            "scores": {
+                "yield": 5
+            }
+        },
+        {
+            "id": "yield",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "notideal",
+            "scores": {
+                "water": 5,
+                "emissions": 5
+            }
+        },
+        {
+            "id": "water",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "notideal",
+            "scores": {}
+        },
+        {
+            "id": "emissions",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "notideal",
+            "scores": {
+                "electricity": 5,
+                "fuel": 5
+            }
+        },
+        {
+            "id": "electricity",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "notideal",
+            "scores": {
+            }
+        },
+        {
+            "id": "water price",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "notideal",
+            "scores": {
+            }
+        },
+        {
+            "id": "region",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "notideal",
+            "scores": {
+            }
+        },
+        {
+            "id": "water availability",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "notideal",
+            "scores": {
+            }
+        },
+        {
+            "id": "seasonal conditions",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "notideal",
+            "scores": {
+            }
+        },
+        {
+            "id": "fertiliser",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "notideal",
+            "scores": {
+            }
+        },
+        {
+            "id": "price per tonne",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "notideal",
+            "scores": {
+            }
+        }
+    ]
+}

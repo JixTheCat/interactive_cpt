@@ -77,13 +77,15 @@ const ForceGraphDAG = React.memo(({ onNodeClick, data}) => {
       .append('g');
 
     const simulation = d3.forceSimulation(nodes)
-      .force('link', d3.forceLink(links).id(d => d.id).strength(0.5))
-      .force('charge', d3.forceManyBody().strength(-600))
+      // .force('link', d3.forceLink(links).id(d => d.id).strength(0.5))
+      .force("link", d3.forceLink(links).id(d => d.id))
+      .force("charge", d3.forceManyBody())
+      // .force('charge', d3.forceManyBody().strength(-60))
       .force('collide', d3.forceCollide().radius(d => d.id.length * 5 + 20)) // Adjust the radius as needed
       .force('center', d3.forceCenter(width / 2, height / 2))
       .force('x', d3.forceX())
       .force('y', d3.forceY())
-      .alphaDecay(0.20); // Higher decay rate means faster cooling;
+      // .alphaDecay(0.20); // Higher decay rate means faster cooling;
 
     console.log('after simulation declared!');
     console.log(data);
@@ -178,7 +180,7 @@ const ForceGraphDAG = React.memo(({ onNodeClick, data}) => {
     }
 
     function dragstarted(event, d) {
-      if (!event.active) simulation.alphaTarget(0.3).restart();
+      if (!event.active) simulation.alphaTarget(0.03).restart();
       d.fx = d.x;
       d.fy = d.y;
     }
@@ -189,7 +191,7 @@ const ForceGraphDAG = React.memo(({ onNodeClick, data}) => {
     }
 
     function dragended(event, d) {
-      if (!event.active) simulation.alphaTarget(.005);
+      if (!event.active) simulation.alphaTarget(.03);
       saveNodePositions(nodes)
       d.fx = null;
       d.fy = null;

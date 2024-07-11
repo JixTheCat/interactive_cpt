@@ -79,7 +79,7 @@ const ForceGraphDAG = React.memo(({ onNodeClick, data}) => {
     const simulation = d3.forceSimulation(nodes)
       .force('link', d3.forceLink(links).id(d => d.id).strength(0.5))
       .force('charge', d3.forceManyBody().strength(-600))
-      .force('collide', d3.forceCollide().radius(50)) // Adjust the radius as needed
+      .force('collide', d3.forceCollide().radius(d => d.id.length * 5 + 20)) // Adjust the radius as needed
       .force('center', d3.forceCenter(width / 2, height / 2))
       .force('x', d3.forceX())
       .force('y', d3.forceY())

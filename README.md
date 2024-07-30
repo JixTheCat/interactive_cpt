@@ -6,7 +6,7 @@ The tool is a `JavaScript` web application with a `C++` back end.
 
 The application is run using `npm`, from the parent directory.
 ```bash
-npm start
+npm start&
 ```
 
 The backend server file is found in `src/server.js` and can be launched using:
@@ -71,7 +71,7 @@ wget 127.0.0.1:3001/api/config
 
 We can also introduce a system to back up saved version of the data! This could be done many ways, the shown way using `backup.sh` backs up the data file every time it is modified, which is an aggressive method but safest.
 ```bash
-sudo apt-get install inotify-tools
+sudo yum install inotify-tools
 cd /usr/share/nginx/html
 sudo chmod +x /usr/share/nginx/html/backup.sh
 sudo nohup /usr/share/nginx/html/backup.sh &

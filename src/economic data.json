@@ -1,28 +1,53 @@
 {
     "links": [
         {
-            "source": "electricity",
-            "target": "emissions",
+            "source": "grape revenue",
+            "target": "economic impact",
             "value": 5.0
         },
         {
-            "source": "electricity",
+            "source": "operating cost",
+            "target": "economic impact",
+            "value": 5.0
+        },
+        {
+            "source": "contract labor",
             "target": "operating cost",
             "value": 5.0
         },
         {
-            "source": "fuel",
-            "target": "emissions",
-            "value": 5.0
-        },
-        {
-            "source": "fuel",
+            "source": "electricity use",
             "target": "operating cost",
             "value": 5.0
         },
         {
-            "source": "emissions",
-            "target": "yield",
+            "source": "fertiliser use",
+            "target": "operating cost",
+            "value": 5.0
+        },
+        {
+            "source": "fuel use",
+            "target": "operating cost",
+            "value": 5.0
+        },
+        {
+            "source": "labor cost",
+            "target": "operating cost",
+            "value": 5.0
+        },
+        {
+            "source": "repair and maintenance",
+            "target": "operating cost",
+            "value": 5.0
+        },
+        {
+            "source": "water use",
+            "target": "operating cost",
+            "value": 5.0
+        },
+        {
+            "source": "grape price per tonne",
+            "target": "grape revenue",
             "value": 5.0
         },
         {
@@ -31,23 +56,173 @@
             "value": 5.0
         },
         {
-            "source": "water",
+            "source": "adverse events",
             "target": "yield",
             "value": 5.0
         },
         {
-            "source": "water",
-            "target": "operating cost",
+            "source": "seasonal conditions",
+            "target": "yield",
             "value": 5.0
         },
         {
-            "source": "grape revenue",
-            "target": "economic impact",
+            "source": "water use",
+            "target": "yield",
             "value": 5.0
         },
         {
-            "source": "operating cost",
-            "target": "economic impact",
+            "source": "water availability",
+            "target": "water price",
+            "value": 5.0
+        },
+        {
+            "source": "seasonal conditions",
+            "target": "water availability",
+            "value": 5.0
+        },
+        {
+            "source": "market supply and demand",
+            "target": "grape price per tonne",
+            "value": 5.0
+        },
+        {
+            "source": "winery contract certainty",
+            "target": "grape price per tonne",
+            "value": 5.0
+        },
+        {
+            "source": "electricity price",
+            "target": "electricity use",
+            "value": 5.0
+        },
+        {
+            "source": "grape quality and yield targets",
+            "target": "electricity use",
+            "value": 5.0
+        },
+        {
+            "source": "grape quality and yield targets",
+            "target": "fuel use",
+            "value": 5.0
+        },
+        {
+            "source": "tractor passes",
+            "target": "fuel use",
+            "value": 5.0
+        },
+        {
+            "source": "grape quality and yield targets",
+            "target": "water use",
+            "value": 5.0
+        },
+        {
+            "source": "water licences",
+            "target": "water use",
+            "value": 5.0
+        },
+        {
+            "source": "water price",
+            "target": "water use",
+            "value": 5.0
+        },
+        {
+            "source": "water quality",
+            "target": "water use",
+            "value": 5.0
+        },
+        {
+            "source": "water use efficiency",
+            "target": "water use",
+            "value": 5.0
+        },
+        {
+            "source": "grape quality and yield targets",
+            "target": "contract labor",
+            "value": 5.0
+        },
+        {
+            "source": "vineyard floor management",
+            "target": "contract labor",
+            "value": 5.0
+        },
+        {
+            "source": "seasonal conditions",
+            "target": "fertiliser use",
+            "value": 5.0
+        },
+        {
+            "source": "equipment age in years",
+            "target": "repair and maintenance",
+            "value": 5.0
+        },
+        {
+            "source": "equipment use in hours",
+            "target": "repair and maintenance",
+            "value": 5.0
+        },
+        {
+            "source": "specialist equipment",
+            "target": "repair and maintenance",
+            "value": 5.0
+        },
+        {
+            "source": "tractor passes",
+            "target": "repair and maintenance",
+            "value": 5.0
+        },
+        {
+            "source": "agrochemical type",
+            "target": "spray application number",
+            "value": 5.0
+        },
+        {
+            "source": "grape quality and yield targets",
+            "target": "spray application number",
+            "value": 5.0
+        },
+        {
+            "source": "seasonal conditions",
+            "target": "spray application number",
+            "value": 5.0
+        },
+        {
+            "source": "winery contract certainty",
+            "target": "grape quality and yield targets",
+            "value": 5.0
+        },
+        {
+            "source": "market supply and demand",
+            "target": "winery contract certainty",
+            "value": 5.0
+        },
+        {
+            "source": "fertiliser use",
+            "target": "tractor passes",
+            "value": 5.0
+        },
+        {
+            "source": "specialist equipment",
+            "target": "tractor passes",
+            "value": 5.0
+        },
+        {
+            "source": "spray application number",
+            "target": "tractor passes",
+            "value": 5.0
+        },
+        {
+            "source": "seasonal conditions",
+            "target": "adverse events",
+            "value": 5.0
+        },
+        {
+            "source": "pest and disease management methods",
+            "target": "vineyard floor management",
+            "value": 5.0
+        },
+        {
+            "source": "seasonal conditions",
+            "target": "pest and disease management methods",
             "value": 5.0
         }
     ],
@@ -57,24 +232,8 @@
             "id": "economic impact"
         },
         {
-            "colour": 1,
-            "id": "electricity"
-        },
-        {
-            "colour": 4,
-            "id": "fuel"
-        },
-        {
-            "colour": 3,
-            "id": "emissions"
-        },
-        {
             "colour": 2,
             "id": "yield"
-        },
-        {
-            "colour": 1,
-            "id": "water"
         },
         {
             "colour": 4,
@@ -93,20 +252,104 @@
             "id": "water price"
         },
         {
-            "colour": 4,
-            "id": "region"
+            "colour": 10,
+            "id": "electricity use"
         },
         {
-            "colour": 3,
-            "id": "fertiliser"
+            "colour": 9,
+            "id": "fuel use"
         },
         {
-            "colour": 2,
-            "id": "seasonal conditions"
+            "colour": 5,
+            "id": "water use"
+        },
+        {
+            "colour": 9,
+            "id": "contract labor"
         },
         {
             "colour": 1,
-            "id": "price per tonne"
+            "id": "fertiliser use"
+        },
+        {
+            "colour": 6,
+            "id": "labor cost"
+        },
+        {
+            "colour": 9,
+            "id": "repair and maintenance"
+        },
+        {
+            "colour": 1,
+            "id": "spray application number"
+        },
+        {
+            "colour": 8,
+            "id": "grape quality and yield targets"
+        },
+        {
+            "colour": 1,
+            "id": "winery contract certainty"
+        },
+        {
+            "colour": 7,
+            "id": "seasonal conditions"
+        },
+        {
+            "colour": 10,
+            "id": "tractor passes"
+        },
+        {
+            "colour": 5,
+            "id": "electricity price"
+        },
+        {
+            "colour": 5,
+            "id": "equipment age in years"
+        },
+        {
+            "colour": 1,
+            "id": "equipment use in hours"
+        },
+        {
+            "colour": 3,
+            "id": "specialist equipment"
+        },
+        {
+            "colour": 7,
+            "id": "agrochemical type"
+        },
+        {
+            "colour": 7,
+            "id": "adverse events"
+        },
+        {
+            "colour": 3,
+            "id": "vineyard floor management"
+        },
+        {
+            "colour": 5,
+            "id": "pest and disease management methods"
+        },
+        {
+            "colour": 10,
+            "id": "grape price per tonne"
+        },
+        {
+            "colour": 3,
+            "id": "market supply and demand"
+        },
+        {
+            "colour": 3,
+            "id": "water licences"
+        },
+        {
+            "colour": 4,
+            "id": "water quality"
+        },
+        {
+            "colour": 9,
+            "id": "water use efficiency"
         }
     ],
     "weights": [
@@ -117,8 +360,8 @@
             "notideal": 0.5,
             "notidealkey": "harmful",
             "scores": {
-                "operating cost": 5,
-                "grape revenue": 5
+                "grape revenue": 5,
+                "operating cost": 5
             }
         },
         {
@@ -128,9 +371,13 @@
             "notideal": 0.5,
             "notidealkey": "notideal",
             "scores": {
-                "water": 5,
-                "electricity": 5,
-                "fuel": 5
+                "contract labor": 5.0,
+                "electricity use": 5.0,
+                "fertiliser use": 5.0,
+                "fuel use": 5.0,
+                "labor cost": 5.0,
+                "repair and maintenance": 5.0,
+                "water use": 5.0
             }
         },
         {
@@ -140,7 +387,8 @@
             "notideal": 0.5,
             "notidealkey": "notideal",
             "scores": {
-                "yield": 5
+                "grape price per tonne": 5.0,
+                "yield": 5.0
             }
         },
         {
@@ -150,36 +398,9 @@
             "notideal": 0.5,
             "notidealkey": "notideal",
             "scores": {
-                "water": 5,
-                "emissions": 5
-            }
-        },
-        {
-            "id": "water",
-            "ideal": 0.5,
-            "idealkey": "ideal",
-            "notideal": 0.5,
-            "notidealkey": "notideal",
-            "scores": {}
-        },
-        {
-            "id": "emissions",
-            "ideal": 0.5,
-            "idealkey": "ideal",
-            "notideal": 0.5,
-            "notidealkey": "notideal",
-            "scores": {
-                "electricity": 5,
-                "fuel": 5
-            }
-        },
-        {
-            "id": "electricity",
-            "ideal": 0.5,
-            "idealkey": "ideal",
-            "notideal": 0.5,
-            "notidealkey": "notideal",
-            "scores": {
+                "adverse events": 5.0,
+                "seasonal conditions": 5.0,
+                "water use": 5.0
             }
         },
         {
@@ -189,15 +410,7 @@
             "notideal": 0.5,
             "notidealkey": "notideal",
             "scores": {
-            }
-        },
-        {
-            "id": "region",
-            "ideal": 0.5,
-            "idealkey": "ideal",
-            "notideal": 0.5,
-            "notidealkey": "notideal",
-            "scores": {
+                "water availability": 5.0
             }
         },
         {
@@ -207,6 +420,128 @@
             "notideal": 0.5,
             "notidealkey": "notideal",
             "scores": {
+                "seasonal conditions": 5.0
+            }
+        },
+        {
+            "id": "grape price per tonne",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "notideal",
+            "scores": {
+                "market supply and demand": 5.0,
+                "winery contract certainty": 5.0
+            }
+        },
+        {
+            "id": "electricity use",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "not ideal",
+            "scores": {
+                "electricity price": 5.0,
+                "grape quality and yield targets": 5.0
+            }
+        },
+        {
+            "id": "fuel use",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "not ideal",
+            "scores": {
+                "grape quality and yield targets": 5.0,
+                "tractor passes": 5.0
+            }
+        },
+        {
+            "id": "water use",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "not ideal",
+            "scores": {
+                "grape quality and yield targets": 5.0,
+                "water licences": 5.0,
+                "water price": 5.0,
+                "water quality": 5.0,
+                "water use efficiency": 5.0
+            }
+        },
+        {
+            "id": "contract labor",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "not ideal",
+            "scores": {
+                "grape quality and yield targets": 5.0,
+                "vineyard floor management": 5.0
+            }
+        },
+        {
+            "id": "fertiliser use",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "not ideal",
+            "scores": {
+                "seasonal conditions": 5.0
+            }
+        },
+        {
+            "id": "labor cost",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "not ideal",
+            "scores": null
+        },
+        {
+            "id": "repair and maintenance",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "not ideal",
+            "scores": {
+                "equipment age in years": 5.0,
+                "equipment use in hours": 5.0,
+                "specialist equipment": 5.0,
+                "tractor passes": 5.0
+            }
+        },
+        {
+            "id": "spray application number",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "not ideal",
+            "scores": {
+                "agrochemical type": 5.0,
+                "grape quality and yield targets": 5.0,
+                "seasonal conditions": 5.0
+            }
+        },
+        {
+            "id": "grape quality and yield targets",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "not ideal",
+            "scores": {
+                "winery contract certainty": 5.0
+            }
+        },
+        {
+            "id": "winery contract certainty",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "not ideal",
+            "scores": {
+                "market supply and demand": 5.0
             }
         },
         {
@@ -214,27 +549,122 @@
             "ideal": 0.5,
             "idealkey": "ideal",
             "notideal": 0.5,
-            "notidealkey": "notideal",
-            "scores": {
-            }
+            "notidealkey": "not ideal",
+            "scores": null
         },
         {
-            "id": "fertiliser",
+            "id": "tractor passes",
             "ideal": 0.5,
             "idealkey": "ideal",
             "notideal": 0.5,
-            "notidealkey": "notideal",
+            "notidealkey": "not ideal",
             "scores": {
+                "fertiliser use": 5.0,
+                "specialist equipment": 5.0,
+                "spray application number": 5.0
             }
         },
         {
-            "id": "price per tonne",
+            "id": "electricity price",
             "ideal": 0.5,
             "idealkey": "ideal",
             "notideal": 0.5,
-            "notidealkey": "notideal",
+            "notidealkey": "not ideal",
+            "scores": null
+        },
+        {
+            "id": "equipment age in years",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "not ideal",
+            "scores": null
+        },
+        {
+            "id": "equipment use in hours",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "not ideal",
+            "scores": null
+        },
+        {
+            "id": "specialist equipment",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "not ideal",
+            "scores": null
+        },
+        {
+            "id": "agrochemical type",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "not ideal",
+            "scores": null
+        },
+        {
+            "id": "adverse events",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "not ideal",
             "scores": {
+                "seasonal conditions": 5.0
             }
+        },
+        {
+            "id": "vineyard floor management",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "not ideal",
+            "scores": {
+                "pest and disease management methods": 5.0
+            }
+        },
+        {
+            "id": "pest and disease management methods",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "not ideal",
+            "scores": {
+                "seasonal conditions": 5.0
+            }
+        },
+        {
+            "id": "market supply and demand",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "not ideal",
+            "scores": null
+        },
+        {
+            "id": "water licences",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "not ideal",
+            "scores": null
+        },
+        {
+            "id": "water quality",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "not ideal",
+            "scores": null
+        },
+        {
+            "id": "water use efficiency",
+            "ideal": 0.5,
+            "idealkey": "ideal",
+            "notideal": 0.5,
+            "notidealkey": "not ideal",
+            "scores": null
         }
     ]
 }

@@ -1,32 +1,22 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
-import fetchData from './export_data.js';
 
-// Code to persist node positions
+// Function to persist node positions
 function saveNodePositions(nodes) {
-  // Save node positions in localStorage or in your backend
-  // For example, save positions in localStorage
   localStorage.setItem('nodePositions', JSON.stringify(nodes.map(d => ({ id: d.id, x: d.x, y: d.y }))));
 }
 
-const ForceGraphDAG = React.memo(({ onNodeClick, data}) => {
+// Function to persist zoom state
+function saveZoom(zoom) {
+  localStorage.setItem('zoomTransform', JSON.stringify(zoom));
+}
+
+const ForceGraphDAG = React.memo(({ onNodeClick, data }) => {
   const svgRef = useRef();
-
-  // useEffect(() => {
-  //   // Define an async function inside the useEffect
-  //   const fetchMyData = async () => {
-  //     const fetchedData = await fetchData(); // Wait for the data to be fetched
-  //     setGraphData(fetchedData); // Update state with the fetched data
-  //   };
-
-  //   fetchMyData(); // Call the async function
-  // }, []); 
+  const gRef = useRef(); // Reference for the group element
 
   useEffect(() => {
-    // Ensure data is available before proceeding
-
-    console.log('in graph ewffect');
-    console.log(data);
+    if (!data) return;
 
     const width = 928;
     const height = 680;
@@ -34,106 +24,100 @@ const ForceGraphDAG = React.memo(({ onNodeClick, data}) => {
     // Clear existing elements
     d3.select(svgRef.current).selectAll('*').remove();
 
-    if (!data) return null;
-
-    console.log('past loading!');
-    console.log(data);
     const links = data.links.map(d => ({ ...d }));
     const nodes = data.nodes.map(d => ({ ...d }));
 
-    console.log('past links/nodes!');
-    console.log(data);
-    var savedPositions = JSON.parse(localStorage.getItem('nodePositions'));
-
+    // Restore node positions if saved
+    const savedPositions = JSON.parse(localStorage.getItem('nodePositions'));
     if (savedPositions) {
-        // Update node positions
-        nodes.forEach(node => {
-            var savedNode = savedPositions.find(n => n.id === node.id);
-            if (savedNode) {
-                node.x = savedNode.x;
-                node.y = savedNode.y;
-            }
-        });
+      nodes.forEach(node => {
+        const savedNode = savedPositions.find(n => n.id === node.id);
+        if (savedNode) {
+          node.fx = savedNode.x;
+          node.fy = savedNode.y;
+          node.x = savedNode.x;
+          node.y = savedNode.y;
+        }
+      });
     }
-    // Define the initial position for the specific node
-    var specificNodeId = "environmental impact";
-    var specificNode = nodes.find(node => node.id === specificNodeId);
-    // If 'environmental impact' does not exist, fallback to economic impact
-    // This could be done more generically but the entire app is hacky.
+
+    // Set a specific node position (optional)
+    let specificNodeId = "environmental impact";
+    let specificNode = nodes.find(node => node.id === specificNodeId);
     if (!specificNode) {
       specificNodeId = "economic impact";
       specificNode = nodes.find(node => node.id === specificNodeId);
     }
-    specificNode.fx = width / 2; // center horizontally
-    specificNode.fy = height - 50; // bottom of the graph
-    // specificNode.fill = color(5);
+    if (specificNode) {
+      specificNode.fx = width / 2;
+      specificNode.fy = height - 50;
+    }
 
     const color = d3.scaleOrdinal(d3.schemeCategory10);
 
-    const svg = d3.select(svgRef.current)
+    // Setup SVG and group element
+    const svgElement = d3.select(svgRef.current)
       .attr('width', width)
-      .attr('height', height)
-      .call(d3.zoom().on('zoom', zoomed))
-      .append('g');
+      .attr('height', height);
+
+    const g = svgElement.append('g');
+    gRef.current = g;
+
+    // Set up zoom behavior
+    const zoom = d3.zoom()
+      .on('zoom', (event) => {
+        g.attr('transform', event.transform);
+        saveZoom(event.transform);
+      });
+
+    svgElement.call(zoom);
+
+    // Apply saved zoom transform if available
+    const savedZoom = JSON.parse(localStorage.getItem('zoomTransform'));
+    if (savedZoom) {
+      svgElement.call(zoom.transform, d3.zoomIdentity.translate(savedZoom.x, savedZoom.y).scale(savedZoom.k));
+    }
 
     const simulation = d3.forceSimulation(nodes)
-      // .force('link', d3.forceLink(links).id(d => d.id).strength(0.5))
       .force("link", d3.forceLink(links).id(d => d.id))
       .force("charge", d3.forceManyBody())
-      // .force('charge', d3.forceManyBody().strength(-60))
-      .force('collide', d3.forceCollide().radius(d => d.id.length * 5 + 20)) // Adjust the radius as needed
+      .force('collide', d3.forceCollide().radius(d => d.id.length * 5 + 20))
       .force('center', d3.forceCenter(width / 2, height / 2))
       .force('x', d3.forceX())
-      .force('y', d3.forceY())
-      // .alphaDecay(0.20); // Higher decay rate means faster cooling;
+      .force('y', d3.forceY());
 
-    console.log('after simulation declared!');
-    console.log(data);
-
-    svg.append('defs').append('marker')
+    g.append('defs').append('marker')
       .attr('id', 'arrowhead')
-      .attr('viewBox', '-0 -5 10 10') // Added for scaling the arrow properly
-      // .attr('refX', 0) // Adjust this value to position the arrow correctly relative to the node
-      // .attr('refY', 0)
-      // .attr('markerWidth', 2)
-      // .attr('markerHeight', 2)
+      .attr('viewBox', '-0 -5 10 10')
       .attr('orient', 'auto')
-    .append('path')
-      .attr('d', 'M0,-5L10,0L0,5') // A simple arrow shape
-      .attr('fill', '#fff'); // Arrow color
+      .append('path')
+      .attr('d', 'M0,-5L10,0L0,5')
+      .attr('fill', '#fff');
 
-    const link = svg.append('g')
+    const link = g.append('g')
       .attr('stroke', '#fff')
       .attr('stroke-opacity', 0.8)
       .selectAll('line')
       .data(links)
       .join('line')
-      .attr('stroke-width', d => d.value*.6)
+      .attr('stroke-width', d => d.value * .6)
       .attr('marker-end', 'url(#arrowhead)');
 
-    // Update marker position based on link value
     d3.select('#arrowhead')
       .data(links)
-      .attr('markerWidth', d => d.value*.6)
-      .attr('markerHeight', d => d.value*.6);
+      .attr('markerWidth', d => d.value * .6)
+      .attr('markerHeight', d => d.value * .6);
 
-    const nodeRadius = 10
+    const nodeRadius = 10;
 
-    const node = svg.append('g')
+    const node = g.append('g')
       .attr('stroke', '#fff')
       .attr('stroke-width', 1.5)
       .selectAll('circle')
       .data(nodes)
       .join('circle')
       .attr('r', nodeRadius)
-      .attr('fill', d => {
-        // Check if the current node's id matches the target node's id
-        if (d.id === specificNodeId) {
-          return "#fff"; // Return the specific color for the target node
-        } else {
-          return color(d.colour); // Return the default color for other nodes
-        }
-      })
+      .attr('fill', d => d.id === specificNodeId ? "#fff" : color(d.colour))
       .on('click', (event, d) => {
         onNodeClick(event, d);
       })
@@ -142,42 +126,31 @@ const ForceGraphDAG = React.memo(({ onNodeClick, data}) => {
         .on('drag', dragged)
         .on('end', dragended));
 
-    specificNode.fill = color(7);
-    // Append text to each node
-    const text = svg.selectAll('text')
+    g.selectAll('text')
       .data(nodes)
       .enter()
       .append('text')
       .attr('text-anchor', 'middle')
       .attr('dy', 25)
       .text(d => d.id)
-      .attr('fill', d => {
-        // Check if the current node's id matches the target node's id
-        if (d.id === specificNodeId) {
-          return "#fff"; // Return the specific color for the target node
-        } else {
-          return color(d.colour); // Return the default color for other nodes
-        }
-      });
+      .attr('fill', d => d.id === specificNodeId ? "#fff" : color(d.colour));
 
     simulation.on('tick', () => {
       link
         .attr('x1', d => d.source.x)
         .attr('y1', d => d.source.y)
-        .attr('x2', d => adjustLinkEndpoint(d.target, d.source, 2*nodeRadius).x)
-        .attr('y2', d => adjustLinkEndpoint(d.target, d.source, 2*nodeRadius).y);
+        .attr('x2', d => adjustLinkEndpoint(d.target, d.source, 2 * nodeRadius).x)
+        .attr('y2', d => adjustLinkEndpoint(d.target, d.source, 2 * nodeRadius).y);
       node
         .attr('cx', d => d.x)
         .attr('cy', d => d.y);
 
-      // Update text positions along with nodes
-      text.attr('x', d => d.x + 12)
-          .attr('y', d => d.y);
-    });
+      g.selectAll('text')
+        .attr('x', d => d.x + 12)
+        .attr('y', d => d.y);
 
-    function zoomed(event) {
-      svg.attr('transform', event.transform);
-    }
+      saveNodePositions(nodes);
+    });
 
     function dragstarted(event, d) {
       if (!event.active) simulation.alphaTarget(0.03).restart();
@@ -191,12 +164,10 @@ const ForceGraphDAG = React.memo(({ onNodeClick, data}) => {
     }
 
     function dragended(event, d) {
-      if (!event.active) simulation.alphaTarget(0);
-      saveNodePositions(nodes)
+      if (!event.active) simulation.alphaTarget(.03);
       d.fx = null;
       d.fy = null;
     }
-
 
     function adjustLinkEndpoint(target, source, nodeRadius) {
       const dx = target.x - source.x;
@@ -209,8 +180,6 @@ const ForceGraphDAG = React.memo(({ onNodeClick, data}) => {
       return { x: source.x + scaledX, y: source.y + scaledY };
     }
 
-    console.log('end of chart!');
-    console.log(data);
     return () => {
       simulation.stop();
     };

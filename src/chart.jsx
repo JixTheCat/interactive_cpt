@@ -191,7 +191,7 @@ const ForceGraphDAG = React.memo(({ onNodeClick, data}) => {
     }
 
     function dragended(event, d) {
-      if (!event.active) simulation.alphaTarget(.03);
+      if (!event.active) simulation.alphaTarget(0);
       saveNodePositions(nodes)
       d.fx = null;
       d.fy = null;

@@ -6,12 +6,12 @@ The tool is a `JavaScript` web application with a `C++` back end.
 
 The application is run using `npm`, from the parent directory.
 ```bash
-npm start&
+sudo npm start&
 ```
 
 The backend server file is found in `src/server.js` and can be launched using:
 ```bash
-node src/server.js
+sudo node server.js
 ```
 
 The backend serves the data and processes it. This means that a proxy is required for the front end to access the files served. This is done using `nginx`. The configuration for the proxy in `nginx` is found in the repo's `nginx.conf` file.
